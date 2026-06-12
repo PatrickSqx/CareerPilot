@@ -10,6 +10,7 @@ The repository is intended for GitHub review. It includes source code, runnable 
 - Full-stack app architecture using FastAPI, Jinja templates, Python services, static frontend assets, and local storage boundaries.
 - Data ingestion and normalization for multi-source job postings, including schema fidelity, deduplication, source-backed fields, and data dictionary outputs.
 - Retrieval and ranking architecture with dense/vector-style retrieval, sklearn fallback, hard filters, explanation fields, and a runtime-safe learned reranker artifact.
+- Sidecar-based evidence design for company metadata, H-1B/LCA employer activity, hard-skill signals, and ranking features without mutating the canonical job snapshot.
 - Evaluation discipline through benchmark reports, ranking comparison artifacts, persona simulations, and smoke tests.
 - Packaging judgment: this public export keeps the app runnable with sample data while excluding private/raw/heavy artifacts.
 
@@ -42,6 +43,18 @@ Then open `http://127.0.0.1:8000`.
 
 If the full offline snapshot is not present, the app falls back to `data/processed/jobs_offline_snapshot_sample_500.csv` for smoke-test matching and analytics. Optional Gemini/API-powered profile reading, live refresh, and resume generation require user-provided keys at runtime; the default matching path does not require private credentials.
 
+## Evidence and Sidecar Layers
+
+CareerPilot uses sidecars for evidence that is useful for ranking, explanation, or resume tailoring but should not be written back into the canonical job snapshot.
+
+| Evidence layer | What it does | Public evidence |
+| --- | --- | --- |
+| Compact ranking features | Builds `job_id`-keyed features for post-retrieval scoring and explanations, with neutral defaults when evidence is missing. | `data/processed/ranking_features/phase2_18_ranking_feature_manifest.json`, `code/jobpilot/evidence/learned_rerank.py` |
+| H-1B/LCA employer activity | Uses official DOL OFLC disclosure data to estimate historical employer filing activity. This is a sponsorship proxy, not proof that a specific job sponsors. | `code/jobpilot/evidence/lca_sponsorship.py`, `code/jobpilot/evidence/job_lca_evidence.py`, `data/processed/lca_cache/lca_cache_report.md` |
+| Company metadata enrichment | Keeps company size/entity-scope metadata in a separate cache. Optional Apify enrichment is private and explicit; the default path does not require an Apify token. | `code/jobpilot/company_metadata/cache.py`, `code/jobpilot/company_metadata/apify_provider.py`, `data/processed/company_metadata_cache/README.md` |
+| Hard-skill extraction | Supports an offline transformer extraction sidecar using ESCOXLM-R / JobBERT-style knowledge extraction plus normalization guards and a dictionary fallback. The public export includes the code and compact manifests, not the heavy generated sidecar body. | `code/jobpilot/hard_skills/sidecar.py`, `code/jobpilot/hard_skills/normalization.py`, `data/processed/phase2_18j_feature_manifest.json` |
+| Resume tailoring signals | Separates resume-tailoring signals from ranking so soft skills and review-only evidence do not become hidden ranking inputs. | `code/jobpilot/resume_signals/sidecar.py`, `code/jobpilot/resume_signals/tailoring_contract.py` |
+
 ## Validation
 
 The public export was checked with:
@@ -62,6 +75,7 @@ Included:
 - Ingestion report and data dictionary.
 - Ranking and reranking benchmark artifacts.
 - Company metadata and sponsorship-evidence manifests.
+- Sidecar code and compact manifests for hard-skill, resume-signal, company-metadata, LCA, and ranking-evidence workflows.
 - Feedback simulation and persona simulation summaries.
 
 Excluded:
@@ -75,4 +89,3 @@ Excluded:
 ## Portfolio Framing
 
 This project is best described as a course final project and personal portfolio project for applied AI/product automation, full-stack software engineering, and data pipeline work. The strongest interview angle is the system design tradeoff: keep the default path offline and reproducible, while allowing optional live APIs and LLM features without making private services mandatory for review.
-

@@ -18,8 +18,19 @@ CareerPilot is organized around a local-first review workflow:
 | Profile logic | Persona fixtures, profile parser, structured filters | `code/jobpilot/profile/`, `app/services/profile_parse_service.py` |
 | Retrieval/ranking | Embeddings, fallback retrieval, hard filters, scoring, explanations | `code/jobpilot/retrieval/`, `code/jobpilot/ranking/` |
 | Reranking evidence | Runtime-safe learned reranker artifacts and evidence manifests | `code/jobpilot/evidence/`, `data/processed/phase2_18j_*` |
+| Evidence sidecars | Company metadata, LCA/H-1B employer activity, hard-skill extraction, resume-tailoring signals | `code/jobpilot/company_metadata/`, `code/jobpilot/evidence/`, `code/jobpilot/hard_skills/`, `code/jobpilot/resume_signals/` |
 | Evaluation | Benchmarks, persona simulations, feedback simulation | `scripts/run_phase2_benchmarks.py`, `data/processed/ranking_eval/`, `data/processed/phase3_feedback_simulation.json` |
 | Packaging | Docker app, public sample data, readiness checks | `Dockerfile`, `.dockerignore`, `.gitignore`, `scripts/check_final_readiness.py` |
+
+## Sidecar Boundary
+
+Sidecars are used when a signal is valuable but should remain separate from canonical ingestion output:
+
+- Company metadata is cached outside the job snapshot. Optional Apify enrichment uses an explicit private token path; public/offline review uses processed cache manifests only.
+- H-1B/LCA evidence is built from DOL OFLC disclosure data as employer-level historical filing activity. It is not treated as confirmed sponsorship for an individual posting.
+- Hard-skill extraction is an offline batch workflow. The code supports transformer extraction with ESCOXLM-R / JobBERT-style knowledge extraction and normalization guards, plus a dictionary fallback for smoke tests. The runtime app does not call this model online.
+- Resume signal sidecars are explicitly separated from ranking. Soft skills, professional competencies, and review-only language are available for resume tailoring policy, not hidden rank boosts.
+- Compact ranking features are joined by `job_id` after retrieval. Missing evidence stays neutral, and raw sidecar fields are not exposed to the UI as model explanations.
 
 ## Public Export Boundary
 
@@ -34,4 +45,3 @@ When the full snapshot is absent, matching and analytics use `data/processed/job
 - Hard filters remain authoritative before learned reranking so dealbreakers are not overridden by model scores.
 - Runtime feedback affects later session ranking but is not used as a same-row training label.
 - Public packaging favors verifiable artifacts and small sample data over shipping heavy or private caches.
-
