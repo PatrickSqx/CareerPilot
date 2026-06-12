@@ -1,6 +1,6 @@
 # CareerPilot
 
-CareerPilot is a portfolio-safe export of my JobPilot final project: a local-first job matching and resume-support web app that turns job postings and a candidate profile into ranked matches, explanations, feedback-aware reranking, analytics, CSV export, and optional LLM-assisted resume drafting.
+CareerPilot is a portfolio-safe export of my JobPilot BAX-423 course final project: a local-first job matching and resume-support web app that turns job postings and a candidate profile into ranked matches, explanations, feedback-aware reranking, analytics, CSV export, and optional LLM-assisted resume drafting.
 
 The repository is intended for GitHub review. It includes source code, runnable app paths, tests, documentation, benchmark artifacts, and a small public sample dataset. It intentionally excludes private API keys, raw provider payloads, local runtime sessions, full embedding caches, and the full 50,000-row offline snapshot.
 
