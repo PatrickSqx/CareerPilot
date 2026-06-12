@@ -1,0 +1,537 @@
+{
+  "run_id": "persona_agent_phase1_20260606T124312Z_4cc05050f3e9",
+  "timestamp": "2026-06-06T12:43:12Z",
+  "prompt_source": "prompts.md Prompt 11A",
+  "personas_simulated": [
+    "aisha",
+    "kenji",
+    "marcus",
+    "priya"
+  ],
+  "jobs_per_persona": {
+    "aisha": 10,
+    "kenji": 10,
+    "marcus": 10,
+    "priya": 10
+  },
+  "total_interactions": 40,
+  "accept_count": 9,
+  "skip_count": 18,
+  "reject_count": 13,
+  "expansion_rate": 0.775,
+  "validator_pass_rate": 1.0,
+  "hidden_field_violation_count": 0,
+  "dealbreaker_violation_count": 0,
+  "live_api_used": false,
+  "live_job_api_used": false,
+  "external_api_keys_used": false,
+  "current_thread_llm_subagents_used": true,
+  "llm_subagent_boundary_override": "User explicitly prioritized current-thread subagents over the earlier no-LLM boundary.",
+  "production_match_modified": false,
+  "production_ranking_modified": false,
+  "labels_are_simulated_not_real_feedback": true,
+  "thread_subagents_generated": true,
+  "agent_runtime": "current_thread_multi_agent_subagent",
+  "explicit_persona_agent_count": 4,
+  "explicit_persona_agents": {
+    "aisha": {
+      "agent_id": "aisha_projection_agent",
+      "agent_name": "AishaAgent",
+      "agent_class": "AishaAgent",
+      "agent_version": "projection_persona_agent_v2_explicit_subagent",
+      "runtime_mode": "offline_prompt_constrained_subagent",
+      "uses_live_llm_or_api": false,
+      "prompt_source": "prompts.md Prompt 11A",
+      "prompt_contract": "You are AishaAgent, an offline simulated persona subagent. Persona focus: ML engineer career pivoter; remote or Bay Area; no senior/staff, 5+ year ML, or defense/military roles.. Target roles: ML Engineer; Applied Scientist; Data Scientist (ML-focused). Dealbreakers: No Senior/Staff titles (underqualified); No 5+ years ML experience required. First decide only from the default UI job-card projection. Choose expand_for_more_info only when the default card is promising but uncertainty remains. If you expand, decide only from the selected expanded UI projection sections. Never use backend scores, ANN or embedding similarity, raw sidecars, ranking boosts, debug traces, or any field outside the projected UI content.",
+      "prompt_fingerprint": "4531ed10e5313d88f5ace39aabc2e8a8aef9a099e150d2db65a010891a9cd218",
+      "allowed_inputs": [
+        "assignment_doc_derived_persona_rubric",
+        "normalized_profile",
+        "default_visible_ui_projection",
+        "selected_expandable_ui_projection_after_agent_expands"
+      ],
+      "blocked_inputs": [
+        "backend score components",
+        "ANN similarity",
+        "embedding similarity",
+        "raw sidecar fields",
+        "evidence_adjustment",
+        "ranking boosts",
+        "production evidence components",
+        "EBM/logistic scores",
+        "debug traces",
+        "hidden hard-filter diagnostics",
+        "raw embeddings"
+      ],
+      "expansion_decision_owner": "agent",
+      "validator_decision_owner": "posthoc_validator_only"
+    },
+    "kenji": {
+      "agent_id": "kenji_projection_agent",
+      "agent_name": "KenjiAgent",
+      "agent_class": "KenjiAgent",
+      "agent_version": "projection_persona_agent_v2_explicit_subagent",
+      "runtime_mode": "offline_prompt_constrained_subagent",
+      "uses_live_llm_or_api": false,
+      "prompt_source": "prompts.md Prompt 11A",
+      "prompt_contract": "You are KenjiAgent, an offline simulated persona subagent. Persona focus: International CS graduate student needing H-1B sponsorship; prefers known sponsors, large tech, and research labs.. Target roles: Research Scientist; ML Engineer; Applied Scientist; AI Engineer. Dealbreakers: No contract/temp roles (visa incompatible); No companies that don’t sponsor. First decide only from the default UI job-card projection. Choose expand_for_more_info only when the default card is promising but uncertainty remains. If you expand, decide only from the selected expanded UI projection sections. Never use backend scores, ANN or embedding similarity, raw sidecars, ranking boosts, debug traces, or any field outside the projected UI content.",
+      "prompt_fingerprint": "1829243581140d46ffba205d526df4a0254593ceae88c23ca5ec4848c61eceae",
+      "allowed_inputs": [
+        "assignment_doc_derived_persona_rubric",
+        "normalized_profile",
+        "default_visible_ui_projection",
+        "selected_expandable_ui_projection_after_agent_expands"
+      ],
+      "blocked_inputs": [
+        "backend score components",
+        "ANN similarity",
+        "embedding similarity",
+        "raw sidecar fields",
+        "evidence_adjustment",
+        "ranking boosts",
+        "production evidence components",
+        "EBM/logistic scores",
+        "debug traces",
+        "hidden hard-filter diagnostics",
+        "raw embeddings"
+      ],
+      "expansion_decision_owner": "agent",
+      "validator_decision_owner": "posthoc_validator_only"
+    },
+    "marcus": {
+      "agent_id": "marcus_projection_agent",
+      "agent_name": "MarcusAgent",
+      "agent_class": "MarcusAgent",
+      "agent_version": "projection_persona_agent_v2_explicit_subagent",
+      "runtime_mode": "offline_prompt_constrained_subagent",
+      "uses_live_llm_or_api": false,
+      "prompt_source": "prompts.md Prompt 11A",
+      "prompt_contract": "You are MarcusAgent, an offline simulated persona subagent. Persona focus: New MSBA graduate seeking broad entry analytics roles; no 3+ years, unpaid, or contract-only roles.. Target roles: Data Analyst; BI Analyst; Junior Data Scientist; Analytics Engineer. Dealbreakers: No 3+ years experience required; No unpaid or contract-only roles. First decide only from the default UI job-card projection. Choose expand_for_more_info only when the default card is promising but uncertainty remains. If you expand, decide only from the selected expanded UI projection sections. Never use backend scores, ANN or embedding similarity, raw sidecars, ranking boosts, debug traces, or any field outside the projected UI content.",
+      "prompt_fingerprint": "ae89a05795b38e96a843f368fd5be3f94ce677ba2a6d22151aa855f2c2787e2a",
+      "allowed_inputs": [
+        "assignment_doc_derived_persona_rubric",
+        "normalized_profile",
+        "default_visible_ui_projection",
+        "selected_expandable_ui_projection_after_agent_expands"
+      ],
+      "blocked_inputs": [
+        "backend score components",
+        "ANN similarity",
+        "embedding similarity",
+        "raw sidecar fields",
+        "evidence_adjustment",
+        "ranking boosts",
+        "production evidence components",
+        "EBM/logistic scores",
+        "debug traces",
+        "hidden hard-filter diagnostics",
+        "raw embeddings"
+      ],
+      "expansion_decision_owner": "agent",
+      "validator_decision_owner": "posthoc_validator_only"
+    },
+    "priya": {
+      "agent_id": "priya_projection_agent",
+      "agent_name": "PriyaAgent",
+      "agent_class": "PriyaAgent",
+      "agent_version": "projection_persona_agent_v2_explicit_subagent",
+      "runtime_mode": "offline_prompt_constrained_subagent",
+      "uses_live_llm_or_api": false,
+      "prompt_source": "prompts.md Prompt 11A",
+      "prompt_contract": "You are PriyaAgent, an offline simulated persona subagent. Persona focus: Experienced fintech software engineer targeting ML/AI infrastructure; NYC or remote; >=100 employee companies.. Target roles: ML Platform Engineer; MLOps Engineer; Senior ML Engineer. Dealbreakers: No Junior titles; No companies with <100 employees; US only. First decide only from the default UI job-card projection. Choose expand_for_more_info only when the default card is promising but uncertainty remains. If you expand, decide only from the selected expanded UI projection sections. Never use backend scores, ANN or embedding similarity, raw sidecars, ranking boosts, debug traces, or any field outside the projected UI content.",
+      "prompt_fingerprint": "66699659e6b52b30416f6243862a64893b9a8ca22503304b1cde992276e88fea",
+      "allowed_inputs": [
+        "assignment_doc_derived_persona_rubric",
+        "normalized_profile",
+        "default_visible_ui_projection",
+        "selected_expandable_ui_projection_after_agent_expands"
+      ],
+      "blocked_inputs": [
+        "backend score components",
+        "ANN similarity",
+        "embedding similarity",
+        "raw sidecar fields",
+        "evidence_adjustment",
+        "ranking boosts",
+        "production evidence components",
+        "EBM/logistic scores",
+        "debug traces",
+        "hidden hard-filter diagnostics",
+        "raw embeddings"
+      ],
+      "expansion_decision_owner": "agent",
+      "validator_decision_owner": "posthoc_validator_only"
+    }
+  },
+  "intended_downstream_use": "Upstream audit trace for deterministic feature extraction and offline learned-reranker experiments; not direct EBM input.",
+  "downstream_feature_pipeline_contract": {
+    "raw_trace_policy": "persona_agent_simulation_log.jsonl is a raw audit trace, not a direct EBM input.",
+    "future_conversion_outputs": [
+      "phase2_18j_interaction_features.csv",
+      "phase2_18j_interaction_feature_manifest.json"
+    ],
+    "safe_future_model_features": [
+      "low-dimensional explainable counts, flags, and prior-round history",
+      "persona-level prior accept/skip/reject rates",
+      "previous-feedback history from earlier rounds only",
+      "bounded UI evidence availability flags",
+      "deterministic projection-derived risk indicators"
+    ],
+    "forbidden_future_predictors": [
+      "free-text rationale",
+      "raw embeddings",
+      "hidden backend/debug fields",
+      "raw sidecar fields",
+      "current-row interaction_action as a same-row predictor"
+    ],
+    "interaction_action_policy": "Current interaction_action may be used only as diagnostics or as previous-feedback history for later rounds."
+  },
+  "ui_projection_contract": {
+    "contract_id": "job_card_projection_v1_prompt_11a_phase1",
+    "default_visible_fields": [
+      "rank_shown",
+      "title",
+      "company",
+      "location",
+      "salary_display",
+      "employment_type",
+      "match_strength_label",
+      "short_why_this_match_reasons",
+      "things_to_review_watch_outs",
+      "matched_skill_chips",
+      "key_requirements_summary",
+      "available_user_actions"
+    ],
+    "expandable_fields": [
+      "full_requirements_and_skills",
+      "job_description",
+      "expanded_why_this_match_explanation",
+      "surfaced_company_or_job_details",
+      "sponsorship_or_work_authorization_text_if_surfaced_by_ui"
+    ],
+    "hidden_fields": [
+      "backend score components",
+      "ANN similarity",
+      "embedding similarity",
+      "raw sidecar fields",
+      "evidence_adjustment",
+      "ranking boosts",
+      "production evidence components",
+      "EBM/logistic scores",
+      "debug traces",
+      "hidden hard-filter diagnostics",
+      "raw embeddings"
+    ],
+    "debug_audit_projection_enabled": false,
+    "agent_expansion_rule": "Agents decide whether to expand from the default visible card projection before any expandable fields are exposed."
+  },
+  "persona_rubric_extraction_source": {
+    "source_of_truth": "assignment_requirement_doc",
+    "document": "BAX423_FinalProject_JobPilot_Spring2026.docx",
+    "prompt_source": "prompts.md Prompt 11A"
+  },
+  "normalized_profile_mismatch_summary": {
+    "aisha": {
+      "status": "mismatch_reported_assignment_doc_used",
+      "mismatches": [
+        {
+          "field": "skills",
+          "doc_only": [],
+          "normalized_profile_only": [
+            "analytics"
+          ]
+        }
+      ],
+      "notes": [
+        "Normalized profile preserves Aisha seniority/5+ years and defense constraints through generic fields."
+      ],
+      "simulation_source_of_truth": "assignment_doc_derived_rubric"
+    },
+    "kenji": {
+      "status": "mismatch_reported_assignment_doc_used",
+      "mismatches": [
+        {
+          "field": "skills",
+          "doc_only": [
+            "C++"
+          ],
+          "normalized_profile_only": [
+            "PyTorch",
+            "TensorFlow",
+            "machine learning"
+          ]
+        },
+        {
+          "field": "target_roles",
+          "doc_only": [
+            "AI Engineer"
+          ],
+          "normalized_profile_only": [
+            "Data Scientist"
+          ]
+        }
+      ],
+      "notes": [
+        "Normalized profile adds student/new-grad seniority risk fields that are consistent but more specific than the doc."
+      ],
+      "simulation_source_of_truth": "assignment_doc_derived_rubric"
+    },
+    "marcus": {
+      "status": "mismatch_reported_assignment_doc_used",
+      "mismatches": [
+        {
+          "field": "skills",
+          "doc_only": [
+            "PySpark",
+            "basic NLP"
+          ],
+          "normalized_profile_only": [
+            "Excel",
+            "statistics",
+            "analytics"
+          ]
+        },
+        {
+          "field": "target_roles",
+          "doc_only": [],
+          "normalized_profile_only": [
+            "Business Analyst"
+          ]
+        }
+      ],
+      "notes": [
+        "Assignment doc mentions tech or healthcare preference; normalized profile does not make it a hard field."
+      ],
+      "simulation_source_of_truth": "assignment_doc_derived_rubric"
+    },
+    "priya": {
+      "status": "mismatch_reported_assignment_doc_used",
+      "mismatches": [
+        {
+          "field": "skills",
+          "doc_only": [],
+          "normalized_profile_only": [
+            "Docker",
+            "machine learning"
+          ]
+        },
+        {
+          "field": "target_roles",
+          "doc_only": [],
+          "normalized_profile_only": [
+            "ML Infrastructure Engineer",
+            "AI Infrastructure Engineer",
+            "Machine Learning Ops Engineer"
+          ]
+        }
+      ],
+      "notes": [
+        "Normalized profile approximates the >=100 employee constraint with startup exclusion and large-company preference."
+      ],
+      "simulation_source_of_truth": "assignment_doc_derived_rubric"
+    }
+  },
+  "interaction_counts_by_persona": {
+    "aisha": {
+      "agent_name": "AishaAgent",
+      "interactions": 10,
+      "accept_count": 4,
+      "skip_count": 1,
+      "reject_count": 5,
+      "expansion_count": 4,
+      "expansion_rate": 0.4,
+      "validator_pass_count": 10
+    },
+    "kenji": {
+      "agent_name": "KenjiAgent",
+      "interactions": 10,
+      "accept_count": 0,
+      "skip_count": 8,
+      "reject_count": 2,
+      "expansion_count": 9,
+      "expansion_rate": 0.9,
+      "validator_pass_count": 10
+    },
+    "marcus": {
+      "agent_name": "MarcusAgent",
+      "interactions": 10,
+      "accept_count": 4,
+      "skip_count": 4,
+      "reject_count": 2,
+      "expansion_count": 9,
+      "expansion_rate": 0.9,
+      "validator_pass_count": 10
+    },
+    "priya": {
+      "agent_name": "PriyaAgent",
+      "interactions": 10,
+      "accept_count": 1,
+      "skip_count": 5,
+      "reject_count": 4,
+      "expansion_count": 9,
+      "expansion_rate": 0.9,
+      "validator_pass_count": 10
+    }
+  },
+  "sample_interactions_by_persona": {
+    "aisha": [
+      {
+        "rank_shown": 1,
+        "job_id": "c3044cf8ada661fb86ca2bd5",
+        "title": "Data Scientist",
+        "company": "The Judge Group",
+        "agent_default_card_decision": "expand_for_more_info",
+        "interaction_action": "accept_after_details",
+        "outcome_label": 1.0,
+        "rationale": "Expanded details keep this as a remote Data Scientist role with 1 year listed and Python, SQL, and machine learning; salary remains missing but no hard dealbreaker is shown."
+      },
+      {
+        "rank_shown": 5,
+        "job_id": "255a862e5a291d7c9f64057e",
+        "title": "Data Scientist (Entry Level)",
+        "company": "ENTITY Academy",
+        "agent_default_card_decision": "reject_without_expand",
+        "interaction_action": "reject_without_expand",
+        "outcome_label": 0.0,
+        "rationale": "Default card is Bay Area and ML-related, but the listed salary range tops out at 103750, below the 140K preference."
+      }
+    ],
+    "kenji": [
+      {
+        "rank_shown": 1,
+        "job_id": "0c502d56a9bab0be7239bfb7",
+        "title": "Data Scientist",
+        "company": "Cognizant Technology",
+        "agent_default_card_decision": "expand_for_more_info",
+        "interaction_action": "reject_after_details",
+        "outcome_label": 0.0,
+        "rationale": "Default card had strong ML/NLP/Python skill fit and work-authorization text, so I expanded. Details state sponsorship cannot be provided, which conflicts with my H-1B need."
+      },
+      {
+        "rank_shown": 2,
+        "job_id": "874cbc488538093e69743ce9",
+        "title": "Data Scientist",
+        "company": "Cognizant Technology",
+        "agent_default_card_decision": "reject_without_expand",
+        "interaction_action": "reject_without_expand",
+        "outcome_label": 0.0,
+        "rationale": "Default card shows lead_manager seniority and 8 years required, which is not a fit for a graduating MS candidate despite the data-science title."
+      }
+    ],
+    "marcus": [
+      {
+        "rank_shown": 1,
+        "job_id": "70d6ab83101ae7f1990315dd",
+        "title": "BI Data Analyst",
+        "company": "Modis",
+        "agent_default_card_decision": "expand_for_more_info",
+        "interaction_action": "accept_after_details",
+        "outcome_label": 1.0,
+        "rationale": "Expanded because salary was missing; details showed a full-time BI/Data Analyst role with SQL, Python, Tableau, Power BI, and no listed years requirement."
+      },
+      {
+        "rank_shown": 2,
+        "job_id": "8daaec5ebfe0c247e7d7c070",
+        "title": "SAP Data Analyst",
+        "company": "The Judge Group",
+        "agent_default_card_decision": "expand_for_more_info",
+        "interaction_action": "skip_after_details",
+        "outcome_label": 0.5,
+        "rationale": "Default card was promising with salary over $80K, but expanded details emphasized SAP/SAC/BOBJ expertise and certification beyond my entry analytics profile."
+      }
+    ],
+    "priya": [
+      {
+        "rank_shown": 1,
+        "job_id": "80e2e4d8b5a5650ecd0d5fdb",
+        "title": "Senior Machine Learning Engineer",
+        "company": "General Motors",
+        "agent_default_card_decision": "expand_for_more_info",
+        "interaction_action": "skip_after_details",
+        "outcome_label": 0.5,
+        "rationale": "Senior ML title, salary above $200K, and ML-related match are strong, and expanded description shows ML training infrastructure. Visible location is not NYC or remote, so I would hold rather than accept."
+      },
+      {
+        "rank_shown": 2,
+        "job_id": "0d71e96e7e7b2a5b102def05",
+        "title": "MlOps Engineer",
+        "company": "CogniSoft Technologies",
+        "agent_default_card_decision": "reject_without_expand",
+        "interaction_action": "reject_without_expand",
+        "outcome_label": 0.0,
+        "rationale": "Default card shows an MLOps title and strong Java/Python/Kubernetes/Spark fit, but the salary is $109,498, below the $200K preference, and the location is not NYC or remote."
+      }
+    ]
+  },
+  "match_generation": {
+    "match_generation_mode": "current_offline_match_equivalent",
+    "top_k": 10,
+    "candidate_k": 1000,
+    "embedding_backend_locked_to_cache": "sentence-transformers",
+    "ann_backend_locked_to_existing_cache": "sklearn",
+    "embedding_rebuild_blocked": true,
+    "ann_cache_write_blocked": true,
+    "snapshot_path": "data/processed/jobs_offline_snapshot.csv",
+    "match_metadata_by_persona": {
+      "aisha": {
+        "returned_jobs": 10,
+        "requested_top_k": 10,
+        "topk_completion_rate": 1.0,
+        "candidate_k": 1000,
+        "embedding_backend": "sentence-transformers",
+        "ann_backend": "sklearn",
+        "warnings": []
+      },
+      "kenji": {
+        "returned_jobs": 10,
+        "requested_top_k": 10,
+        "topk_completion_rate": 1.0,
+        "candidate_k": 1000,
+        "embedding_backend": "sentence-transformers",
+        "ann_backend": "sklearn",
+        "warnings": []
+      },
+      "marcus": {
+        "returned_jobs": 10,
+        "requested_top_k": 10,
+        "topk_completion_rate": 1.0,
+        "candidate_k": 1000,
+        "embedding_backend": "sentence-transformers",
+        "ann_backend": "sklearn",
+        "warnings": []
+      },
+      "priya": {
+        "returned_jobs": 10,
+        "requested_top_k": 10,
+        "topk_completion_rate": 1.0,
+        "candidate_k": 1000,
+        "embedding_backend": "sentence-transformers",
+        "ann_backend": "sklearn",
+        "warnings": []
+      }
+    }
+  },
+  "production_file_fingerprints": {
+    "app/main.py": "79c5c4d2b0ca17658ad56f3dbaf8403424f4b3f6a2a7fa5e816c6407d9f692df",
+    "app/services/matching_service.py": "27a9c54da686328f738a0bfa92ba0d5eb30749f2f481907d5e42ccd0a8ccf970",
+    "code/jobpilot/ranking/ranker.py": "9102b12aeb8ec2452307da4d9b3f9ca1342e9847c0a53abeed2e5322a839fc58"
+  },
+  "artifacts": {
+    "rubrics": "data/processed/persona_agent_feedback_rubrics.json",
+    "simulation_log": "data/processed/persona_agent_simulation_log.jsonl",
+    "summary": "data/processed/persona_agent_simulation_summary.json"
+  },
+  "boundaries": {
+    "multi_round_reranking_done": false,
+    "ebm_or_logistic_training_done": false,
+    "feature_extraction_table_done": false,
+    "match_endpoint_modified": false,
+    "production_ranking_modified": false,
+    "embeddings_rebuilt": false,
+    "ann_faiss_sklearn_retrieval_query_modified": false,
+    "embedding_text_modified": false,
+    "phase1_ingestion_modified": false,
+    "live_api_or_api_key_used": false,
+    "simulated_labels_treated_as_gold": false
+  }
+}

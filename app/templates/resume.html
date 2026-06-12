@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}JobPilot Resume{% endblock %}
+{% block content %}
+<section class="resume-page">
+  <div class="section-heading horizontal">
+    <div>
+      <span class="eyebrow">API Resume</span>
+      <h1>{{ job.title }}</h1>
+      <p>{{ job.company or job.employer }} - {{ job.location }}</p>
+      <p>{{ resume_provider|upper }}{% if resume_model %} / {{ resume_model }}{% endif %}</p>
+    </div>
+    <a class="button ghost" href="/download/top-jobs?session_id={{ session_id }}">Download CSV</a>
+  </div>
+  <pre class="resume-draft">{{ resume_draft }}</pre>
+  <a class="button" href="/">New Match</a>
+</section>
+{% endblock %}

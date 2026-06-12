@@ -1,0 +1,48 @@
+# Python/runtime
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+
+# Local environment and credentials
+.env
+.env.*
+API KEYS/
+*secret*
+*token*
+
+# Runtime app storage
+app/storage/*
+!app/storage/.gitkeep
+!app/storage/sessions/
+!app/storage/sessions/.gitkeep
+!app/storage/uploads/
+!app/storage/uploads/.gitkeep
+
+# Large/private data and generated caches
+data/raw/
+data/private/
+data/external/
+data/processed/jobs_offline_snapshot.csv
+data/processed/jobs_clean.csv
+data/processed/current_jobs_clean.csv
+data/processed/embeddings/
+data/processed/live_cache/
+
+# Local deliverable artifacts
+*.zip
+*.log
+*.sqlite
+*.db
+external_review_package/
+side_conversation*.html
+
+# OS/editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+

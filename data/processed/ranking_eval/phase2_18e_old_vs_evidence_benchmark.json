@@ -1,0 +1,1540 @@
+{
+  "phase": "phase2_18E_old_vs_evidence_benchmark_aggregation",
+  "generated_at": "2026-06-06T05:35:53Z",
+  "inputs": {
+    "d1_candidates_jsonl": "O:/BAX 423/Final_export/data/processed/ranking_eval/phase2_18d1_old_ranking_candidates.jsonl",
+    "d1_manifest_json": "O:/BAX 423/Final_export/data/processed/ranking_eval/phase2_18d1_old_ranking_manifest.json",
+    "d2_rerank_results_jsonl": "O:/BAX 423/Final_export/data/processed/ranking_eval/phase2_18d2_evidence_rerank_results.jsonl",
+    "d2_manifest_json": "O:/BAX 423/Final_export/data/processed/ranking_eval/phase2_18d2_evidence_rerank_manifest.json",
+    "snapshot_csv": "O:/BAX 423/Final_export/data/processed/jobs_offline_snapshot.csv"
+  },
+  "outputs": {
+    "benchmark_json": "O:/BAX 423/Final_export/data/processed/ranking_eval/phase2_18e_old_vs_evidence_benchmark.json",
+    "benchmark_csv": "O:/BAX 423/Final_export/data/processed/ranking_eval/phase2_18e_old_vs_evidence_benchmark_by_cutoff.csv",
+    "benchmark_report_md": "O:/BAX 423/Final_export/data/processed/ranking_eval/phase2_18e_old_vs_evidence_benchmark_report.md"
+  },
+  "cutoffs": [
+    10,
+    25,
+    50,
+    100,
+    200
+  ],
+  "validation": {
+    "d1_row_count": 501,
+    "d2_row_count": 501,
+    "d1_duplicate_persona_job_id_rows": 0,
+    "d2_duplicate_persona_job_id_rows": 0,
+    "candidate_membership_unchanged": true,
+    "missing_in_d2": [],
+    "extra_in_d2": [],
+    "d1_manifest_all_candidate_job_ids_join_18c_sidecar": true,
+    "d2_manifest_candidate_membership_unchanged": true,
+    "d2_manifest_hard_filter_candidate_set_unchanged": true,
+    "d2_manifest_all_d1_job_ids_join_18c_sidecar": true,
+    "snapshot_job_ids_loaded": 50000
+  },
+  "d1_context": {
+    "row_count": 501,
+    "ann_backend": "sklearn",
+    "embedding_metadata_fingerprint": "2840253386bba75faab84f33a09669778ac820bb167b678d0ece177a64c9cdfa",
+    "embedding_row_count": 50000,
+    "embedding_backend": "sentence-transformers"
+  },
+  "d2_context": {
+    "row_count": 501,
+    "component_coverage": {
+      "company_size_available": {
+        "count": 428,
+        "rate": 0.854291
+      },
+      "company_size_type_positive": {
+        "count": 164,
+        "rate": 0.327345
+      },
+      "evidence_adjusted": {
+        "count": 433,
+        "rate": 0.864271
+      },
+      "hard_skill_positive": {
+        "count": 150,
+        "rate": 0.299401
+      },
+      "hard_skill_terms_available": {
+        "count": 263,
+        "rate": 0.52495
+      },
+      "lca_activity_positive": {
+        "count": 294,
+        "rate": 0.586826
+      },
+      "lca_match_available": {
+        "count": 294,
+        "rate": 0.586826
+      },
+      "llm_overlay_available": {
+        "count": 117,
+        "rate": 0.233533
+      },
+      "llm_overlay_positive": {
+        "count": 79,
+        "rate": 0.157685
+      },
+      "role_family_available": {
+        "count": 371,
+        "rate": 0.740519
+      },
+      "role_family_positive": {
+        "count": 61,
+        "rate": 0.121756
+      },
+      "candidate_rows": 501
+    },
+    "ann_backend": "sklearn",
+    "d1_embedding_metadata_fingerprint": "2840253386bba75faab84f33a09669778ac820bb167b678d0ece177a64c9cdfa"
+  },
+  "per_persona": {
+    "aisha": {
+      "row_count": 89,
+      "candidate_membership_unchanged": true,
+      "rank_movement": {
+        "rows": 89,
+        "adjusted_rows": 71,
+        "moved_up_rows": 33,
+        "moved_down_rows": 28,
+        "unchanged_rank_rows": 28,
+        "mean_abs_rank_delta": 3.191011,
+        "max_rank_gain": 12,
+        "max_rank_loss": -13,
+        "mean_evidence_adjustment": 0.012051,
+        "max_evidence_adjustment": 0.036
+      },
+      "cutoffs": {
+        "10": {
+          "old": {
+            "returned_jobs": 10,
+            "topk_completion_rate": 1.0,
+            "precision_at_k": 1.0,
+            "strict_precision_at_k": 1.0,
+            "loose_pass_rate": 1.0,
+            "strict_pass_rate": 1.0,
+            "strict_violation_rate": 0.0,
+            "strict_violation_rate_topk": 0.0,
+            "location_match_rate": 1.0,
+            "salary_match_rate": 0.4,
+            "strict_violation_counts": {},
+            "mean_old_score": 0.678153,
+            "mean_new_score": 0.678153,
+            "mean_evidence_adjustment": 0.0
+          },
+          "evidence": {
+            "returned_jobs": 10,
+            "topk_completion_rate": 1.0,
+            "precision_at_k": 1.0,
+            "strict_precision_at_k": 1.0,
+            "loose_pass_rate": 1.0,
+            "strict_pass_rate": 1.0,
+            "strict_violation_rate": 0.0,
+            "strict_violation_rate_topk": 0.0,
+            "location_match_rate": 1.0,
+            "salary_match_rate": 0.4,
+            "strict_violation_counts": {},
+            "mean_old_score": 0.678153,
+            "mean_new_score": 0.690948,
+            "mean_evidence_adjustment": 0.012795
+          },
+          "delta": {
+            "precision_at_k": 0.0,
+            "strict_precision_at_k": 0.0,
+            "loose_pass_rate": 0.0,
+            "strict_pass_rate": 0.0,
+            "strict_violation_rate": 0.0,
+            "location_match_rate": 0.0,
+            "salary_match_rate": 0.0,
+            "mean_new_score": 0.012795,
+            "mean_evidence_adjustment": 0.012795
+          },
+          "topk_overlap": {
+            "old_count": 10,
+            "evidence_count": 10,
+            "overlap_count": 10,
+            "overlap_rate_vs_cutoff": 1.0,
+            "gained_job_ids": [],
+            "lost_job_ids": []
+          }
+        },
+        "25": {
+          "old": {
+            "returned_jobs": 25,
+            "topk_completion_rate": 1.0,
+            "precision_at_k": 1.0,
+            "strict_precision_at_k": 1.0,
+            "loose_pass_rate": 1.0,
+            "strict_pass_rate": 1.0,
+            "strict_violation_rate": 0.0,
+            "strict_violation_rate_topk": 0.0,
+            "location_match_rate": 0.56,
+            "salary_match_rate": 0.44,
+            "strict_violation_counts": {},
+            "mean_old_score": 0.614068,
+            "mean_new_score": 0.614068,
+            "mean_evidence_adjustment": 0.0
+          },
+          "evidence": {
+            "returned_jobs": 25,
+            "topk_completion_rate": 1.0,
+            "precision_at_k": 1.0,
+            "strict_precision_at_k": 1.0,
+            "loose_pass_rate": 1.0,
+            "strict_pass_rate": 1.0,
+            "strict_violation_rate": 0.0,
+            "strict_violation_rate_topk": 0.0,
+            "location_match_rate": 0.56,
+            "salary_match_rate": 0.56,
+            "strict_violation_counts": {},
+            "mean_old_score": 0.613422,
+            "mean_new_score": 0.627242,
+            "mean_evidence_adjustment": 0.01382
+          },
+          "delta": {
+            "precision_at_k": 0.0,
+            "strict_precision_at_k": 0.0,
+            "loose_pass_rate": 0.0,
+            "strict_pass_rate": 0.0,
+            "strict_violation_rate": 0.0,
+            "location_match_rate": 0.0,
+            "salary_match_rate": 0.12,
+            "mean_new_score": 0.013174,
+            "mean_evidence_adjustment": 0.01382
+          },
+          "topk_overlap": {
+            "old_count": 25,
+            "evidence_count": 25,
+            "overlap_count": 22,
+            "overlap_rate_vs_cutoff": 0.88,
+            "gained_job_ids": [
+              "2fee2d03bd37b3915abc42a0",
+              "02a396214f930e55c3d4d0ee",
+              "dea87335b57db003d5b855f9"
+            ],
+            "lost_job_ids": [
+              "8471ca32c7df77bd20dc3a0e",
+              "93f15cea2aa77ec30398eba7",
+              "b14c4a75e472312a2e28079a"
+            ]
+          }
+        },
+        "50": {
+          "old": {
+            "returned_jobs": 50,
+            "topk_completion_rate": 1.0,
+            "precision_at_k": 1.0,
+            "strict_precision_at_k": 1.0,
+            "loose_pass_rate": 1.0,
+            "strict_pass_rate": 1.0,
+            "strict_violation_rate": 0.0,
+            "strict_violation_rate_topk": 0.0,
+            "location_match_rate": 0.3,
+            "salary_match_rate": 0.52,
+            "strict_violation_counts": {},
+            "mean_old_score": 0.574264,
+            "mean_new_score": 0.574264,
+            "mean_evidence_adjustment": 0.0
+          },
+          "evidence": {
+            "returned_jobs": 50,
+            "topk_completion_rate": 1.0,
+            "precision_at_k": 1.0,
+            "strict_precision_at_k": 1.0,
+            "loose_pass_rate": 1.0,
+            "strict_pass_rate": 1.0,
+            "strict_violation_rate": 0.0,
+            "strict_violation_rate_topk": 0.0,
+            "location_match_rate": 0.3,
+            "salary_match_rate": 0.54,
+            "strict_violation_counts": {},
+            "mean_old_score": 0.574036,
+            "mean_new_score": 0.584578,
+            "mean_evidence_adjustment": 0.010542
+          },
+          "delta": {
+            "precision_at_k": 0.0,
+            "strict_precision_at_k": 0.0,
+            "loose_pass_rate": 0.0,
+            "strict_pass_rate": 0.0,
+            "strict_violation_rate": 0.0,
+            "location_match_rate": 0.0,
+            "salary_match_rate": 0.02,
+            "mean_new_score": 0.010314,
+            "mean_evidence_adjustment": 0.010542
+          },
+          "topk_overlap": {
+            "old_count": 50,
+            "evidence_count": 50,
+            "overlap_count": 49,
+            "overlap_rate_vs_cutoff": 0.98,
+            "gained_job_ids": [
+              "130be29b8ba2b7efb8e97f40"
+            ],
+            "lost_job_ids": [
+              "8747869044ad4a3fdbbdf8f8"
+            ]
+          }
+        },
+        "100": {
+          "old": {
+            "returned_jobs": 89,
+            "topk_completion_rate": 0.89,
+            "precision_at_k": 0.89,
+            "strict_precision_at_k": 0.89,
+            "loose_pass_rate": 0.89,
+            "strict_pass_rate": 0.89,
+            "strict_violation_rate": 0.0,
+            "strict_violation_rate_topk": 0.0,
+            "location_match_rate": 0.191,
+            "salary_match_rate": 0.4382,
+            "strict_violation_counts": {},
+            "mean_old_score": 0.510278,
+            "mean_new_score": 0.510278,
+            "mean_evidence_adjustment": 0.0
+          },
+          "evidence": {
+            "returned_jobs": 89,
+            "topk_completion_rate": 0.89,
+            "precision_at_k": 0.89,
+            "strict_precision_at_k": 0.89,
+            "loose_pass_rate": 0.89,
+            "strict_pass_rate": 0.89,
+            "strict_violation_rate": 0.0,
+            "strict_violation_rate_topk": 0.0,
+            "location_match_rate": 0.191,
+            "salary_match_rate": 0.4382,
+            "strict_violation_counts": {},
+            "mean_old_score": 0.510278,
+            "mean_new_score": 0.522329,
+            "mean_evidence_adjustment": 0.012051
+          },
+          "delta": {
+            "precision_at_k": 0.0,
+            "strict_precision_at_k": 0.0,
+            "loose_pass_rate": 0.0,
+            "strict_pass_rate": 0.0,
+            "strict_violation_rate": 0.0,
+            "location_match_rate": 0.0,
+            "salary_match_rate": 0.0,
+            "mean_new_score": 0.012051,
+            "mean_evidence_adjustment": 0.012051
+          },
+          "topk_overlap": {
+            "old_count": 89,
+            "evidence_count": 89,
+            "overlap_count": 89,
+            "overlap_rate_vs_cutoff": 0.89,
+            "gained_job_ids": [],
+            "lost_job_ids": []
+          }
+        },
+        "200": {
+          "old": {
+            "returned_jobs": 89,
+            "topk_completion_rate": 0.445,
+            "precision_at_k": 0.445,
+            "strict_precision_at_k": 0.445,
+            "loose_pass_rate": 0.445,
+            "strict_pass_rate": 0.445,
+            "strict_violation_rate": 0.0,
+            "strict_violation_rate_topk": 0.0,
+            "location_match_rate": 0.191,
+            "salary_match_rate": 0.4382,
+            "strict_violation_counts": {},
+            "mean_old_score": 0.510278,
+            "mean_new_score": 0.510278,
+            "mean_evidence_adjustment": 0.0
+          },
+          "evidence": {
+            "returned_jobs": 89,
+            "topk_completion_rate": 0.445,
+            "precision_at_k": 0.445,
+            "strict_precision_at_k": 0.445,
+            "loose_pass_rate": 0.445,
+            "strict_pass_rate": 0.445,
+            "strict_violation_rate": 0.0,
+            "strict_violation_rate_topk": 0.0,
+            "location_match_rate": 0.191,
+            "salary_match_rate": 0.4382,
+            "strict_violation_counts": {},
+            "mean_old_score": 0.510278,
+            "mean_new_score": 0.522329,
+            "mean_evidence_adjustment": 0.012051
+          },
+          "delta": {
+            "precision_at_k": 0.0,
+            "strict_precision_at_k": 0.0,
+            "loose_pass_rate": 0.0,
+            "strict_pass_rate": 0.0,
+            "strict_violation_rate": 0.0,
+            "location_match_rate": 0.0,
+            "salary_match_rate": 0.0,
+            "mean_new_score": 0.012051,
+            "mean_evidence_adjustment": 0.012051
+          },
+          "topk_overlap": {
+            "old_count": 89,
+            "evidence_count": 89,
+            "overlap_count": 89,
+            "overlap_rate_vs_cutoff": 0.445,
+            "gained_job_ids": [],
+            "lost_job_ids": []
+          }
+        }
+      }
+    },
+    "kenji": {
+      "row_count": 146,
+      "candidate_membership_unchanged": true,
+      "rank_movement": {
+        "rows": 146,
+        "adjusted_rows": 121,
+        "moved_up_rows": 54,
+        "moved_down_rows": 70,
+        "unchanged_rank_rows": 22,
+        "mean_abs_rank_delta": 5.479452,
+        "max_rank_gain": 27,
+        "max_rank_loss": -16,
+        "mean_evidence_adjustment": 0.033055,
+        "max_evidence_adjustment": 0.08
+      },
+      "cutoffs": {
+        "10": {
+          "old": {
+            "returned_jobs": 10,
+            "topk_completion_rate": 1.0,
+            "precision_at_k": 1.0,
+            "strict_precision_at_k": 0.9,
+            "loose_pass_rate": 1.0,
+            "strict_pass_rate": 0.9,
+            "strict_violation_rate": 0.1,
+            "strict_violation_rate_topk": 0.1,
+            "location_match_rate": 1.0,
+            "salary_match_rate": 0.8,
+            "strict_violation_counts": {
+              "contract_temp_unpaid": 1
+            },
+            "mean_old_score": 0.599292,
+            "mean_new_score": 0.599292,
+            "mean_evidence_adjustment": 0.0
+          },
+          "evidence": {
+            "returned_jobs": 10,
+            "topk_completion_rate": 1.0,
+            "precision_at_k": 1.0,
+            "strict_precision_at_k": 0.9,
+            "loose_pass_rate": 1.0,
+            "strict_pass_rate": 0.9,
+            "strict_violation_rate": 0.1,
+            "strict_violation_rate_topk": 0.1,
+            "location_match_rate": 1.0,
+            "salary_match_rate": 0.8,
+            "strict_violation_counts": {
+              "contract_temp_unpaid": 1
+            },
+            "mean_old_score": 0.597309,
+            "mean_new_score": 0.639009,
+            "mean_evidence_adjustment": 0.0417
+          },
+          "delta": {
+            "precision_at_k": 0.0,
+            "strict_precision_at_k": 0.0,
+            "loose_pass_rate": 0.0,
+            "strict_pass_rate": 0.0,
+            "strict_violation_rate": 0.0,
+            "location_match_rate": 0.0,
+            "salary_match_rate": 0.0,
+            "mean_new_score": 0.039717,
+            "mean_evidence_adjustment": 0.0417
+          },
+          "topk_overlap": {
+            "old_count": 10,
+            "evidence_count": 10,
+            "overlap_count": 9,
+            "overlap_rate_vs_cutoff": 0.9,
+            "gained_job_ids": [
+              "cb5bec21cff15f8cb5f68759"
+            ],
+            "lost_job_ids": [
+              "c65ccac60fe9499f364c5a1f"
+            ]
+          }
+        },
+        "25": {
+          "old": {
+            "returned_jobs": 25,
+            "topk_completion_rate": 1.0,
+            "precision_at_k": 1.0,
+            "strict_precision_at_k": 0.96,
+            "loose_pass_rate": 1.0,
+            "strict_pass_rate": 0.96,
+            "strict_violation_rate": 0.04,
+            "strict_violation_rate_topk": 0.04,
+            "location_match_rate": 1.0,
+            "salary_match_rate": 0.92,
+            "strict_violation_counts": {
+              "contract_temp_unpaid": 1
+            },
+            "mean_old_score": 0.582361,
+            "mean_new_score": 0.582361,
+            "mean_evidence_adjustment": 0.0
+          },
+          "evidence": {
+            "returned_jobs": 25,
+            "topk_completion_rate": 1.0,
+            "precision_at_k": 1.0,
+            "strict_precision_at_k": 0.96,
+            "loose_pass_rate": 1.0,
+            "strict_pass_rate": 0.96,
+            "strict_violation_rate": 0.04,
+            "strict_violation_rate_topk": 0.04,
+            "location_match_rate": 1.0,
+            "salary_match_rate": 0.92,
+            "strict_violation_counts": {
+              "contract_temp_unpaid": 1
+            },
+            "mean_old_score": 0.582361,
+            "mean_new_score": 0.626041,
+            "mean_evidence_adjustment": 0.04368
+          },
+          "delta": {
+            "precision_at_k": 0.0,
+            "strict_precision_at_k": 0.0,
+            "loose_pass_rate": 0.0,
+            "strict_pass_rate": 0.0,
+            "strict_violation_rate": 0.0,
+            "location_match_rate": 0.0,
+            "salary_match_rate": 0.0,
+            "mean_new_score": 0.04368,
+            "mean_evidence_adjustment": 0.04368
+          },
+          "topk_overlap": {
+            "old_count": 25,
+            "evidence_count": 25,
+            "overlap_count": 25,
+            "overlap_rate_vs_cutoff": 1.0,
+            "gained_job_ids": [],
+            "lost_job_ids": []
+          }
+        },
+        "50": {
+          "old": {
+            "returned_jobs": 50,
+            "topk_completion_rate": 1.0,
+            "precision_at_k": 1.0,
+            "strict_precision_at_k": 0.98,
+            "loose_pass_rate": 1.0,
+            "strict_pass_rate": 0.98,
+            "strict_violation_rate": 0.02,
+            "strict_violation_rate_topk": 0.02,
+            "location_match_rate": 1.0,
+            "salary_match_rate": 0.9,
+            "strict_violation_counts": {
+              "contract_temp_unpaid": 1
+            },
+            "mean_old_score": 0.48714,
+            "mean_new_score": 0.48714,
+            "mean_evidence_adjustment": 0.0
+          },
+          "evidence": {
+            "returned_jobs": 50,
+            "topk_completion_rate": 1.0,
+            "precision_at_k": 1.0,
+            "strict_precision_at_k": 0.98,
+            "loose_pass_rate": 1.0,
+            "strict_pass_rate": 0.98,
+            "strict_violation_rate": 0.02,
+            "strict_violation_rate_topk": 0.02,
+            "location_match_rate": 1.0,
+            "salary_match_rate": 0.84,
+            "strict_violation_counts": {
+              "contract_temp_unpaid": 1
+            },
+            "mean_old_score": 0.486305,
+            "mean_new_score": 0.533325,
+            "mean_evidence_adjustment": 0.04702
+          },
+          "delta": {
+            "precision_at_k": 0.0,
+            "strict_precision_at_k": 0.0,
+            "loose_pass_rate": 0.0,
+            "strict_pass_rate": 0.0,
+            "strict_violation_rate": 0.0,
+            "location_match_rate": 0.0,
+            "salary_match_rate": -0.06,
+            "mean_new_score": 0.046185,
+            "mean_evidence_adjustment": 0.04702
+          },
+          "topk_overlap": {
+            "old_count": 50,
+            "evidence_count": 50,
+            "overlap_count": 46,
+            "overlap_rate_vs_cutoff": 0.92,
+            "gained_job_ids": [
+              "a82daf4401affb840df12b1e",
+              "8010de462d48f06f7ec1d8d5",
+              "5b8175d527f6afc17ea77d48",
+              "6130db0413f5498af848746d"
+            ],
+            "lost_job_ids": [
+              "a18471802e394147b2bf77db",
+              "4bdbd61a9e9ed39ab23ebff0",
+              "15fc3865a755b69ead7c9045",
+              "4358a15848f3253a4c33f96b"
+            ]
+          }
+        },
+        "100": {
+          "old": {
+            "returned_jobs": 100,
+            "topk_completion_rate": 1.0,
+            "precision_at_k": 1.0,
+            "strict_precision_at_k": 0.97,
+            "loose_pass_rate": 1.0,
+            "strict_pass_rate": 0.97,
+            "strict_violation_rate": 0.03,
+            "strict_violation_rate_topk": 0.03,
+            "location_match_rate": 1.0,
+            "salary_match_rate": 0.57,
+            "strict_violation_counts": {
+              "contract_temp_unpaid": 3
+            },
+            "mean_old_score": 0.380944,
+            "mean_new_score": 0.380944,
+            "mean_evidence_adjustment": 0.0
+          },
+          "evidence": {
+            "returned_jobs": 100,
+            "topk_completion_rate": 1.0,
+            "precision_at_k": 1.0,
+            "strict_precision_at_k": 0.98,
+            "loose_pass_rate": 1.0,
+            "strict_pass_rate": 0.98,
+            "strict_violation_rate": 0.02,
+            "strict_violation_rate_topk": 0.02,
+            "location_match_rate": 1.0,
+            "salary_match_rate": 0.59,
+            "strict_violation_counts": {
+              "contract_temp_unpaid": 2
+            },
+            "mean_old_score": 0.379981,
+            "mean_new_score": 0.415321,
+            "mean_evidence_adjustment": 0.03534
+          },
+          "delta": {
+            "precision_at_k": 0.0,
+            "strict_precision_at_k": 0.01,
+            "loose_pass_rate": 0.0,
+            "strict_pass_rate": 0.01,
+            "strict_violation_rate": -0.01,
+            "location_match_rate": 0.0,
+            "salary_match_rate": 0.02,
+            "mean_new_score": 0.034377,
+            "mean_evidence_adjustment": 0.03534
+          },
+          "topk_overlap": {
+            "old_count": 100,
+            "evidence_count": 100,
+            "overlap_count": 96,
+            "overlap_rate_vs_cutoff": 0.96,
+            "gained_job_ids": [
+              "dc0c8cc7170765581e54ab98",
+              "db662ca0cecbbb0538afd1de",
+              "0ee8a6642699866c5e3479e4",
+              "a20c558d87c83b10328b38ed"
+            ],
+            "lost_job_ids": [
+              "c22f4a1c4fdfaf3dbdeaeaf0",
+              "3b077a00ed108cb144c7e6d6",
+              "8747869044ad4a3fdbbdf8f8",
+              "6f2b3a4f411e2b19bb5ff894"
+            ]
+          }
+        },
+        "200": {
+          "old": {
+            "returned_jobs": 146,
+            "topk_completion_rate": 0.73,
+            "precision_at_k": 0.73,
+            "strict_precision_at_k": 0.705,
+            "loose_pass_rate": 0.73,
+            "strict_pass_rate": 0.705,
+            "strict_violation_rate": 0.0342,
+            "strict_violation_rate_topk": 0.025,
+            "location_match_rate": 1.0,
+            "salary_match_rate": 0.4863,
+            "strict_violation_counts": {
+              "contract_temp_unpaid": 5
+            },
+            "mean_old_score": 0.30311,
+            "mean_new_score": 0.30311,
+            "mean_evidence_adjustment": 0.0
+          },
+          "evidence": {
+            "returned_jobs": 146,
+            "topk_completion_rate": 0.73,
+            "precision_at_k": 0.73,
+            "strict_precision_at_k": 0.705,
+            "loose_pass_rate": 0.73,
+            "strict_pass_rate": 0.705,
+            "strict_violation_rate": 0.0342,
+            "strict_violation_rate_topk": 0.025,
+            "location_match_rate": 1.0,
+            "salary_match_rate": 0.4863,
+            "strict_violation_counts": {
+              "contract_temp_unpaid": 5
+            },
+            "mean_old_score": 0.30311,
+            "mean_new_score": 0.336165,
+            "mean_evidence_adjustment": 0.033055
+          },
+          "delta": {
+            "precision_at_k": 0.0,
+            "strict_precision_at_k": 0.0,
+            "loose_pass_rate": 0.0,
+            "strict_pass_rate": 0.0,
+            "strict_violation_rate": 0.0,
+            "location_match_rate": 0.0,
+            "salary_match_rate": 0.0,
+            "mean_new_score": 0.033055,
+            "mean_evidence_adjustment": 0.033055
+          },
+          "topk_overlap": {
+            "old_count": 146,
+            "evidence_count": 146,
+            "overlap_count": 146,
+            "overlap_rate_vs_cutoff": 0.73,
+            "gained_job_ids": [],
+            "lost_job_ids": []
+          }
+        }
+      }
+    },
+    "marcus": {
+      "row_count": 176,
+      "candidate_membership_unchanged": true,
+      "rank_movement": {
+        "rows": 176,
+        "adjusted_rows": 153,
+        "moved_up_rows": 60,
+        "moved_down_rows": 82,
+        "unchanged_rank_rows": 34,
+        "mean_abs_rank_delta": 3.045455,
+        "max_rank_gain": 17,
+        "max_rank_loss": -9,
+        "mean_evidence_adjustment": 0.013831,
+        "max_evidence_adjustment": 0.05922
+      },
+      "cutoffs": {
+        "10": {
+          "old": {
+            "returned_jobs": 10,
+            "topk_completion_rate": 1.0,
+            "precision_at_k": 1.0,
+            "strict_precision_at_k": 1.0,
+            "loose_pass_rate": 1.0,
+            "strict_pass_rate": 1.0,
+            "strict_violation_rate": 0.0,
+            "strict_violation_rate_topk": 0.0,
+            "location_match_rate": 1.0,
+            "salary_match_rate": 0.3,
+            "strict_violation_counts": {},
+            "mean_old_score": 0.725793,
+            "mean_new_score": 0.725793,
+            "mean_evidence_adjustment": 0.0
+          },
+          "evidence": {
+            "returned_jobs": 10,
+            "topk_completion_rate": 1.0,
+            "precision_at_k": 1.0,
+            "strict_precision_at_k": 1.0,
+            "loose_pass_rate": 1.0,
+            "strict_pass_rate": 1.0,
+            "strict_violation_rate": 0.0,
+            "strict_violation_rate_topk": 0.0,
+            "location_match_rate": 1.0,
+            "salary_match_rate": 0.1,
+            "strict_violation_counts": {},
+            "mean_old_score": 0.72168,
+            "mean_new_score": 0.766704,
+            "mean_evidence_adjustment": 0.045024
+          },
+          "delta": {
+            "precision_at_k": 0.0,
+            "strict_precision_at_k": 0.0,
+            "loose_pass_rate": 0.0,
+            "strict_pass_rate": 0.0,
+            "strict_violation_rate": 0.0,
+            "location_match_rate": 0.0,
+            "salary_match_rate": -0.2,
+            "mean_new_score": 0.040911,
+            "mean_evidence_adjustment": 0.045024
+          },
+          "topk_overlap": {
+            "old_count": 10,
+            "evidence_count": 10,
+            "overlap_count": 8,
+            "overlap_rate_vs_cutoff": 0.8,
+            "gained_job_ids": [
+              "e6287e97b5ac926276819d9b",
+              "73e1dc87462c640e72a673df"
+            ],
+            "lost_job_ids": [
+              "3d39e0fe18e6ba808455ec93",
+              "e838e158bbbd86cac1846ff5"
+            ]
+          }
+        },
+        "25": {
+          "old": {
+            "returned_jobs": 25,
+            "topk_completion_rate": 1.0,
+            "precision_at_k": 1.0,
+            "strict_precision_at_k": 1.0,
+            "loose_pass_rate": 1.0,
+            "strict_pass_rate": 1.0,
+            "strict_violation_rate": 0.0,
+            "strict_violation_rate_topk": 0.0,
+            "location_match_rate": 1.0,
+            "salary_match_rate": 0.56,
+            "strict_violation_counts": {},
+            "mean_old_score": 0.700504,
+            "mean_new_score": 0.700504,
+            "mean_evidence_adjustment": 0.0
+          },
+          "evidence": {
+            "returned_jobs": 25,
+            "topk_completion_rate": 1.0,
+            "precision_at_k": 1.0,
+            "strict_precision_at_k": 1.0,
+            "loose_pass_rate": 1.0,
+            "strict_pass_rate": 1.0,
+            "strict_violation_rate": 0.0,
+            "strict_violation_rate_topk": 0.0,
+            "location_match_rate": 1.0,
+            "salary_match_rate": 0.52,
+            "strict_violation_counts": {},
+            "mean_old_score": 0.700294,
+            "mean_new_score": 0.730791,
+            "mean_evidence_adjustment": 0.030496
+          },
+          "delta": {
+            "precision_at_k": 0.0,
+            "strict_precision_at_k": 0.0,
+            "loose_pass_rate": 0.0,
+            "strict_pass_rate": 0.0,
+            "strict_violation_rate": 0.0,
+            "location_match_rate": 0.0,
+            "salary_match_rate": -0.04,
+            "mean_new_score": 0.030287,
+            "mean_evidence_adjustment": 0.030496
+          },
+          "topk_overlap": {
+            "old_count": 25,
+            "evidence_count": 25,
+            "overlap_count": 23,
+            "overlap_rate_vs_cutoff": 0.92,
+            "gained_job_ids": [
+              "755ef59e8409684e68cd9f71",
+              "d783dc579d05853bfea47e12"
+            ],
+            "lost_job_ids": [
+              "40f9c852a8cd03be2956327b",
+              "97481e7848c32ea8e7f343ad"
+            ]
+          }
+        },
+        "50": {
+          "old": {
+            "returned_jobs": 50,
+            "topk_completion_rate": 1.0,
+            "precision_at_k": 1.0,
+            "strict_precision_at_k": 0.92,
+            "loose_pass_rate": 1.0,
+            "strict_pass_rate": 0.92,
+            "strict_violation_rate": 0.08,
+            "strict_violation_rate_topk": 0.08,
+            "location_match_rate": 1.0,
+            "salary_match_rate": 0.44,
+            "strict_violation_counts": {
+              "contract_temp_unpaid": 4
+            },
+            "mean_old_score": 0.664264,
+            "mean_new_score": 0.664264,
+            "mean_evidence_adjustment": 0.0
+          },
+          "evidence": {
+            "returned_jobs": 50,
+            "topk_completion_rate": 1.0,
+            "precision_at_k": 1.0,
+            "strict_precision_at_k": 0.92,
+            "loose_pass_rate": 1.0,
+            "strict_pass_rate": 0.92,
+            "strict_violation_rate": 0.08,
+            "strict_violation_rate_topk": 0.08,
+            "location_match_rate": 1.0,
+            "salary_match_rate": 0.44,
+            "strict_violation_counts": {
+              "contract_temp_unpaid": 4
+            },
+            "mean_old_score": 0.663178,
+            "mean_new_score": 0.686776,
+            "mean_evidence_adjustment": 0.023599
+          },
+          "delta": {
+            "precision_at_k": 0.0,
+            "strict_precision_at_k": 0.0,
+            "loose_pass_rate": 0.0,
+            "strict_pass_rate": 0.0,
+            "strict_violation_rate": 0.0,
+            "location_match_rate": 0.0,
+            "salary_match_rate": 0.0,
+            "mean_new_score": 0.022512,
+            "mean_evidence_adjustment": 0.023599
+          },
+          "topk_overlap": {
+            "old_count": 50,
+            "evidence_count": 50,
+            "overlap_count": 46,
+            "overlap_rate_vs_cutoff": 0.92,
+            "gained_job_ids": [
+              "92967e14d134fe6d9f1b716a",
+              "7963971d98c7044f3edfaa93",
+              "d414b5872e7d357d75e29dd5",
+              "4ec4dae52f320338f2a87c12"
+            ],
+            "lost_job_ids": [
+              "a18471802e394147b2bf77db",
+              "63630495aa9c2da0841ed1c9",
+              "0c502d56a9bab0be7239bfb7",
+              "37d089b7dca2af9e6f412ba5"
+            ]
+          }
+        },
+        "100": {
+          "old": {
+            "returned_jobs": 100,
+            "topk_completion_rate": 1.0,
+            "precision_at_k": 1.0,
+            "strict_precision_at_k": 0.87,
+            "loose_pass_rate": 1.0,
+            "strict_pass_rate": 0.87,
+            "strict_violation_rate": 0.13,
+            "strict_violation_rate_topk": 0.13,
+            "location_match_rate": 1.0,
+            "salary_match_rate": 0.3,
+            "strict_violation_counts": {
+              "contract_temp_unpaid": 13
+            },
+            "mean_old_score": 0.600857,
+            "mean_new_score": 0.600857,
+            "mean_evidence_adjustment": 0.0
+          },
+          "evidence": {
+            "returned_jobs": 100,
+            "topk_completion_rate": 1.0,
+            "precision_at_k": 1.0,
+            "strict_precision_at_k": 0.87,
+            "loose_pass_rate": 1.0,
+            "strict_pass_rate": 0.87,
+            "strict_violation_rate": 0.13,
+            "strict_violation_rate_topk": 0.13,
+            "location_match_rate": 1.0,
+            "salary_match_rate": 0.3,
+            "strict_violation_counts": {
+              "contract_temp_unpaid": 13
+            },
+            "mean_old_score": 0.600775,
+            "mean_new_score": 0.620157,
+            "mean_evidence_adjustment": 0.019382
+          },
+          "delta": {
+            "precision_at_k": 0.0,
+            "strict_precision_at_k": 0.0,
+            "loose_pass_rate": 0.0,
+            "strict_pass_rate": 0.0,
+            "strict_violation_rate": 0.0,
+            "location_match_rate": 0.0,
+            "salary_match_rate": 0.0,
+            "mean_new_score": 0.0193,
+            "mean_evidence_adjustment": 0.019382
+          },
+          "topk_overlap": {
+            "old_count": 100,
+            "evidence_count": 100,
+            "overlap_count": 98,
+            "overlap_rate_vs_cutoff": 0.98,
+            "gained_job_ids": [
+              "a1a339d3d3e9c10fff0be619",
+              "bda3e85f5df76f916e75ad74"
+            ],
+            "lost_job_ids": [
+              "56195abf0a56abf35bedd854",
+              "78e902509e05d690db141639"
+            ]
+          }
+        },
+        "200": {
+          "old": {
+            "returned_jobs": 176,
+            "topk_completion_rate": 0.88,
+            "precision_at_k": 0.86,
+            "strict_precision_at_k": 0.73,
+            "loose_pass_rate": 0.88,
+            "strict_pass_rate": 0.74,
+            "strict_violation_rate": 0.1591,
+            "strict_violation_rate_topk": 0.14,
+            "location_match_rate": 1.0,
+            "salary_match_rate": 0.1932,
+            "strict_violation_counts": {
+              "contract_temp_unpaid": 28
+            },
+            "mean_old_score": 0.501928,
+            "mean_new_score": 0.501928,
+            "mean_evidence_adjustment": 0.0
+          },
+          "evidence": {
+            "returned_jobs": 176,
+            "topk_completion_rate": 0.88,
+            "precision_at_k": 0.86,
+            "strict_precision_at_k": 0.73,
+            "loose_pass_rate": 0.88,
+            "strict_pass_rate": 0.74,
+            "strict_violation_rate": 0.1591,
+            "strict_violation_rate_topk": 0.14,
+            "location_match_rate": 1.0,
+            "salary_match_rate": 0.1932,
+            "strict_violation_counts": {
+              "contract_temp_unpaid": 28
+            },
+            "mean_old_score": 0.501928,
+            "mean_new_score": 0.515759,
+            "mean_evidence_adjustment": 0.013831
+          },
+          "delta": {
+            "precision_at_k": 0.0,
+            "strict_precision_at_k": 0.0,
+            "loose_pass_rate": 0.0,
+            "strict_pass_rate": 0.0,
+            "strict_violation_rate": 0.0,
+            "location_match_rate": 0.0,
+            "salary_match_rate": 0.0,
+            "mean_new_score": 0.013831,
+            "mean_evidence_adjustment": 0.013831
+          },
+          "topk_overlap": {
+            "old_count": 176,
+            "evidence_count": 176,
+            "overlap_count": 176,
+            "overlap_rate_vs_cutoff": 0.88,
+            "gained_job_ids": [],
+            "lost_job_ids": []
+          }
+        }
+      }
+    },
+    "priya": {
+      "row_count": 90,
+      "candidate_membership_unchanged": true,
+      "rank_movement": {
+        "rows": 90,
+        "adjusted_rows": 88,
+        "moved_up_rows": 44,
+        "moved_down_rows": 37,
+        "unchanged_rank_rows": 9,
+        "mean_abs_rank_delta": 5.444444,
+        "max_rank_gain": 15,
+        "max_rank_loss": -36,
+        "mean_evidence_adjustment": 0.045289,
+        "max_evidence_adjustment": 0.07711
+      },
+      "cutoffs": {
+        "10": {
+          "old": {
+            "returned_jobs": 10,
+            "topk_completion_rate": 1.0,
+            "precision_at_k": 1.0,
+            "strict_precision_at_k": 1.0,
+            "loose_pass_rate": 1.0,
+            "strict_pass_rate": 1.0,
+            "strict_violation_rate": 0.0,
+            "strict_violation_rate_topk": 0.0,
+            "location_match_rate": 1.0,
+            "salary_match_rate": 0.9,
+            "strict_violation_counts": {},
+            "mean_old_score": 0.692637,
+            "mean_new_score": 0.692637,
+            "mean_evidence_adjustment": 0.0
+          },
+          "evidence": {
+            "returned_jobs": 10,
+            "topk_completion_rate": 1.0,
+            "precision_at_k": 1.0,
+            "strict_precision_at_k": 1.0,
+            "loose_pass_rate": 1.0,
+            "strict_pass_rate": 1.0,
+            "strict_violation_rate": 0.0,
+            "strict_violation_rate_topk": 0.0,
+            "location_match_rate": 1.0,
+            "salary_match_rate": 0.9,
+            "strict_violation_counts": {},
+            "mean_old_score": 0.692637,
+            "mean_new_score": 0.735038,
+            "mean_evidence_adjustment": 0.042401
+          },
+          "delta": {
+            "precision_at_k": 0.0,
+            "strict_precision_at_k": 0.0,
+            "loose_pass_rate": 0.0,
+            "strict_pass_rate": 0.0,
+            "strict_violation_rate": 0.0,
+            "location_match_rate": 0.0,
+            "salary_match_rate": 0.0,
+            "mean_new_score": 0.042401,
+            "mean_evidence_adjustment": 0.042401
+          },
+          "topk_overlap": {
+            "old_count": 10,
+            "evidence_count": 10,
+            "overlap_count": 10,
+            "overlap_rate_vs_cutoff": 1.0,
+            "gained_job_ids": [],
+            "lost_job_ids": []
+          }
+        },
+        "25": {
+          "old": {
+            "returned_jobs": 25,
+            "topk_completion_rate": 1.0,
+            "precision_at_k": 1.0,
+            "strict_precision_at_k": 1.0,
+            "loose_pass_rate": 1.0,
+            "strict_pass_rate": 1.0,
+            "strict_violation_rate": 0.0,
+            "strict_violation_rate_topk": 0.0,
+            "location_match_rate": 1.0,
+            "salary_match_rate": 0.76,
+            "strict_violation_counts": {},
+            "mean_old_score": 0.672458,
+            "mean_new_score": 0.672458,
+            "mean_evidence_adjustment": 0.0
+          },
+          "evidence": {
+            "returned_jobs": 25,
+            "topk_completion_rate": 1.0,
+            "precision_at_k": 1.0,
+            "strict_precision_at_k": 1.0,
+            "loose_pass_rate": 1.0,
+            "strict_pass_rate": 1.0,
+            "strict_violation_rate": 0.0,
+            "strict_violation_rate_topk": 0.0,
+            "location_match_rate": 1.0,
+            "salary_match_rate": 0.72,
+            "strict_violation_counts": {},
+            "mean_old_score": 0.671584,
+            "mean_new_score": 0.713824,
+            "mean_evidence_adjustment": 0.04224
+          },
+          "delta": {
+            "precision_at_k": 0.0,
+            "strict_precision_at_k": 0.0,
+            "loose_pass_rate": 0.0,
+            "strict_pass_rate": 0.0,
+            "strict_violation_rate": 0.0,
+            "location_match_rate": 0.0,
+            "salary_match_rate": -0.04,
+            "mean_new_score": 0.041366,
+            "mean_evidence_adjustment": 0.04224
+          },
+          "topk_overlap": {
+            "old_count": 25,
+            "evidence_count": 25,
+            "overlap_count": 23,
+            "overlap_rate_vs_cutoff": 0.92,
+            "gained_job_ids": [
+              "a6936e1e16a6b3c8afd7e165",
+              "83b3ddb7d7990d991dfc8ebe"
+            ],
+            "lost_job_ids": [
+              "32f20257572b90ae7370c0e0",
+              "c101452ddb10121f1bf28bdf"
+            ]
+          }
+        },
+        "50": {
+          "old": {
+            "returned_jobs": 50,
+            "topk_completion_rate": 1.0,
+            "precision_at_k": 1.0,
+            "strict_precision_at_k": 1.0,
+            "loose_pass_rate": 1.0,
+            "strict_pass_rate": 1.0,
+            "strict_violation_rate": 0.0,
+            "strict_violation_rate_topk": 0.0,
+            "location_match_rate": 1.0,
+            "salary_match_rate": 0.46,
+            "strict_violation_counts": {},
+            "mean_old_score": 0.641335,
+            "mean_new_score": 0.641335,
+            "mean_evidence_adjustment": 0.0
+          },
+          "evidence": {
+            "returned_jobs": 50,
+            "topk_completion_rate": 1.0,
+            "precision_at_k": 1.0,
+            "strict_precision_at_k": 1.0,
+            "loose_pass_rate": 1.0,
+            "strict_pass_rate": 1.0,
+            "strict_violation_rate": 0.0,
+            "strict_violation_rate_topk": 0.0,
+            "location_match_rate": 1.0,
+            "salary_match_rate": 0.44,
+            "strict_violation_counts": {},
+            "mean_old_score": 0.640477,
+            "mean_new_score": 0.682379,
+            "mean_evidence_adjustment": 0.041902
+          },
+          "delta": {
+            "precision_at_k": 0.0,
+            "strict_precision_at_k": 0.0,
+            "loose_pass_rate": 0.0,
+            "strict_pass_rate": 0.0,
+            "strict_violation_rate": 0.0,
+            "location_match_rate": 0.0,
+            "salary_match_rate": -0.02,
+            "mean_new_score": 0.041044,
+            "mean_evidence_adjustment": 0.041902
+          },
+          "topk_overlap": {
+            "old_count": 50,
+            "evidence_count": 50,
+            "overlap_count": 46,
+            "overlap_rate_vs_cutoff": 0.92,
+            "gained_job_ids": [
+              "e98185fe3573b8a22d7cb0f0",
+              "46797932dec2cad0777fd5d9",
+              "ad74be61806759ab7adf311e",
+              "d31cb58f189fba879373cb20"
+            ],
+            "lost_job_ids": [
+              "104fee85b6efce7da29ee2db",
+              "cd6a553f02fedc83fb85222a",
+              "fd5169c7caa3be803d0aaf99",
+              "11e6918169996abfced57be0"
+            ]
+          }
+        },
+        "100": {
+          "old": {
+            "returned_jobs": 90,
+            "topk_completion_rate": 0.9,
+            "precision_at_k": 0.9,
+            "strict_precision_at_k": 0.9,
+            "loose_pass_rate": 0.9,
+            "strict_pass_rate": 0.9,
+            "strict_violation_rate": 0.0,
+            "strict_violation_rate_topk": 0.0,
+            "location_match_rate": 1.0,
+            "salary_match_rate": 0.2556,
+            "strict_violation_counts": {},
+            "mean_old_score": 0.603486,
+            "mean_new_score": 0.603486,
+            "mean_evidence_adjustment": 0.0
+          },
+          "evidence": {
+            "returned_jobs": 90,
+            "topk_completion_rate": 0.9,
+            "precision_at_k": 0.9,
+            "strict_precision_at_k": 0.9,
+            "loose_pass_rate": 0.9,
+            "strict_pass_rate": 0.9,
+            "strict_violation_rate": 0.0,
+            "strict_violation_rate_topk": 0.0,
+            "location_match_rate": 1.0,
+            "salary_match_rate": 0.2556,
+            "strict_violation_counts": {},
+            "mean_old_score": 0.603486,
+            "mean_new_score": 0.648775,
+            "mean_evidence_adjustment": 0.045289
+          },
+          "delta": {
+            "precision_at_k": 0.0,
+            "strict_precision_at_k": 0.0,
+            "loose_pass_rate": 0.0,
+            "strict_pass_rate": 0.0,
+            "strict_violation_rate": 0.0,
+            "location_match_rate": 0.0,
+            "salary_match_rate": 0.0,
+            "mean_new_score": 0.045289,
+            "mean_evidence_adjustment": 0.045289
+          },
+          "topk_overlap": {
+            "old_count": 90,
+            "evidence_count": 90,
+            "overlap_count": 90,
+            "overlap_rate_vs_cutoff": 0.9,
+            "gained_job_ids": [],
+            "lost_job_ids": []
+          }
+        },
+        "200": {
+          "old": {
+            "returned_jobs": 90,
+            "topk_completion_rate": 0.45,
+            "precision_at_k": 0.45,
+            "strict_precision_at_k": 0.45,
+            "loose_pass_rate": 0.45,
+            "strict_pass_rate": 0.45,
+            "strict_violation_rate": 0.0,
+            "strict_violation_rate_topk": 0.0,
+            "location_match_rate": 1.0,
+            "salary_match_rate": 0.2556,
+            "strict_violation_counts": {},
+            "mean_old_score": 0.603486,
+            "mean_new_score": 0.603486,
+            "mean_evidence_adjustment": 0.0
+          },
+          "evidence": {
+            "returned_jobs": 90,
+            "topk_completion_rate": 0.45,
+            "precision_at_k": 0.45,
+            "strict_precision_at_k": 0.45,
+            "loose_pass_rate": 0.45,
+            "strict_pass_rate": 0.45,
+            "strict_violation_rate": 0.0,
+            "strict_violation_rate_topk": 0.0,
+            "location_match_rate": 1.0,
+            "salary_match_rate": 0.2556,
+            "strict_violation_counts": {},
+            "mean_old_score": 0.603486,
+            "mean_new_score": 0.648775,
+            "mean_evidence_adjustment": 0.045289
+          },
+          "delta": {
+            "precision_at_k": 0.0,
+            "strict_precision_at_k": 0.0,
+            "loose_pass_rate": 0.0,
+            "strict_pass_rate": 0.0,
+            "strict_violation_rate": 0.0,
+            "location_match_rate": 0.0,
+            "salary_match_rate": 0.0,
+            "mean_new_score": 0.045289,
+            "mean_evidence_adjustment": 0.045289
+          },
+          "topk_overlap": {
+            "old_count": 90,
+            "evidence_count": 90,
+            "overlap_count": 90,
+            "overlap_rate_vs_cutoff": 0.45,
+            "gained_job_ids": [],
+            "lost_job_ids": []
+          }
+        }
+      }
+    }
+  },
+  "overall_by_cutoff": {
+    "10": {
+      "old": {
+        "precision_at_k": 1.0,
+        "strict_precision_at_k": 0.975,
+        "loose_pass_rate": 1.0,
+        "strict_pass_rate": 0.975,
+        "strict_violation_rate": 0.025,
+        "location_match_rate": 1.0,
+        "salary_match_rate": 0.6,
+        "mean_old_score": 0.673969,
+        "mean_new_score": 0.673969,
+        "mean_evidence_adjustment": 0.0
+      },
+      "evidence": {
+        "precision_at_k": 1.0,
+        "strict_precision_at_k": 0.975,
+        "loose_pass_rate": 1.0,
+        "strict_pass_rate": 0.975,
+        "strict_violation_rate": 0.025,
+        "location_match_rate": 1.0,
+        "salary_match_rate": 0.55,
+        "mean_old_score": 0.672445,
+        "mean_new_score": 0.707925,
+        "mean_evidence_adjustment": 0.03548
+      },
+      "delta": {
+        "precision_at_k": 0.0,
+        "strict_precision_at_k": 0.0,
+        "loose_pass_rate": 0.0,
+        "strict_pass_rate": 0.0,
+        "strict_violation_rate": 0.0,
+        "location_match_rate": 0.0,
+        "salary_match_rate": -0.05,
+        "mean_new_score": 0.033956,
+        "mean_evidence_adjustment": 0.03548
+      }
+    },
+    "25": {
+      "old": {
+        "precision_at_k": 1.0,
+        "strict_precision_at_k": 0.99,
+        "loose_pass_rate": 1.0,
+        "strict_pass_rate": 0.99,
+        "strict_violation_rate": 0.01,
+        "location_match_rate": 0.89,
+        "salary_match_rate": 0.67,
+        "mean_old_score": 0.642348,
+        "mean_new_score": 0.642348,
+        "mean_evidence_adjustment": 0.0
+      },
+      "evidence": {
+        "precision_at_k": 1.0,
+        "strict_precision_at_k": 0.99,
+        "loose_pass_rate": 1.0,
+        "strict_pass_rate": 0.99,
+        "strict_violation_rate": 0.01,
+        "location_match_rate": 0.89,
+        "salary_match_rate": 0.68,
+        "mean_old_score": 0.641915,
+        "mean_new_score": 0.674474,
+        "mean_evidence_adjustment": 0.032559
+      },
+      "delta": {
+        "precision_at_k": 0.0,
+        "strict_precision_at_k": 0.0,
+        "loose_pass_rate": 0.0,
+        "strict_pass_rate": 0.0,
+        "strict_violation_rate": 0.0,
+        "location_match_rate": 0.0,
+        "salary_match_rate": 0.01,
+        "mean_new_score": 0.032126,
+        "mean_evidence_adjustment": 0.032559
+      }
+    },
+    "50": {
+      "old": {
+        "precision_at_k": 1.0,
+        "strict_precision_at_k": 0.975,
+        "loose_pass_rate": 1.0,
+        "strict_pass_rate": 0.975,
+        "strict_violation_rate": 0.025,
+        "location_match_rate": 0.825,
+        "salary_match_rate": 0.58,
+        "mean_old_score": 0.591751,
+        "mean_new_score": 0.591751,
+        "mean_evidence_adjustment": 0.0
+      },
+      "evidence": {
+        "precision_at_k": 1.0,
+        "strict_precision_at_k": 0.975,
+        "loose_pass_rate": 1.0,
+        "strict_pass_rate": 0.975,
+        "strict_violation_rate": 0.025,
+        "location_match_rate": 0.825,
+        "salary_match_rate": 0.565,
+        "mean_old_score": 0.590999,
+        "mean_new_score": 0.621765,
+        "mean_evidence_adjustment": 0.030766
+      },
+      "delta": {
+        "precision_at_k": 0.0,
+        "strict_precision_at_k": 0.0,
+        "loose_pass_rate": 0.0,
+        "strict_pass_rate": 0.0,
+        "strict_violation_rate": 0.0,
+        "location_match_rate": 0.0,
+        "salary_match_rate": -0.015,
+        "mean_new_score": 0.030014,
+        "mean_evidence_adjustment": 0.030766
+      }
+    },
+    "100": {
+      "old": {
+        "precision_at_k": 0.9475,
+        "strict_precision_at_k": 0.9075,
+        "loose_pass_rate": 0.9475,
+        "strict_pass_rate": 0.9075,
+        "strict_violation_rate": 0.04,
+        "location_match_rate": 0.79775,
+        "salary_match_rate": 0.39095,
+        "mean_old_score": 0.523891,
+        "mean_new_score": 0.523891,
+        "mean_evidence_adjustment": 0.0
+      },
+      "evidence": {
+        "precision_at_k": 0.9475,
+        "strict_precision_at_k": 0.91,
+        "loose_pass_rate": 0.9475,
+        "strict_pass_rate": 0.91,
+        "strict_violation_rate": 0.0375,
+        "location_match_rate": 0.79775,
+        "salary_match_rate": 0.39595,
+        "mean_old_score": 0.52363,
+        "mean_new_score": 0.551646,
+        "mean_evidence_adjustment": 0.028016
+      },
+      "delta": {
+        "precision_at_k": 0.0,
+        "strict_precision_at_k": 0.0025,
+        "loose_pass_rate": 0.0,
+        "strict_pass_rate": 0.0025,
+        "strict_violation_rate": -0.0025,
+        "location_match_rate": 0.0,
+        "salary_match_rate": 0.005,
+        "mean_new_score": 0.027755,
+        "mean_evidence_adjustment": 0.028016
+      }
+    },
+    "200": {
+      "old": {
+        "precision_at_k": 0.62125,
+        "strict_precision_at_k": 0.5825,
+        "loose_pass_rate": 0.62625,
+        "strict_pass_rate": 0.585,
+        "strict_violation_rate": 0.048325,
+        "location_match_rate": 0.79775,
+        "salary_match_rate": 0.343325,
+        "mean_old_score": 0.4797,
+        "mean_new_score": 0.4797,
+        "mean_evidence_adjustment": 0.0
+      },
+      "evidence": {
+        "precision_at_k": 0.62125,
+        "strict_precision_at_k": 0.5825,
+        "loose_pass_rate": 0.62625,
+        "strict_pass_rate": 0.585,
+        "strict_violation_rate": 0.048325,
+        "location_match_rate": 0.79775,
+        "salary_match_rate": 0.343325,
+        "mean_old_score": 0.4797,
+        "mean_new_score": 0.505757,
+        "mean_evidence_adjustment": 0.026056
+      },
+      "delta": {
+        "precision_at_k": 0.0,
+        "strict_precision_at_k": 0.0,
+        "loose_pass_rate": 0.0,
+        "strict_pass_rate": 0.0,
+        "strict_violation_rate": 0.0,
+        "location_match_rate": 0.0,
+        "salary_match_rate": 0.0,
+        "mean_new_score": 0.026057,
+        "mean_evidence_adjustment": 0.026056
+      }
+    }
+  },
+  "boundaries": {
+    "production_match_modified": false,
+    "production_ranking_weights_modified": false,
+    "runtime_sidecar_integrated": false,
+    "retrieval_recomputed": false,
+    "embeddings_rebuilt": false,
+    "ann_rebuilt": false,
+    "live_apis_used": false,
+    "phase1_ingestion_modified": false,
+    "d2_results_are_production_ranking_claim": false
+  }
+}

@@ -1,0 +1,345 @@
+{% extends "base.html" %}
+{% block title %}JobPilot Results{% endblock %}
+{% block content %}
+<section class="results-layout">
+  <aside class="profile-panel">
+    <span class="eyebrow">Session</span>
+    <h1>{{ profile.name or profile.profile_id or "Candidate" }}</h1>
+    <dl class="compact-list">
+      <dt>Profile ID</dt><dd>{{ profile.profile_id or "manual" }}</dd>
+      <dt>Target roles</dt><dd>{{ (profile.target_roles or [])|join(", ") }}</dd>
+      <dt>Skills</dt><dd>{{ (profile.skills or [])[:10]|join(", ") }}</dd>
+      <dt>Locations</dt><dd>{{ (profile.location_preferences or [])|join(", ") }}</dd>
+      <dt>Data source</dt><dd>Offline snapshot</dd>
+      {% if debug_audit %}
+        <dt>Snapshot path</dt><dd>{{ metadata.snapshot_used or "data/processed/jobs_offline_snapshot.csv" }}</dd>
+      {% endif %}
+    </dl>
+
+    {% if debug_audit %}
+      <details class="profile-json">
+        <summary>Normalized profile JSON</summary>
+        <pre class="json-dump">{{ profile|json }}</pre>
+      </details>
+    {% endif %}
+
+    {% if status_message %}
+      <div class="notice">{{ status_message }}</div>
+    {% endif %}
+    {% for note in notes %}
+      <div class="notice warning">{{ note }}</div>
+    {% endfor %}
+    {% for warning in metadata.warnings or [] %}
+      <div class="notice warning">{{ warning }}</div>
+    {% endfor %}
+    {% if resume_status and not resume_status.available %}
+      <div class="notice warning resume-api-notice">Resume generation uses the Gemini key from this browser session when available.</div>
+    {% endif %}
+
+    <div class="action-stack">
+      <a class="button" href="/download/top-jobs?session_id={{ session_id }}">Download CSV</a>
+      <form action="/rerank" method="post">
+        <input type="hidden" name="session_id" value="{{ session_id }}">
+        <button type="submit">Rematch</button>
+      </form>
+      <details class="source-preview-panel">
+        <summary>Source preview</summary>
+        <form action="/refresh-live" method="post">
+          <input type="hidden" name="session_id" value="{{ session_id }}">
+          <label>
+            Provider
+            <select name="provider">
+              <option value="adzuna">Adzuna</option>
+              <option value="jsearch">JSearch Mega</option>
+            </select>
+          </label>
+          <label class="checkbox-line"><input type="checkbox" name="attempt_live"> Attempt live API</label>
+          <button type="submit">Preview Source</button>
+        </form>
+      </details>
+      <a class="button ghost" href="/analytics">Market Analytics</a>
+    </div>
+
+    <div class="feedback-count">
+      Feedback events: <strong>{{ feedback_events|length }}</strong>
+    </div>
+  </aside>
+
+  <section class="jobs-panel">
+    {% if live_refresh and debug_audit %}
+      <div class="live-report">
+        <strong>{{ live_refresh.provider|upper }} {{ live_refresh.mode }}</strong>
+        <span>Queries: {{ (live_refresh.queries or [])|join(" | ") }}</span>
+        <span>Raw: {{ live_refresh.raw_records_fetched or 0 }} | Normalized: {{ live_refresh.normalized_live_records or live_refresh.retained_records or 0 }}</span>
+      </div>
+    {% elif session.latest_live_refresh and debug_audit %}
+      <div class="live-report">
+        <strong>{{ session.latest_live_refresh.provider|upper }} {{ session.latest_live_refresh.mode }}</strong>
+        <span>Queries: {{ (session.latest_live_refresh.queries or [])|join(" | ") }}</span>
+      </div>
+    {% endif %}
+
+    <div class="section-heading horizontal">
+      <div>
+        <span class="eyebrow">Ranked Jobs</span>
+        <h2>Top {{ jobs|length }}</h2>
+      </div>
+      {% if debug_audit %}
+        <span class="run-meta">{{ metadata.embedding_backend or metadata.retrieval_backend or "Phase 2 backend" }}</span>
+      {% endif %}
+    </div>
+
+    {% for job in jobs %}
+      {% set positives = driver_items(job, "positive_drivers", 4) %}
+      {% set negatives = driver_items(job, "negative_drivers", 3) %}
+      {% set all_positives = driver_items(job, "positive_drivers") %}
+      {% set all_negatives = driver_items(job, "negative_drivers") %}
+      {% set skill_view = skill_chip_view(job) %}
+      {% set strength = match_strength(job) %}
+      {% set breakdown = score_breakdown(job) %}
+      {% set boosts = ranking_boost_items(job) %}
+      {% set movement = rank_movement_text(job) %}
+      <article class="job-card">
+        <div class="job-top">
+          <div>
+            <span class="rank">#{{ job.adjusted_rank or job.rank or loop.index }}</span>
+            <h3>{{ job.title }}</h3>
+            <p class="company">{{ job.company or job.employer }} - {{ job.location }}</p>
+            <div class="job-badges">
+              {% set salary_text = format_salary(job) %}
+              <span>{% if salary_text == "Salary not listed" %}Salary not listed{% else %}Salary: {{ salary_text }}{% endif %}</span>
+              <span>{{ display_value(job.employment_type, "Employment not listed") }}</span>
+            </div>
+          </div>
+          <div class="match-strength">
+            <small>Match strength</small>
+            <span>{{ strength.label }}</span>
+            <small>{{ strength.note }}</small>
+          </div>
+        </div>
+
+        <div class="explain-panel">
+          <section class="explain-section positive">
+            <h4>Why this match</h4>
+            {% if positives %}
+              <ul class="explain-list positive">
+                {% for item in positives %}
+                  <li>{{ item }}</li>
+                {% endfor %}
+              </ul>
+            {% else %}
+              <p class="empty-copy">Recommended by profile and job-text fit.</p>
+            {% endif %}
+          </section>
+
+          <section class="explain-section watch">
+            <h4>Things to review</h4>
+            {% if negatives %}
+              <ul class="explain-list watch">
+                {% for item in negatives %}
+                  <li>{{ item }}</li>
+                {% endfor %}
+              </ul>
+            {% else %}
+              <p class="empty-copy">No major watch-outs surfaced for this profile.</p>
+            {% endif %}
+          </section>
+        </div>
+        {% if job.feedback_adjustment_explanation %}
+          <p class="why feedback-note">{{ job.feedback_adjustment_explanation }}</p>
+        {% endif %}
+
+        <div class="job-default-details">
+          <section class="default-detail-section">
+            <h4>Skills matched</h4>
+            {% if skill_view.visible %}
+              <div class="chips compact">
+                {% for skill in skill_view.visible %}
+                  <span>{{ skill }}</span>
+                {% endfor %}
+                {% if skill_view.extra_count %}
+                  <span>+{{ skill_view.extra_count }} more</span>
+                {% endif %}
+              </div>
+            {% else %}
+              <p class="empty-copy">No explicit skill overlap listed.</p>
+            {% endif %}
+          </section>
+
+          <section class="default-detail-section">
+            <h4>Key requirements</h4>
+            <div class="requirement-grid">
+              {% for item in requirements_snapshot(job, profile) %}
+                <div>
+                  <span>{{ item.label }}</span>
+                  <strong>{{ item.value }}</strong>
+                </div>
+              {% endfor %}
+            </div>
+          </section>
+        </div>
+
+        <details class="job-detail-panel">
+          <summary>Full requirements and skills</summary>
+          <div class="detail-grid">
+            <div>
+              <span>Employment</span>
+              <strong>{{ display_value(job.employment_type) }}</strong>
+            </div>
+            <div>
+              <span>Seniority</span>
+              <strong>{{ display_value(job.seniority) }}</strong>
+            </div>
+            <div>
+              <span>Years required</span>
+              <strong>{{ display_value(job.years_required) }}</strong>
+            </div>
+            <div>
+              <span>Work authorization</span>
+              <strong>{{ work_authorization_label(job) }}</strong>
+            </div>
+            <div>
+              <span>Company type</span>
+              <strong>{{ display_value(job.company_type) }}</strong>
+            </div>
+            <div>
+              <span>Data source</span>
+              <strong>{{ provider_label(job) }}</strong>
+            </div>
+          </div>
+          {% if skill_view.all %}
+            <div class="chips detail-chips">
+              {% for skill in skill_view.all %}
+                <span>{{ skill }}</span>
+              {% endfor %}
+            </div>
+          {% endif %}
+        </details>
+
+        {% if job.description_text %}
+          <details class="job-detail-panel">
+            <summary>Job description</summary>
+            <p class="job-description-copy">{{ job.description_text }}</p>
+          </details>
+        {% endif %}
+
+        <details class="job-detail-panel">
+          <summary>Why this match</summary>
+          <div class="detail-two-col">
+            <section>
+              <h4>Match reasons</h4>
+              {% if all_positives %}
+                <ul class="explain-list positive">
+                  {% for item in all_positives %}
+                    <li>{{ item }}</li>
+                  {% endfor %}
+                </ul>
+              {% else %}
+                <p class="empty-copy">Recommended by profile and job-text fit.</p>
+              {% endif %}
+            </section>
+            <section>
+              <h4>Things to review</h4>
+              {% if all_negatives %}
+                <ul class="explain-list watch">
+                  {% for item in all_negatives %}
+                    <li>{{ item }}</li>
+                  {% endfor %}
+                </ul>
+              {% else %}
+                <p class="empty-copy">No major watch-outs surfaced for this profile.</p>
+              {% endif %}
+            </section>
+          </div>
+        </details>
+
+        {% if debug_audit %}
+          <details class="job-detail-panel debug-detail">
+            <summary>Debug scoring trace</summary>
+            <div class="detail-grid">
+              <div><span>Final score</span><strong>{{ "%.3f"|format(job.final_score or 0) }}</strong></div>
+              <div><span>Base score</span><strong>{{ "%.3f"|format(job.base_score or job.final_score or 0) }}</strong></div>
+              <div><span>Rank movement</span><strong>{{ movement or "No movement" }}</strong></div>
+              <div><span>Raw source</span><strong>{{ job.raw_source or "unknown" }}</strong></div>
+            </div>
+            {% if breakdown %}
+              <section class="score-breakdown">
+                <h4>Score components</h4>
+                <div class="component-grid readable">
+                  {% for component in breakdown %}
+                    <div class="component-tile">
+                      <span>{{ component.label }}</span>
+                      <strong>{{ "%.2f"|format(component.value or 0) }}</strong>
+                    </div>
+                  {% endfor %}
+                </div>
+              </section>
+            {% endif %}
+            <section class="boost-section">
+              <div class="boost-heading">
+                <h4>Ranking boosts</h4>
+                {% if job.evidence_adjustment is defined %}
+                  <span class="boost-total">{{ "%+.3f"|format(job.evidence_adjustment or 0) }}</span>
+                {% endif %}
+              </div>
+              {% if boosts %}
+                <ul class="explain-list boost-list">
+                  {% for boost in boosts %}
+                    <li>
+                      <strong>{{ boost.label }}</strong>
+                      <span>{{ "%+.3f"|format(boost.adjustment or 0) }}</span>
+                      {% if boost.reason %}<small>{{ boost.reason }}</small>{% endif %}
+                    </li>
+                  {% endfor %}
+                </ul>
+              {% else %}
+                <p class="empty-copy">No verified boosts changed the base score.</p>
+              {% endif %}
+              {% if movement %}
+                <p class="rank-movement">{{ movement }}</p>
+              {% endif %}
+            </section>
+            {% set safe_sidecar_signals = safe_sidecar_signal_items(job) %}
+            {% if safe_sidecar_signals %}
+              <section class="boost-section">
+                <div class="boost-heading">
+                  <h4>Safe sidecar signals</h4>
+                </div>
+                <ul class="explain-list boost-list">
+                  {% for label in safe_sidecar_signals %}
+                    <li><strong>{{ label }}</strong></li>
+                  {% endfor %}
+                </ul>
+              </section>
+            {% endif %}
+          </details>
+        {% endif %}
+
+        <div class="job-actions">
+          {% if job_apply_url(job) %}
+            <a class="button ghost" href="{{ job_apply_url(job) }}" target="_blank" rel="noreferrer">Open Posting</a>
+          {% endif %}
+          <form action="/resume" method="post" class="resume-form" data-server-available="{{ '1' if resume_status and resume_status.available else '0' }}">
+            <input type="hidden" name="session_id" value="{{ session_id }}">
+            <input type="hidden" name="job_id" value="{{ job.job_id }}">
+            <input type="hidden" name="resume_api_key" value="">
+            <input type="hidden" name="resume_model" value="">
+            <button class="small resume-button" type="submit"{% if not resume_status or not resume_status.available %} disabled title="Use the Gemini key from the profile reader to enable resume generation."{% endif %}>Generate Resume</button>
+          </form>
+          {% for action in ["accept", "reject", "skip"] %}
+            <form action="/feedback" method="post">
+              <input type="hidden" name="session_id" value="{{ session_id }}">
+              <input type="hidden" name="job_id" value="{{ job.job_id }}">
+              <input type="hidden" name="action" value="{{ action }}">
+              <button class="small feedback-action feedback-{{ action }}" type="submit">{{ action|title }}</button>
+            </form>
+          {% endfor %}
+        </div>
+      </article>
+    {% else %}
+      <div class="empty-state">No jobs returned.</div>
+    {% endfor %}
+  </section>
+</section>
+<script src="/static/results.js?v=phase3-resume-key2"></script>
+{% endblock %}

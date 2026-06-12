@@ -1,0 +1,150 @@
+{
+  "phase_id": "phase2_18j_multithread",
+  "status": "offline_demo_future_path",
+  "recommendation": "Keep as offline adaptive-learning demo and future path; results are not stable enough for guarded integration planning.",
+  "production_integration_recommended": false,
+  "guarded_18k_integration_planning_recommended": false,
+  "small_sample_simulated_poc": true,
+  "final_round2_lift": {
+    "ndcg_at_10_gain": -0.0188,
+    "ndcg_at_25_gain": -0.007,
+    "accept_rate_at_10_gain": -0.0334,
+    "accept_rate_at_25_gain": 0.0,
+    "mean_outcome_label_at_10_gain": 0.0033,
+    "mean_outcome_label_at_25_gain": 0.0
+  },
+  "persona_regression_count": 3,
+  "persona_regressions": [
+    {
+      "persona_id": "kenji",
+      "rule_mean_outcome_at_10": 0.8,
+      "ebm_mean_outcome_at_10": 0.65,
+      "delta": -0.15,
+      "status": "loss"
+    },
+    {
+      "persona_id": "kenji_variant_02",
+      "rule_mean_outcome_at_10": 0.95,
+      "ebm_mean_outcome_at_10": 0.8,
+      "delta": -0.15,
+      "status": "loss"
+    },
+    {
+      "persona_id": "kenji_variant_03",
+      "rule_mean_outcome_at_10": 0.9,
+      "ebm_mean_outcome_at_10": 0.45,
+      "delta": -0.45,
+      "status": "loss"
+    }
+  ],
+  "per_persona_round2_wins_losses": [
+    {
+      "persona_id": "aisha",
+      "rule_mean_outcome_at_10": 0.55,
+      "ebm_mean_outcome_at_10": 0.75,
+      "delta": 0.2,
+      "status": "win"
+    },
+    {
+      "persona_id": "aisha_variant_01",
+      "rule_mean_outcome_at_10": 0.9,
+      "ebm_mean_outcome_at_10": 0.85,
+      "delta": -0.05,
+      "status": "tie"
+    },
+    {
+      "persona_id": "aisha_variant_02",
+      "rule_mean_outcome_at_10": 0.75,
+      "ebm_mean_outcome_at_10": 0.75,
+      "delta": 0.0,
+      "status": "tie"
+    },
+    {
+      "persona_id": "aisha_variant_03",
+      "rule_mean_outcome_at_10": 0.55,
+      "ebm_mean_outcome_at_10": 0.65,
+      "delta": 0.1,
+      "status": "win"
+    },
+    {
+      "persona_id": "kenji",
+      "rule_mean_outcome_at_10": 0.8,
+      "ebm_mean_outcome_at_10": 0.65,
+      "delta": -0.15,
+      "status": "loss"
+    },
+    {
+      "persona_id": "kenji_variant_01",
+      "rule_mean_outcome_at_10": 0.0,
+      "ebm_mean_outcome_at_10": 0.0,
+      "delta": 0.0,
+      "status": "tie"
+    },
+    {
+      "persona_id": "kenji_variant_02",
+      "rule_mean_outcome_at_10": 0.95,
+      "ebm_mean_outcome_at_10": 0.8,
+      "delta": -0.15,
+      "status": "loss"
+    },
+    {
+      "persona_id": "kenji_variant_03",
+      "rule_mean_outcome_at_10": 0.9,
+      "ebm_mean_outcome_at_10": 0.45,
+      "delta": -0.45,
+      "status": "loss"
+    },
+    {
+      "persona_id": "marcus",
+      "rule_mean_outcome_at_10": 0.95,
+      "ebm_mean_outcome_at_10": 1.0,
+      "delta": 0.05,
+      "status": "tie"
+    },
+    {
+      "persona_id": "marcus_variant_01",
+      "rule_mean_outcome_at_10": 0.9,
+      "ebm_mean_outcome_at_10": 0.85,
+      "delta": -0.05,
+      "status": "tie"
+    },
+    {
+      "persona_id": "marcus_variant_02",
+      "rule_mean_outcome_at_10": 0.45,
+      "ebm_mean_outcome_at_10": 0.65,
+      "delta": 0.2,
+      "status": "win"
+    },
+    {
+      "persona_id": "marcus_variant_03",
+      "rule_mean_outcome_at_10": 0.7,
+      "ebm_mean_outcome_at_10": 0.75,
+      "delta": 0.05,
+      "status": "tie"
+    },
+    {
+      "persona_id": "priya",
+      "rule_mean_outcome_at_10": 1.0,
+      "ebm_mean_outcome_at_10": 1.0,
+      "delta": 0.0,
+      "status": "tie"
+    },
+    {
+      "persona_id": "priya_variant_01",
+      "rule_mean_outcome_at_10": 0.9,
+      "ebm_mean_outcome_at_10": 1.0,
+      "delta": 0.1,
+      "status": "win"
+    },
+    {
+      "persona_id": "priya_variant_02",
+      "rule_mean_outcome_at_10": 0.8,
+      "ebm_mean_outcome_at_10": 1.0,
+      "delta": 0.2,
+      "status": "win"
+    }
+  ],
+  "hard_filter_violation_rate": 0.0,
+  "labels_are_simulated_not_real_feedback": true,
+  "production_path_modified": false
+}

@@ -1,0 +1,1167 @@
+{
+  "phase": "phase2_18C_compact_job_ranking_features",
+  "generated_at": "2026-06-06T05:02:10Z",
+  "outputs": {
+    "ranking_features_csv": "data/processed/ranking_features/phase2_18_job_ranking_features.csv",
+    "ranking_feature_manifest_json": "data/processed/ranking_features/phase2_18_ranking_feature_manifest.json"
+  },
+  "row_count": 50000,
+  "snapshot_rows": 50000,
+  "job_id_alignment": {
+    "output_rows_match_snapshot_rows": true,
+    "output_job_id_order_matches_snapshot": true,
+    "output_duplicate_job_id_count": 0,
+    "lca": {
+      "source_rows": 50000,
+      "source_unique_job_ids": 50000,
+      "source_duplicate_job_id_count": 0,
+      "missing_snapshot_job_ids": 3,
+      "extra_source_job_ids": 3,
+      "order_matches_snapshot": false
+    },
+    "hard_skill": {
+      "source_rows": 50000,
+      "source_unique_job_ids": 50000,
+      "source_duplicate_job_id_count": 0,
+      "missing_snapshot_job_ids": 0,
+      "extra_source_job_ids": 0,
+      "order_matches_snapshot": true
+    },
+    "role_family": {
+      "source_rows": 50000,
+      "source_unique_job_ids": 50000,
+      "source_duplicate_job_id_count": 0,
+      "missing_snapshot_job_ids": 0,
+      "extra_source_job_ids": 0,
+      "order_matches_snapshot": true
+    },
+    "role_domain": {
+      "source_rows": 50000,
+      "source_unique_job_ids": 50000,
+      "source_duplicate_job_id_count": 0,
+      "missing_snapshot_job_ids": 0,
+      "extra_source_job_ids": 0,
+      "order_matches_snapshot": true
+    },
+    "llm_overlay": {
+      "source_rows": 15007,
+      "source_unique_job_ids": 15007,
+      "source_duplicate_job_id_count": 0,
+      "matched_snapshot_job_ids": 15007,
+      "missing_snapshot_job_ids": 34993,
+      "extra_source_job_ids": 0,
+      "partial_review_only": true
+    },
+    "company_cache": {
+      "source_rows": 2217,
+      "snapshot_jobs_with_company_key_match": 50000,
+      "snapshot_jobs_without_company_key_match": 0
+    }
+  },
+  "field_groups": {
+    "core_fields": [
+      "job_id",
+      "source",
+      "title",
+      "company",
+      "employer",
+      "location",
+      "employment_type",
+      "salary_min",
+      "salary_max",
+      "salary_available",
+      "company_key"
+    ],
+    "ranking_score_fields": [
+      "snapshot_company_type",
+      "company_type_provider",
+      "snapshot_sponsorship_signal",
+      "usable_employer_size_bucket",
+      "company_size_usage_policy",
+      "company_metadata_status",
+      "company_entity_scope",
+      "company_is_staffing_or_recruiting",
+      "lca_match_scope",
+      "lca_activity_label",
+      "lca_selected_recent_2q_certified_case_count",
+      "lca_selected_recent_2q_certified_worker_positions",
+      "lca_selected_historical_8q_certified_case_count",
+      "lca_selected_historical_8q_certified_worker_positions",
+      "hard_skill_scoring_count",
+      "hard_skill_capped_scoring_count",
+      "contextual_fallback_count",
+      "professional_competency_low_weight_count",
+      "base_context_alignment_count",
+      "role_family_primary",
+      "role_family_confidence",
+      "role_family_hard_filter_safe",
+      "role_domain_primary",
+      "role_domain_confidence",
+      "role_domain_review_needed"
+    ],
+    "explanation_fields": [
+      "company_metadata_note",
+      "company_metadata_source_provider",
+      "company_metadata_match_decision",
+      "company_matched_entity_size_bucket",
+      "lca_evidence_note",
+      "lca_interpretation_boundary",
+      "hard_skill_scoring_terms_json",
+      "hard_skill_capped_terms_json",
+      "hard_skill_review_blocked_count",
+      "hard_skill_review_blocked_terms_json",
+      "role_family_evidence",
+      "role_family_policy",
+      "role_domain_evidence",
+      "role_domain_policy",
+      "role_domain_review_reason",
+      "llm_overlay_available",
+      "llm_reviewed_overlay_status",
+      "llm_reviewed_role_domain_overlay_candidate",
+      "llm_reviewed_role_family_overlay_candidate",
+      "llm_reviewed_suggested_soft_action",
+      "llm_evidence_count",
+      "llm_evidence_spans",
+      "llm_downstream_use_gate"
+    ],
+    "retrieval_candidate_boost_fields": [
+      "retrieval_dry_run_h1b_activity_pool_flag",
+      "retrieval_dry_run_company_size_pool_flag",
+      "retrieval_dry_run_preferred_size_bucket",
+      "retrieval_dry_run_role_family_pool_key",
+      "retrieval_dry_run_hard_skill_terms_json"
+    ]
+  },
+  "field_specs": {
+    "job_id": {
+      "source": "jobs_offline_snapshot.csv",
+      "coverage": {
+        "non_empty_count": 50000,
+        "non_empty_rate": 1.0,
+        "non_neutral_count": 50000,
+        "non_neutral_rate": 1.0
+      },
+      "trust_level": "snapshot_runtime_field",
+      "intended_use": "core_field",
+      "missing_policy": "required_or_blank_pass_through",
+      "hard_filter_safe": false,
+      "training_suitability": "candidate_feature_with_missing_indicator_or_neutral_default"
+    },
+    "source": {
+      "source": "jobs_offline_snapshot.csv",
+      "coverage": {
+        "non_empty_count": 50000,
+        "non_empty_rate": 1.0,
+        "non_neutral_count": 50000,
+        "non_neutral_rate": 1.0
+      },
+      "trust_level": "snapshot_runtime_field",
+      "intended_use": "core_field",
+      "missing_policy": "required_or_blank_pass_through",
+      "hard_filter_safe": false,
+      "training_suitability": "candidate_feature_with_missing_indicator_or_neutral_default"
+    },
+    "title": {
+      "source": "jobs_offline_snapshot.csv",
+      "coverage": {
+        "non_empty_count": 50000,
+        "non_empty_rate": 1.0,
+        "non_neutral_count": 50000,
+        "non_neutral_rate": 1.0
+      },
+      "trust_level": "snapshot_runtime_field",
+      "intended_use": "core_field",
+      "missing_policy": "required_or_blank_pass_through",
+      "hard_filter_safe": false,
+      "training_suitability": "candidate_feature_with_missing_indicator_or_neutral_default"
+    },
+    "company": {
+      "source": "jobs_offline_snapshot.csv",
+      "coverage": {
+        "non_empty_count": 50000,
+        "non_empty_rate": 1.0,
+        "non_neutral_count": 50000,
+        "non_neutral_rate": 1.0
+      },
+      "trust_level": "snapshot_runtime_field",
+      "intended_use": "core_field",
+      "missing_policy": "required_or_blank_pass_through",
+      "hard_filter_safe": false,
+      "training_suitability": "candidate_feature_with_missing_indicator_or_neutral_default"
+    },
+    "employer": {
+      "source": "jobs_offline_snapshot.csv",
+      "coverage": {
+        "non_empty_count": 50000,
+        "non_empty_rate": 1.0,
+        "non_neutral_count": 50000,
+        "non_neutral_rate": 1.0
+      },
+      "trust_level": "snapshot_runtime_field",
+      "intended_use": "core_field",
+      "missing_policy": "required_or_blank_pass_through",
+      "hard_filter_safe": false,
+      "training_suitability": "candidate_feature_with_missing_indicator_or_neutral_default"
+    },
+    "location": {
+      "source": "jobs_offline_snapshot.csv",
+      "coverage": {
+        "non_empty_count": 50000,
+        "non_empty_rate": 1.0,
+        "non_neutral_count": 50000,
+        "non_neutral_rate": 1.0
+      },
+      "trust_level": "snapshot_runtime_field",
+      "intended_use": "core_field",
+      "missing_policy": "required_or_blank_pass_through",
+      "hard_filter_safe": false,
+      "training_suitability": "candidate_feature_with_missing_indicator_or_neutral_default"
+    },
+    "employment_type": {
+      "source": "jobs_offline_snapshot.csv",
+      "coverage": {
+        "non_empty_count": 50000,
+        "non_empty_rate": 1.0,
+        "non_neutral_count": 49755,
+        "non_neutral_rate": 0.9951
+      },
+      "trust_level": "snapshot_runtime_field",
+      "intended_use": "core_field",
+      "missing_policy": "required_or_blank_pass_through",
+      "hard_filter_safe": false,
+      "training_suitability": "candidate_feature_with_missing_indicator_or_neutral_default"
+    },
+    "salary_min": {
+      "source": "jobs_offline_snapshot.csv",
+      "coverage": {
+        "non_empty_count": 29609,
+        "non_empty_rate": 0.5922,
+        "non_neutral_count": 29609,
+        "non_neutral_rate": 0.5922
+      },
+      "trust_level": "snapshot_runtime_field",
+      "intended_use": "core_field",
+      "missing_policy": "required_or_blank_pass_through",
+      "hard_filter_safe": false,
+      "training_suitability": "candidate_feature_with_missing_indicator_or_neutral_default"
+    },
+    "salary_max": {
+      "source": "jobs_offline_snapshot.csv",
+      "coverage": {
+        "non_empty_count": 22356,
+        "non_empty_rate": 0.4471,
+        "non_neutral_count": 22356,
+        "non_neutral_rate": 0.4471
+      },
+      "trust_level": "snapshot_runtime_field",
+      "intended_use": "core_field",
+      "missing_policy": "required_or_blank_pass_through",
+      "hard_filter_safe": false,
+      "training_suitability": "candidate_feature_with_missing_indicator_or_neutral_default"
+    },
+    "salary_available": {
+      "source": "jobs_offline_snapshot.csv",
+      "coverage": {
+        "non_empty_count": 50000,
+        "non_empty_rate": 1.0,
+        "non_neutral_count": 29856,
+        "non_neutral_rate": 0.5971
+      },
+      "trust_level": "snapshot_runtime_field",
+      "intended_use": "core_field",
+      "missing_policy": "required_or_blank_pass_through",
+      "hard_filter_safe": false,
+      "training_suitability": "candidate_feature_with_missing_indicator_or_neutral_default"
+    },
+    "company_key": {
+      "source": "jobs_offline_snapshot.csv",
+      "coverage": {
+        "non_empty_count": 50000,
+        "non_empty_rate": 1.0,
+        "non_neutral_count": 50000,
+        "non_neutral_rate": 1.0
+      },
+      "trust_level": "snapshot_runtime_field",
+      "intended_use": "core_field",
+      "missing_policy": "required_or_blank_pass_through",
+      "hard_filter_safe": false,
+      "training_suitability": "candidate_feature_with_missing_indicator_or_neutral_default"
+    },
+    "snapshot_company_type": {
+      "source": "jobs_offline_snapshot.csv",
+      "coverage": {
+        "non_empty_count": 50000,
+        "non_empty_rate": 1.0,
+        "non_neutral_count": 8402,
+        "non_neutral_rate": 0.168
+      },
+      "trust_level": "snapshot_runtime_field",
+      "intended_use": "ranking_score_field",
+      "missing_policy": "unknown_neutral",
+      "hard_filter_safe": false,
+      "training_suitability": "candidate_feature_with_missing_indicator_or_neutral_default"
+    },
+    "company_type_provider": {
+      "source": "jobs_offline_snapshot.csv and company_metadata_cache_frozen.csv",
+      "coverage": {
+        "non_empty_count": 50000,
+        "non_empty_rate": 1.0,
+        "non_neutral_count": 0,
+        "non_neutral_rate": 0.0
+      },
+      "trust_level": "soft_company_context",
+      "intended_use": "ranking_score_field",
+      "missing_policy": "unknown_neutral",
+      "hard_filter_safe": false,
+      "training_suitability": "candidate_feature_with_missing_indicator_or_neutral_default"
+    },
+    "snapshot_sponsorship_signal": {
+      "source": "jobs_offline_snapshot.csv",
+      "coverage": {
+        "non_empty_count": 50000,
+        "non_empty_rate": 1.0,
+        "non_neutral_count": 449,
+        "non_neutral_rate": 0.009
+      },
+      "trust_level": "snapshot_runtime_field",
+      "intended_use": "ranking_score_field",
+      "missing_policy": "unknown_neutral",
+      "hard_filter_safe": "existing_runtime_contract_only",
+      "training_suitability": "candidate_feature_with_missing_indicator_or_neutral_default"
+    },
+    "usable_employer_size_bucket": {
+      "source": "jobs_offline_snapshot.csv and company_metadata_cache_frozen.csv",
+      "coverage": {
+        "non_empty_count": 50000,
+        "non_empty_rate": 1.0,
+        "non_neutral_count": 33642,
+        "non_neutral_rate": 0.6728
+      },
+      "trust_level": "soft_company_context",
+      "intended_use": "ranking_score_field",
+      "missing_policy": "unknown_neutral",
+      "hard_filter_safe": false,
+      "training_suitability": "candidate_feature_with_missing_indicator_or_neutral_default"
+    },
+    "company_size_usage_policy": {
+      "source": "jobs_offline_snapshot.csv and company_metadata_cache_frozen.csv",
+      "coverage": {
+        "non_empty_count": 50000,
+        "non_empty_rate": 1.0,
+        "non_neutral_count": 44152,
+        "non_neutral_rate": 0.883
+      },
+      "trust_level": "soft_company_context",
+      "intended_use": "ranking_score_field",
+      "missing_policy": "unknown_neutral",
+      "hard_filter_safe": false,
+      "training_suitability": "candidate_feature_with_missing_indicator_or_neutral_default"
+    },
+    "company_metadata_status": {
+      "source": "jobs_offline_snapshot.csv and company_metadata_cache_frozen.csv",
+      "coverage": {
+        "non_empty_count": 50000,
+        "non_empty_rate": 1.0,
+        "non_neutral_count": 44152,
+        "non_neutral_rate": 0.883
+      },
+      "trust_level": "soft_company_context",
+      "intended_use": "ranking_score_field",
+      "missing_policy": "unknown_neutral",
+      "hard_filter_safe": false,
+      "training_suitability": "candidate_feature_with_missing_indicator_or_neutral_default"
+    },
+    "company_entity_scope": {
+      "source": "jobs_offline_snapshot.csv and company_metadata_cache_frozen.csv",
+      "coverage": {
+        "non_empty_count": 50000,
+        "non_empty_rate": 1.0,
+        "non_neutral_count": 44152,
+        "non_neutral_rate": 0.883
+      },
+      "trust_level": "soft_company_context",
+      "intended_use": "ranking_score_field",
+      "missing_policy": "unknown_neutral",
+      "hard_filter_safe": false,
+      "training_suitability": "candidate_feature_with_missing_indicator_or_neutral_default"
+    },
+    "company_is_staffing_or_recruiting": {
+      "source": "jobs_offline_snapshot.csv and company_metadata_cache_frozen.csv",
+      "coverage": {
+        "non_empty_count": 50000,
+        "non_empty_rate": 1.0,
+        "non_neutral_count": 10441,
+        "non_neutral_rate": 0.2088
+      },
+      "trust_level": "soft_company_context",
+      "intended_use": "ranking_score_field",
+      "missing_policy": "unknown_neutral",
+      "hard_filter_safe": false,
+      "training_suitability": "candidate_feature_with_missing_indicator_or_neutral_default"
+    },
+    "lca_match_scope": {
+      "source": "job_lca_evidence.csv",
+      "coverage": {
+        "non_empty_count": 50000,
+        "non_empty_rate": 1.0,
+        "non_neutral_count": 17740,
+        "non_neutral_rate": 0.3548
+      },
+      "trust_level": "official_historical_employer_filing_activity_not_job_sponsorship_truth",
+      "intended_use": "ranking_score_field",
+      "missing_policy": "no_activity_or_zero_neutral",
+      "hard_filter_safe": false,
+      "training_suitability": "candidate_feature_with_missing_indicator_or_neutral_default"
+    },
+    "lca_activity_label": {
+      "source": "job_lca_evidence.csv",
+      "coverage": {
+        "non_empty_count": 50000,
+        "non_empty_rate": 1.0,
+        "non_neutral_count": 17740,
+        "non_neutral_rate": 0.3548
+      },
+      "trust_level": "official_historical_employer_filing_activity_not_job_sponsorship_truth",
+      "intended_use": "ranking_score_field",
+      "missing_policy": "no_activity_or_zero_neutral",
+      "hard_filter_safe": false,
+      "training_suitability": "candidate_feature_with_missing_indicator_or_neutral_default"
+    },
+    "lca_selected_recent_2q_certified_case_count": {
+      "source": "job_lca_evidence.csv",
+      "coverage": {
+        "non_empty_count": 50000,
+        "non_empty_rate": 1.0,
+        "non_neutral_count": 10537,
+        "non_neutral_rate": 0.2107
+      },
+      "trust_level": "official_historical_employer_filing_activity_not_job_sponsorship_truth",
+      "intended_use": "ranking_score_field",
+      "missing_policy": "no_activity_or_zero_neutral",
+      "hard_filter_safe": false,
+      "training_suitability": "candidate_feature_with_missing_indicator_or_neutral_default"
+    },
+    "lca_selected_recent_2q_certified_worker_positions": {
+      "source": "job_lca_evidence.csv",
+      "coverage": {
+        "non_empty_count": 50000,
+        "non_empty_rate": 1.0,
+        "non_neutral_count": 10537,
+        "non_neutral_rate": 0.2107
+      },
+      "trust_level": "official_historical_employer_filing_activity_not_job_sponsorship_truth",
+      "intended_use": "ranking_score_field",
+      "missing_policy": "no_activity_or_zero_neutral",
+      "hard_filter_safe": false,
+      "training_suitability": "candidate_feature_with_missing_indicator_or_neutral_default"
+    },
+    "lca_selected_historical_8q_certified_case_count": {
+      "source": "job_lca_evidence.csv",
+      "coverage": {
+        "non_empty_count": 50000,
+        "non_empty_rate": 1.0,
+        "non_neutral_count": 15918,
+        "non_neutral_rate": 0.3184
+      },
+      "trust_level": "official_historical_employer_filing_activity_not_job_sponsorship_truth",
+      "intended_use": "ranking_score_field",
+      "missing_policy": "no_activity_or_zero_neutral",
+      "hard_filter_safe": false,
+      "training_suitability": "candidate_feature_with_missing_indicator_or_neutral_default"
+    },
+    "lca_selected_historical_8q_certified_worker_positions": {
+      "source": "job_lca_evidence.csv",
+      "coverage": {
+        "non_empty_count": 50000,
+        "non_empty_rate": 1.0,
+        "non_neutral_count": 15918,
+        "non_neutral_rate": 0.3184
+      },
+      "trust_level": "official_historical_employer_filing_activity_not_job_sponsorship_truth",
+      "intended_use": "ranking_score_field",
+      "missing_policy": "no_activity_or_zero_neutral",
+      "hard_filter_safe": false,
+      "training_suitability": "candidate_feature_with_missing_indicator_or_neutral_default"
+    },
+    "hard_skill_scoring_count": {
+      "source": "phase2_16k3_job_ranking_signal_admission_sidecar.jsonl",
+      "coverage": {
+        "non_empty_count": 50000,
+        "non_empty_rate": 1.0,
+        "non_neutral_count": 5653,
+        "non_neutral_rate": 0.1131
+      },
+      "trust_level": "channelized_hard_skill_policy_signal",
+      "intended_use": "ranking_score_field",
+      "missing_policy": "zero_count_or_empty_list_neutral",
+      "hard_filter_safe": false,
+      "training_suitability": "candidate_feature_with_missing_indicator_or_neutral_default"
+    },
+    "hard_skill_capped_scoring_count": {
+      "source": "phase2_16k3_job_ranking_signal_admission_sidecar.jsonl",
+      "coverage": {
+        "non_empty_count": 50000,
+        "non_empty_rate": 1.0,
+        "non_neutral_count": 12451,
+        "non_neutral_rate": 0.249
+      },
+      "trust_level": "channelized_hard_skill_policy_signal",
+      "intended_use": "ranking_score_field",
+      "missing_policy": "zero_count_or_empty_list_neutral",
+      "hard_filter_safe": false,
+      "training_suitability": "candidate_feature_with_missing_indicator_or_neutral_default"
+    },
+    "contextual_fallback_count": {
+      "source": "phase2_16k3_job_ranking_signal_admission_sidecar.jsonl",
+      "coverage": {
+        "non_empty_count": 50000,
+        "non_empty_rate": 1.0,
+        "non_neutral_count": 16715,
+        "non_neutral_rate": 0.3343
+      },
+      "trust_level": "channelized_hard_skill_policy_signal",
+      "intended_use": "ranking_score_field",
+      "missing_policy": "zero_count_or_empty_list_neutral",
+      "hard_filter_safe": false,
+      "training_suitability": "candidate_feature_with_missing_indicator_or_neutral_default"
+    },
+    "professional_competency_low_weight_count": {
+      "source": "phase2_16k3_job_ranking_signal_admission_sidecar.jsonl",
+      "coverage": {
+        "non_empty_count": 50000,
+        "non_empty_rate": 1.0,
+        "non_neutral_count": 28066,
+        "non_neutral_rate": 0.5613
+      },
+      "trust_level": "channelized_hard_skill_policy_signal",
+      "intended_use": "ranking_score_field",
+      "missing_policy": "zero_count_or_empty_list_neutral",
+      "hard_filter_safe": false,
+      "training_suitability": "candidate_feature_with_missing_indicator_or_neutral_default"
+    },
+    "base_context_alignment_count": {
+      "source": "phase2_16k3_job_ranking_signal_admission_sidecar.jsonl",
+      "coverage": {
+        "non_empty_count": 50000,
+        "non_empty_rate": 1.0,
+        "non_neutral_count": 50000,
+        "non_neutral_rate": 1.0
+      },
+      "trust_level": "channelized_hard_skill_policy_signal",
+      "intended_use": "ranking_score_field",
+      "missing_policy": "zero_count_or_empty_list_neutral",
+      "hard_filter_safe": false,
+      "training_suitability": "candidate_feature_with_missing_indicator_or_neutral_default"
+    },
+    "role_family_primary": {
+      "source": "jobpilot_role_family_taxonomy_baseline_predictions.csv",
+      "coverage": {
+        "non_empty_count": 50000,
+        "non_empty_rate": 1.0,
+        "non_neutral_count": 27695,
+        "non_neutral_rate": 0.5539
+      },
+      "trust_level": "deterministic_taxonomy_soft_signal",
+      "intended_use": "ranking_score_field",
+      "missing_policy": "unknown_neutral",
+      "hard_filter_safe": false,
+      "training_suitability": "candidate_feature_with_missing_indicator_or_neutral_default"
+    },
+    "role_family_confidence": {
+      "source": "jobpilot_role_family_taxonomy_baseline_predictions.csv",
+      "coverage": {
+        "non_empty_count": 50000,
+        "non_empty_rate": 1.0,
+        "non_neutral_count": 50000,
+        "non_neutral_rate": 1.0
+      },
+      "trust_level": "deterministic_taxonomy_soft_signal",
+      "intended_use": "ranking_score_field",
+      "missing_policy": "unknown_neutral",
+      "hard_filter_safe": false,
+      "training_suitability": "candidate_feature_with_missing_indicator_or_neutral_default"
+    },
+    "role_family_hard_filter_safe": {
+      "source": "jobpilot_role_family_taxonomy_baseline_predictions.csv",
+      "coverage": {
+        "non_empty_count": 50000,
+        "non_empty_rate": 1.0,
+        "non_neutral_count": 317,
+        "non_neutral_rate": 0.0063
+      },
+      "trust_level": "deterministic_taxonomy_soft_signal",
+      "intended_use": "ranking_score_field",
+      "missing_policy": "unknown_neutral",
+      "hard_filter_safe": "field_reports_source_policy; 18C_does_not_apply_filters",
+      "training_suitability": "candidate_feature_with_missing_indicator_or_neutral_default"
+    },
+    "role_domain_primary": {
+      "source": "role_domain_level1_snapshot_predictions.csv",
+      "coverage": {
+        "non_empty_count": 50000,
+        "non_empty_rate": 1.0,
+        "non_neutral_count": 43135,
+        "non_neutral_rate": 0.8627
+      },
+      "trust_level": "deterministic_taxonomy_soft_signal",
+      "intended_use": "ranking_score_field",
+      "missing_policy": "unknown_neutral",
+      "hard_filter_safe": false,
+      "training_suitability": "candidate_feature_with_missing_indicator_or_neutral_default"
+    },
+    "role_domain_confidence": {
+      "source": "role_domain_level1_snapshot_predictions.csv",
+      "coverage": {
+        "non_empty_count": 50000,
+        "non_empty_rate": 1.0,
+        "non_neutral_count": 50000,
+        "non_neutral_rate": 1.0
+      },
+      "trust_level": "deterministic_taxonomy_soft_signal",
+      "intended_use": "ranking_score_field",
+      "missing_policy": "unknown_neutral",
+      "hard_filter_safe": false,
+      "training_suitability": "candidate_feature_with_missing_indicator_or_neutral_default"
+    },
+    "role_domain_review_needed": {
+      "source": "role_domain_level1_snapshot_predictions.csv",
+      "coverage": {
+        "non_empty_count": 50000,
+        "non_empty_rate": 1.0,
+        "non_neutral_count": 21061,
+        "non_neutral_rate": 0.4212
+      },
+      "trust_level": "deterministic_taxonomy_soft_signal",
+      "intended_use": "ranking_score_field",
+      "missing_policy": "unknown_neutral",
+      "hard_filter_safe": false,
+      "training_suitability": "candidate_feature_with_missing_indicator_or_neutral_default"
+    },
+    "company_metadata_note": {
+      "source": "jobs_offline_snapshot.csv and company_metadata_cache_frozen.csv",
+      "coverage": {
+        "non_empty_count": 50000,
+        "non_empty_rate": 1.0,
+        "non_neutral_count": 50000,
+        "non_neutral_rate": 1.0
+      },
+      "trust_level": "soft_company_context",
+      "intended_use": "explanation_field",
+      "missing_policy": "unknown_neutral",
+      "hard_filter_safe": false,
+      "training_suitability": "candidate_feature_with_missing_indicator_or_neutral_default"
+    },
+    "company_metadata_source_provider": {
+      "source": "jobs_offline_snapshot.csv and company_metadata_cache_frozen.csv",
+      "coverage": {
+        "non_empty_count": 44152,
+        "non_empty_rate": 0.883,
+        "non_neutral_count": 44152,
+        "non_neutral_rate": 0.883
+      },
+      "trust_level": "soft_company_context",
+      "intended_use": "explanation_field",
+      "missing_policy": "unknown_neutral",
+      "hard_filter_safe": false,
+      "training_suitability": "candidate_feature_with_missing_indicator_or_neutral_default"
+    },
+    "company_metadata_match_decision": {
+      "source": "jobs_offline_snapshot.csv and company_metadata_cache_frozen.csv",
+      "coverage": {
+        "non_empty_count": 50000,
+        "non_empty_rate": 1.0,
+        "non_neutral_count": 44152,
+        "non_neutral_rate": 0.883
+      },
+      "trust_level": "soft_company_context",
+      "intended_use": "explanation_field",
+      "missing_policy": "unknown_neutral",
+      "hard_filter_safe": false,
+      "training_suitability": "candidate_feature_with_missing_indicator_or_neutral_default"
+    },
+    "company_matched_entity_size_bucket": {
+      "source": "jobs_offline_snapshot.csv and company_metadata_cache_frozen.csv",
+      "coverage": {
+        "non_empty_count": 50000,
+        "non_empty_rate": 1.0,
+        "non_neutral_count": 44147,
+        "non_neutral_rate": 0.8829
+      },
+      "trust_level": "soft_company_context",
+      "intended_use": "explanation_field",
+      "missing_policy": "unknown_neutral",
+      "hard_filter_safe": false,
+      "training_suitability": "candidate_feature_with_missing_indicator_or_neutral_default"
+    },
+    "lca_evidence_note": {
+      "source": "job_lca_evidence.csv",
+      "coverage": {
+        "non_empty_count": 49997,
+        "non_empty_rate": 0.9999,
+        "non_neutral_count": 49997,
+        "non_neutral_rate": 0.9999
+      },
+      "trust_level": "official_historical_employer_filing_activity_not_job_sponsorship_truth",
+      "intended_use": "explanation_field",
+      "missing_policy": "no_activity_or_zero_neutral",
+      "hard_filter_safe": false,
+      "training_suitability": "candidate_feature_with_missing_indicator_or_neutral_default"
+    },
+    "lca_interpretation_boundary": {
+      "source": "job_lca_evidence.csv",
+      "coverage": {
+        "non_empty_count": 49997,
+        "non_empty_rate": 0.9999,
+        "non_neutral_count": 49997,
+        "non_neutral_rate": 0.9999
+      },
+      "trust_level": "official_historical_employer_filing_activity_not_job_sponsorship_truth",
+      "intended_use": "explanation_field",
+      "missing_policy": "no_activity_or_zero_neutral",
+      "hard_filter_safe": false,
+      "training_suitability": "candidate_feature_with_missing_indicator_or_neutral_default"
+    },
+    "hard_skill_scoring_terms_json": {
+      "source": "phase2_16k3_job_ranking_signal_admission_sidecar.jsonl",
+      "coverage": {
+        "non_empty_count": 50000,
+        "non_empty_rate": 1.0,
+        "non_neutral_count": 5653,
+        "non_neutral_rate": 0.1131
+      },
+      "trust_level": "channelized_hard_skill_policy_signal",
+      "intended_use": "explanation_field",
+      "missing_policy": "zero_count_or_empty_list_neutral",
+      "hard_filter_safe": false,
+      "training_suitability": "candidate_feature_with_missing_indicator_or_neutral_default"
+    },
+    "hard_skill_capped_terms_json": {
+      "source": "phase2_16k3_job_ranking_signal_admission_sidecar.jsonl",
+      "coverage": {
+        "non_empty_count": 50000,
+        "non_empty_rate": 1.0,
+        "non_neutral_count": 12451,
+        "non_neutral_rate": 0.249
+      },
+      "trust_level": "channelized_hard_skill_policy_signal",
+      "intended_use": "explanation_field",
+      "missing_policy": "zero_count_or_empty_list_neutral",
+      "hard_filter_safe": false,
+      "training_suitability": "candidate_feature_with_missing_indicator_or_neutral_default"
+    },
+    "hard_skill_review_blocked_count": {
+      "source": "phase2_16k3_job_ranking_signal_admission_sidecar.jsonl",
+      "coverage": {
+        "non_empty_count": 50000,
+        "non_empty_rate": 1.0,
+        "non_neutral_count": 45454,
+        "non_neutral_rate": 0.9091
+      },
+      "trust_level": "channelized_hard_skill_policy_signal",
+      "intended_use": "explanation_field",
+      "missing_policy": "zero_count_or_empty_list_neutral",
+      "hard_filter_safe": false,
+      "training_suitability": "candidate_feature_with_missing_indicator_or_neutral_default"
+    },
+    "hard_skill_review_blocked_terms_json": {
+      "source": "phase2_16k3_job_ranking_signal_admission_sidecar.jsonl",
+      "coverage": {
+        "non_empty_count": 50000,
+        "non_empty_rate": 1.0,
+        "non_neutral_count": 45454,
+        "non_neutral_rate": 0.9091
+      },
+      "trust_level": "channelized_hard_skill_policy_signal",
+      "intended_use": "explanation_field",
+      "missing_policy": "zero_count_or_empty_list_neutral",
+      "hard_filter_safe": false,
+      "training_suitability": "candidate_feature_with_missing_indicator_or_neutral_default"
+    },
+    "role_family_evidence": {
+      "source": "jobpilot_role_family_taxonomy_baseline_predictions.csv",
+      "coverage": {
+        "non_empty_count": 49998,
+        "non_empty_rate": 1.0,
+        "non_neutral_count": 49998,
+        "non_neutral_rate": 1.0
+      },
+      "trust_level": "deterministic_taxonomy_soft_signal",
+      "intended_use": "explanation_field",
+      "missing_policy": "unknown_neutral",
+      "hard_filter_safe": false,
+      "training_suitability": "candidate_feature_with_missing_indicator_or_neutral_default"
+    },
+    "role_family_policy": {
+      "source": "jobpilot_role_family_taxonomy_baseline_predictions.csv",
+      "coverage": {
+        "non_empty_count": 50000,
+        "non_empty_rate": 1.0,
+        "non_neutral_count": 50000,
+        "non_neutral_rate": 1.0
+      },
+      "trust_level": "deterministic_taxonomy_soft_signal",
+      "intended_use": "explanation_field",
+      "missing_policy": "unknown_neutral",
+      "hard_filter_safe": false,
+      "training_suitability": "candidate_feature_with_missing_indicator_or_neutral_default"
+    },
+    "role_domain_evidence": {
+      "source": "role_domain_level1_snapshot_predictions.csv",
+      "coverage": {
+        "non_empty_count": 49998,
+        "non_empty_rate": 1.0,
+        "non_neutral_count": 49998,
+        "non_neutral_rate": 1.0
+      },
+      "trust_level": "deterministic_taxonomy_soft_signal",
+      "intended_use": "explanation_field",
+      "missing_policy": "unknown_neutral",
+      "hard_filter_safe": false,
+      "training_suitability": "candidate_feature_with_missing_indicator_or_neutral_default"
+    },
+    "role_domain_policy": {
+      "source": "role_domain_level1_snapshot_predictions.csv",
+      "coverage": {
+        "non_empty_count": 50000,
+        "non_empty_rate": 1.0,
+        "non_neutral_count": 50000,
+        "non_neutral_rate": 1.0
+      },
+      "trust_level": "deterministic_taxonomy_soft_signal",
+      "intended_use": "explanation_field",
+      "missing_policy": "unknown_neutral",
+      "hard_filter_safe": false,
+      "training_suitability": "candidate_feature_with_missing_indicator_or_neutral_default"
+    },
+    "role_domain_review_reason": {
+      "source": "role_domain_level1_snapshot_predictions.csv",
+      "coverage": {
+        "non_empty_count": 21061,
+        "non_empty_rate": 0.4212,
+        "non_neutral_count": 21061,
+        "non_neutral_rate": 0.4212
+      },
+      "trust_level": "deterministic_taxonomy_soft_signal",
+      "intended_use": "explanation_field",
+      "missing_policy": "unknown_neutral",
+      "hard_filter_safe": false,
+      "training_suitability": "candidate_feature_with_missing_indicator_or_neutral_default"
+    },
+    "llm_overlay_available": {
+      "source": "llm_review_overlay_v021_full_review_queue_reviewed_overlay_backbone_candidate.csv",
+      "coverage": {
+        "non_empty_count": 50000,
+        "non_empty_rate": 1.0,
+        "non_neutral_count": 15007,
+        "non_neutral_rate": 0.3001
+      },
+      "trust_level": "partial_review_only_not_gold",
+      "intended_use": "explanation_field",
+      "missing_policy": "overlay_absent_neutral",
+      "hard_filter_safe": false,
+      "training_suitability": "candidate_feature_with_missing_indicator_or_neutral_default"
+    },
+    "llm_reviewed_overlay_status": {
+      "source": "llm_review_overlay_v021_full_review_queue_reviewed_overlay_backbone_candidate.csv",
+      "coverage": {
+        "non_empty_count": 15007,
+        "non_empty_rate": 0.3001,
+        "non_neutral_count": 15007,
+        "non_neutral_rate": 0.3001
+      },
+      "trust_level": "partial_review_only_not_gold",
+      "intended_use": "explanation_field",
+      "missing_policy": "overlay_absent_neutral",
+      "hard_filter_safe": false,
+      "training_suitability": "candidate_feature_with_missing_indicator_or_neutral_default"
+    },
+    "llm_reviewed_role_domain_overlay_candidate": {
+      "source": "llm_review_overlay_v021_full_review_queue_reviewed_overlay_backbone_candidate.csv",
+      "coverage": {
+        "non_empty_count": 15007,
+        "non_empty_rate": 0.3001,
+        "non_neutral_count": 14986,
+        "non_neutral_rate": 0.2997
+      },
+      "trust_level": "partial_review_only_not_gold",
+      "intended_use": "explanation_field",
+      "missing_policy": "overlay_absent_neutral",
+      "hard_filter_safe": false,
+      "training_suitability": "candidate_feature_with_missing_indicator_or_neutral_default"
+    },
+    "llm_reviewed_role_family_overlay_candidate": {
+      "source": "llm_review_overlay_v021_full_review_queue_reviewed_overlay_backbone_candidate.csv",
+      "coverage": {
+        "non_empty_count": 15007,
+        "non_empty_rate": 0.3001,
+        "non_neutral_count": 1169,
+        "non_neutral_rate": 0.0234
+      },
+      "trust_level": "partial_review_only_not_gold",
+      "intended_use": "explanation_field",
+      "missing_policy": "overlay_absent_neutral",
+      "hard_filter_safe": false,
+      "training_suitability": "candidate_feature_with_missing_indicator_or_neutral_default"
+    },
+    "llm_reviewed_suggested_soft_action": {
+      "source": "llm_review_overlay_v021_full_review_queue_reviewed_overlay_backbone_candidate.csv",
+      "coverage": {
+        "non_empty_count": 15007,
+        "non_empty_rate": 0.3001,
+        "non_neutral_count": 15007,
+        "non_neutral_rate": 0.3001
+      },
+      "trust_level": "partial_review_only_not_gold",
+      "intended_use": "explanation_field",
+      "missing_policy": "overlay_absent_neutral",
+      "hard_filter_safe": false,
+      "training_suitability": "candidate_feature_with_missing_indicator_or_neutral_default"
+    },
+    "llm_evidence_count": {
+      "source": "llm_review_overlay_v021_full_review_queue_reviewed_overlay_backbone_candidate.csv",
+      "coverage": {
+        "non_empty_count": 50000,
+        "non_empty_rate": 1.0,
+        "non_neutral_count": 15007,
+        "non_neutral_rate": 0.3001
+      },
+      "trust_level": "partial_review_only_not_gold",
+      "intended_use": "explanation_field",
+      "missing_policy": "overlay_absent_neutral",
+      "hard_filter_safe": false,
+      "training_suitability": "candidate_feature_with_missing_indicator_or_neutral_default"
+    },
+    "llm_evidence_spans": {
+      "source": "llm_review_overlay_v021_full_review_queue_reviewed_overlay_backbone_candidate.csv",
+      "coverage": {
+        "non_empty_count": 15007,
+        "non_empty_rate": 0.3001,
+        "non_neutral_count": 15007,
+        "non_neutral_rate": 0.3001
+      },
+      "trust_level": "partial_review_only_not_gold",
+      "intended_use": "explanation_field",
+      "missing_policy": "overlay_absent_neutral",
+      "hard_filter_safe": false,
+      "training_suitability": "candidate_feature_with_missing_indicator_or_neutral_default"
+    },
+    "llm_downstream_use_gate": {
+      "source": "llm_review_overlay_v021_full_review_queue_reviewed_overlay_backbone_candidate.csv",
+      "coverage": {
+        "non_empty_count": 15007,
+        "non_empty_rate": 0.3001,
+        "non_neutral_count": 15007,
+        "non_neutral_rate": 0.3001
+      },
+      "trust_level": "partial_review_only_not_gold",
+      "intended_use": "explanation_field",
+      "missing_policy": "overlay_absent_neutral",
+      "hard_filter_safe": false,
+      "training_suitability": "candidate_feature_with_missing_indicator_or_neutral_default"
+    },
+    "retrieval_dry_run_h1b_activity_pool_flag": {
+      "source": "derived_from_compact_sidecar_inputs",
+      "coverage": {
+        "non_empty_count": 50000,
+        "non_empty_rate": 1.0,
+        "non_neutral_count": 17740,
+        "non_neutral_rate": 0.3548
+      },
+      "trust_level": "dry_run_metadata_not_runtime_integrated",
+      "intended_use": "retrieval_candidate_boost_field_future_dry_run_only",
+      "missing_policy": "false_or_unknown_neutral",
+      "hard_filter_safe": false,
+      "training_suitability": "candidate_feature_with_missing_indicator_or_neutral_default"
+    },
+    "retrieval_dry_run_company_size_pool_flag": {
+      "source": "derived_from_compact_sidecar_inputs",
+      "coverage": {
+        "non_empty_count": 50000,
+        "non_empty_rate": 1.0,
+        "non_neutral_count": 33642,
+        "non_neutral_rate": 0.6728
+      },
+      "trust_level": "dry_run_metadata_not_runtime_integrated",
+      "intended_use": "retrieval_candidate_boost_field_future_dry_run_only",
+      "missing_policy": "false_or_unknown_neutral",
+      "hard_filter_safe": false,
+      "training_suitability": "candidate_feature_with_missing_indicator_or_neutral_default"
+    },
+    "retrieval_dry_run_preferred_size_bucket": {
+      "source": "derived_from_compact_sidecar_inputs",
+      "coverage": {
+        "non_empty_count": 50000,
+        "non_empty_rate": 1.0,
+        "non_neutral_count": 33642,
+        "non_neutral_rate": 0.6728
+      },
+      "trust_level": "dry_run_metadata_not_runtime_integrated",
+      "intended_use": "retrieval_candidate_boost_field_future_dry_run_only",
+      "missing_policy": "false_or_unknown_neutral",
+      "hard_filter_safe": false,
+      "training_suitability": "candidate_feature_with_missing_indicator_or_neutral_default"
+    },
+    "retrieval_dry_run_role_family_pool_key": {
+      "source": "derived_from_compact_sidecar_inputs",
+      "coverage": {
+        "non_empty_count": 50000,
+        "non_empty_rate": 1.0,
+        "non_neutral_count": 1857,
+        "non_neutral_rate": 0.0371
+      },
+      "trust_level": "dry_run_metadata_not_runtime_integrated",
+      "intended_use": "retrieval_candidate_boost_field_future_dry_run_only",
+      "missing_policy": "false_or_unknown_neutral",
+      "hard_filter_safe": false,
+      "training_suitability": "candidate_feature_with_missing_indicator_or_neutral_default"
+    },
+    "retrieval_dry_run_hard_skill_terms_json": {
+      "source": "derived_from_compact_sidecar_inputs",
+      "coverage": {
+        "non_empty_count": 50000,
+        "non_empty_rate": 1.0,
+        "non_neutral_count": 15131,
+        "non_neutral_rate": 0.3026
+      },
+      "trust_level": "dry_run_metadata_not_runtime_integrated",
+      "intended_use": "retrieval_candidate_boost_field_future_dry_run_only",
+      "missing_policy": "false_or_unknown_neutral",
+      "hard_filter_safe": false,
+      "training_suitability": "candidate_feature_with_missing_indicator_or_neutral_default"
+    }
+  },
+  "coverage_summary": {
+    "company_metadata_status_counts": {
+      "matched": 44152,
+      "unknown": 5848
+    },
+    "usable_employer_size_bucket_counts": {
+      "unknown": 16358,
+      "enterprise_10001_plus": 16007,
+      "enterprise_5001_10000": 5150,
+      "large_1001_5000": 4579,
+      "mid_201_500": 2940,
+      "large_501_1000": 2022,
+      "mid_51_200": 1498,
+      "small_11_50": 891,
+      "micro_1_10": 555
+    },
+    "company_size_usage_policy_counts": {
+      "usable_employer_context": 33634,
+      "staffing_context_only": 10441,
+      "unknown_neutral": 5848,
+      "brand_context_only": 64,
+      "usable_single_location_context": 13
+    },
+    "lca_activity_label_counts": {
+      "no_lca_activity_in_cache": 32260,
+      "recent_lca_activity_low": 5171,
+      "recent_lca_activity_high": 4626,
+      "historical_lca_activity_only": 3464,
+      "recent_lca_activity_moderate": 2269,
+      "recent_lca_activity_no_certified_cases": 2210
+    },
+    "lca_match_scope_counts": {
+      "none": 32260,
+      "role_family": 15284,
+      "employer_only": 2456
+    },
+    "snapshot_sponsorship_signal_counts": {
+      "unknown": 49551,
+      "mentions_sponsorship_or_work_auth": 340,
+      "no_sponsorship": 109
+    },
+    "snapshot_company_type_counts": {
+      "unknown": 41598,
+      "research_lab": 3135,
+      "defense_military": 2652,
+      "large_company": 2269,
+      "startup": 346
+    },
+    "role_family_primary_counts": {
+      "other": 25838,
+      "unknown": 22305,
+      "other_tech": 1229,
+      "ml_ai": 187,
+      "data_analytics": 182,
+      "data_engineering": 120,
+      "ml_infra": 51,
+      "bi_analytics": 50,
+      "software_backend": 37,
+      "research_ai": 1
+    },
+    "role_domain_primary_counts": {
+      "other": 8679,
+      "operations_supply_chain": 7143,
+      "unknown": 6865,
+      "healthcare_clinical": 6315,
+      "retail_service": 5168,
+      "finance_accounting": 3320,
+      "engineering_non_software": 2748,
+      "sales_customer_success": 2317,
+      "admin_office": 1043,
+      "software_engineering": 940,
+      "legal_compliance": 786,
+      "hr_recruiting": 772,
+      "product_management": 720,
+      "healthcare_admin": 709,
+      "it_network_systems": 449,
+      "marketing_growth": 422,
+      "data_analytics": 418,
+      "ai_ml": 294,
+      "science_research_non_ai": 254,
+      "education_training": 203,
+      "design_ux": 167,
+      "cybersecurity": 147,
+      "cloud_devops": 121
+    },
+    "llm_overlay_available_counts": {
+      "false": 34993,
+      "true": 15007
+    },
+    "retrieval_dry_run_h1b_activity_pool_flag_counts": {
+      "false": 32260,
+      "true": 17740
+    },
+    "retrieval_dry_run_company_size_pool_flag_counts": {
+      "true": 33642,
+      "false": 16358
+    }
+  },
+  "boundaries": {
+    "phase1_ingestion_modified": false,
+    "match_ranking_modified": false,
+    "production_ranking_integrated": false,
+    "production_ranking_weights_integrated": false,
+    "runtime_sidecar_integrated": false,
+    "model_trained": false,
+    "embeddings_rebuilt": false,
+    "embedding_text_modified": false,
+    "faiss_query_modified": false,
+    "ann_index_modified": false,
+    "hybrid_retrieval_integrated": false,
+    "live_api_calls_made": false,
+    "retrieval_candidate_boost_fields_runtime_integrated": false,
+    "lca_is_job_level_sponsorship_truth": false,
+    "company_size_or_type_is_hard_truth": false,
+    "llm_overlay_is_full_50k_coverage": false,
+    "llm_overlay_is_gold_label": false,
+    "missing_evidence_penalized": false
+  },
+  "interpretation_notes": [
+    "LCA/H-1B activity is historical or recent employer filing activity, not sponsorship confirmation for a specific posting.",
+    "Company size/type fields are soft company-context evidence only; unknown, staffing-only, and brand-only context remain neutral.",
+    "LLM overlay fields are partial review-only evidence and must not be treated as full 50k coverage or gold labels.",
+    "Missing evidence defaults to neutral values and must not penalize a job.",
+    "Retrieval candidate boost fields are metadata for future dry-run benchmarks only and are not connected to retrieval."
+  ],
+  "input_artifacts": {
+    "snapshot": "data/processed/jobs_offline_snapshot.csv",
+    "company_metadata_cache": "data/processed/company_metadata_cache/company_metadata_cache_frozen.csv",
+    "job_lca_evidence": "data/processed/lca_cache/job_lca_evidence.csv",
+    "hard_skill_admission": "data/processed/hard_skill_sidecar/phase2_16k3_job_ranking_signal_admission_sidecar.jsonl",
+    "role_family_predictions": "data/processed/role_family_taxonomy/jobpilot_role_family_taxonomy_baseline_predictions.csv",
+    "role_domain_predictions": "data/processed/role_domain_taxonomy_experiment/role_domain_level1_snapshot_predictions.csv",
+    "llm_review_overlay": "data/processed/llm_review_overlay/phase2_16k_v021_full_review_queue/llm_review_overlay_v021_full_review_queue_reviewed_overlay_backbone_candidate.csv"
+  }
+}

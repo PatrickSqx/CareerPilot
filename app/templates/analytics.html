@@ -1,0 +1,313 @@
+{% extends "base.html" %}
+{% block title %}JobPilot Analytics{% endblock %}
+{% block content %}
+<section class="analytics-page">
+  <div class="section-heading">
+    <span class="eyebrow">Batch Market Analytics</span>
+    <h1>Full Snapshot Market Dashboard</h1>
+  </div>
+
+  {% if analytics.status == "missing" %}
+    <div class="notice warning">{{ analytics.warning }}</div>
+  {% else %}
+    <div class="notice">
+      Offline processed snapshot - full-dataset, read-only market dashboard
+    </div>
+  {% endif %}
+
+  {% set salary = analytics.salary_display_summary or analytics.salary_summary or {} %}
+  {% set remote = analytics.remote_distribution or {} %}
+  <div class="metric-row wide">
+    <div><span class="metric-label">Total rows</span><strong>{{ analytics.row_count or 0 }}</strong></div>
+    <div><span class="metric-label">Salary observations</span><strong>{{ salary.count_label or salary.count or 0 }}</strong></div>
+    <div><span class="metric-label">Mean listed salary</span><strong>{{ salary.average_label or "$%.0f"|format(salary.average or 0) }}</strong></div>
+    <div><span class="metric-label">Remote postings</span><strong>{{ remote.remote or 0 }}</strong></div>
+  </div>
+
+  {% set total_rows = analytics.row_count|float if analytics.row_count else 1 %}
+  <div class="analytics-grid">
+    <div class="analytics-column">
+      <section>
+        <h2>Top Skills</h2>
+        {% set skill_max = top_skills[0].value|float if top_skills else 1 %}
+        <div class="chart-list">
+          {% for item in top_skills %}
+            <div class="chart-row">
+              <div class="chart-meta"><span>{{ item.label }}</span><strong>{{ item.value }}</strong></div>
+              <div class="chart-track"><span class="chart-fill" style="--bar: {{ ((item.value|float) / skill_max * 100)|round(1) }}%;"></span></div>
+            </div>
+          {% endfor %}
+        </div>
+      </section>
+      <section>
+        <h2>Demand by Location</h2>
+        {% set location_max = top_locations[0].value|float if top_locations else 1 %}
+        <div class="chart-list">
+          {% for item in top_locations %}
+            <div class="chart-row">
+              <div class="chart-meta"><span>{{ item.label }}</span><strong>{{ item.value }}</strong></div>
+              <div class="chart-track"><span class="chart-fill" style="--bar: {{ ((item.value|float) / location_max * 100)|round(1) }}%;"></span></div>
+            </div>
+          {% endfor %}
+        </div>
+      </section>
+      <section>
+        <h2>Employment Type</h2>
+        <div class="chart-list">
+          {% for label, value in (analytics.employment_type_distribution or {}).items() %}
+            <div class="chart-row">
+              <div class="chart-meta"><span>{{ label }}</span><strong>{{ value }}</strong></div>
+              <div class="chart-track"><span class="chart-fill" style="--bar: {{ ((value|float) / total_rows * 100)|round(1) }}%;"></span></div>
+            </div>
+          {% endfor %}
+        </div>
+      </section>
+    </div>
+    <div class="analytics-column">
+      <section>
+        <h2>Salary Summary</h2>
+        <div class="salary-visual">
+          <div><span>Screened observations</span><strong>{{ salary.count_label or salary.count or 0 }}</strong></div>
+          <div><span>Mean listed salary</span><strong>{{ salary.average_label or "$%.0f"|format(salary.average or 0) }}</strong></div>
+          <div><span>Display min</span><strong>{{ salary.min_label or "$%.0f"|format(salary.min or 0) }}</strong></div>
+          <div><span>Display max</span><strong>{{ salary.max_label or "$%.0f"|format(salary.max or 0) }}</strong></div>
+        </div>
+        {% if salary.screening_note %}
+          <p class="metric-footnote">{{ salary.screening_note }}</p>
+        {% endif %}
+      </section>
+      <section>
+        <h2>Source Split</h2>
+        {% set source_counts_map = analytics.source_counts or {} %}
+        {% set split = namespace(offline=0, current=0, unknown=0) %}
+        {% for label, value in source_counts_map.items() %}
+          {% set source_label = label|string|lower %}
+          {% if "adzuna" in source_label or "jsearch" in source_label or "api" in source_label %}
+            {% set split.current = split.current + (value|int) %}
+          {% elif source_label == "" or source_label == "unknown" %}
+            {% set split.unknown = split.unknown + (value|int) %}
+          {% else %}
+            {% set split.offline = split.offline + (value|int) %}
+          {% endif %}
+        {% endfor %}
+        <div class="chart-list">
+          <div class="chart-row">
+            <div class="chart-meta"><span>Kaggle/offline snapshot</span><strong>{{ split.offline }}</strong></div>
+            <div class="chart-track"><span class="chart-fill" style="--bar: {{ (split.offline / total_rows * 100)|round(1) }}%;"></span></div>
+          </div>
+          <div class="chart-row">
+            <div class="chart-meta"><span>Saved current API rows</span><strong>{{ split.current }}</strong></div>
+            <div class="chart-track"><span class="chart-fill" style="--bar: {{ (split.current / total_rows * 100)|round(1) }}%;"></span></div>
+          </div>
+          {% if split.unknown %}
+            <div class="chart-row">
+              <div class="chart-meta"><span>Unclassified source</span><strong>{{ split.unknown }}</strong></div>
+              <div class="chart-track"><span class="chart-fill" style="--bar: {{ (split.unknown / total_rows * 100)|round(1) }}%;"></span></div>
+            </div>
+          {% endif %}
+        </div>
+      </section>
+      <section>
+        <h2>Provider Source Counts</h2>
+        {% set provider = namespace(max=1) %}
+        {% for item in source_counts %}
+          {% if item.value|float > provider.max %}
+            {% set provider.max = item.value|float %}
+          {% endif %}
+        {% endfor %}
+        <div class="chart-list">
+          {% for item in source_counts %}
+            <div class="chart-row">
+              <div class="chart-meta"><span>{{ item.label }}</span><strong>{{ item.value }}</strong></div>
+              <div class="chart-track"><span class="chart-fill" style="--bar: {{ ((item.value|float) / provider.max * 100)|round(1) }}%;"></span></div>
+            </div>
+          {% endfor %}
+        </div>
+      </section>
+      <section>
+        <h2>Remote Distribution</h2>
+        <div class="chart-list">
+          {% for label, value in (analytics.remote_distribution or {}).items() %}
+            <div class="chart-row">
+              <div class="chart-meta"><span>{{ label }}</span><strong>{{ value }}</strong></div>
+              <div class="chart-track"><span class="chart-fill" style="--bar: {{ ((value|float) / total_rows * 100)|round(1) }}%;"></span></div>
+            </div>
+          {% endfor %}
+        </div>
+      </section>
+      <section class="context-section">
+        <h2>Full Snapshot Title Context</h2>
+        <p class="context-note">All industries in the 50,000-row snapshot. The tech/data title view is shown below in Target Role Lens.</p>
+        {% set title_max = top_titles[0].value|float if top_titles else 1 %}
+        <div class="chart-list">
+          {% for item in top_titles %}
+            <div class="chart-row">
+              <div class="chart-meta"><span>{{ item.label }}</span><strong>{{ item.value }}</strong></div>
+              <div class="chart-track"><span class="chart-fill" style="--bar: {{ ((item.value|float) / title_max * 100)|round(1) }}%;"></span></div>
+            </div>
+          {% endfor %}
+        </div>
+      </section>
+    </div>
+  </div>
+
+  {% if tech_analytics.status == "available" %}
+    {% set focus_count = tech_analytics.focus_row_count|float if tech_analytics.focus_row_count else 1 %}
+    <section class="focus-dashboard">
+      <div class="section-heading horizontal">
+        <div>
+          <span class="eyebrow">Target Role Lens</span>
+          <h2>Tech/Data Focus Lens</h2>
+        </div>
+        <span class="run-meta">Derived from full snapshot - {{ tech_analytics.focus_row_count }} focus postings</span>
+      </div>
+
+      <div class="focus-summary">
+        <div>
+          <span class="metric-label">Tech/data focus postings</span>
+          <strong>{{ tech_analytics.focus_row_count }}</strong>
+          <small>{{ "%.2f"|format(tech_analytics.focus_share_of_snapshot or 0) }}% of snapshot</small>
+        </div>
+        <div>
+          <span class="metric-label">Largest target family</span>
+          <strong>{{ tech_largest_segment.label }}</strong>
+          <small>{{ tech_largest_segment.value }} tagged postings</small>
+        </div>
+        <div>
+          <span class="metric-label">Core demand signal</span>
+          <strong>SQL + Excel + Python</strong>
+          <small>Top skills in focus postings</small>
+        </div>
+      </div>
+
+      <div class="focus-card-grid">
+        {% for label, segment in (tech_analytics.segments or {}).items() %}
+          {% set count = segment.count|float if segment.count else 1 %}
+          {% set salary_info = segment.salary or {} %}
+          {% set remote_mix = segment.remote_distribution or {} %}
+          <article class="focus-card">
+            <div class="focus-card-top">
+              <div>
+                <h3>{{ label }}</h3>
+                <p>{{ segment.count }} postings - {{ "%.2f"|format(segment.share_of_snapshot or 0) }}% of snapshot</p>
+              </div>
+              <div class="focus-ring" style="--share: {{ segment.share_of_snapshot or 0 }}%;">
+                <span>{{ "%.1f"|format(segment.share_of_snapshot or 0) }}%</span>
+              </div>
+            </div>
+            <div class="remote-stack" aria-label="Remote mix">
+              <span class="remote-remote" style="--stack: {{ ((remote_mix.remote or 0)|float / count * 100)|round(1) }}%;"></span>
+              <span class="remote-hybrid" style="--stack: {{ ((remote_mix.hybrid or 0)|float / count * 100)|round(1) }}%;"></span>
+              <span class="remote-onsite" style="--stack: {{ ((remote_mix.onsite or 0)|float / count * 100)|round(1) }}%;"></span>
+              <span class="remote-unknown" style="--stack: {{ ((remote_mix.unknown or 0)|float / count * 100)|round(1) }}%;"></span>
+            </div>
+            <div class="focus-stats">
+              <div><span>Median listed midpoint</span><strong>{{ "%.0f"|format(salary_info.median_midpoint or 0) }}</strong></div>
+              <div><span>Salary rows</span><strong>{{ salary_info.listed_rows or 0 }}</strong></div>
+            </div>
+            <div class="skill-chips">
+              {% for skill, value in (segment.top_skills or {}).items() %}
+                {% if loop.index <= 6 %}
+                  <span>{{ skill }}</span>
+                {% endif %}
+              {% endfor %}
+            </div>
+          </article>
+        {% endfor %}
+      </div>
+      <div class="visual-legend">
+        <span><i class="legend-swatch remote-remote"></i>Remote</span>
+        <span><i class="legend-swatch remote-hybrid"></i>Hybrid</span>
+        <span><i class="legend-swatch remote-onsite"></i>Onsite</span>
+        <span><i class="legend-swatch remote-unknown"></i>Unknown</span>
+      </div>
+
+      <div class="focus-grid">
+        <section>
+          <h2>Target Role Mix</h2>
+          {% set counts = tech_analytics.segment_counts or {} %}
+          {% set mix_total = counts.values()|sum if counts else 1 %}
+          {% set da = (counts.get("Data analytics / BI", 0)|float / mix_total * 100)|round(1) %}
+          {% set de = (counts.get("Data engineering", 0)|float / mix_total * 100)|round(1) %}
+          {% set ml = (counts.get("ML / AI", 0)|float / mix_total * 100)|round(1) %}
+          {% set de_stop = da + de %}
+          {% set ml_stop = de_stop + ml %}
+          <div class="role-donut" style="background: conic-gradient(#ea580c 0 {{ da }}%, #a98f64 {{ da }}% {{ de_stop }}%, #6c7fa6 {{ de_stop }}% {{ ml_stop }}%, #78716c {{ ml_stop }}% 100%);">
+            <span>{{ tech_analytics.focus_row_count }}</span>
+          </div>
+          <div class="legend-list">
+            {% for item in tech_segment_counts %}
+              <div class="legend-row">
+                <span class="legend-dot legend-{{ loop.index }}"></span>
+                <span>{{ item.label }}</span>
+                <strong>{{ item.value }}</strong>
+              </div>
+            {% endfor %}
+          </div>
+        </section>
+        <section>
+          <h2>Target Skills</h2>
+          {% set focus_skill_max = tech_top_skills[0].value|float if tech_top_skills else 1 %}
+          <div class="chart-list">
+            {% for item in tech_top_skills %}
+              <div class="chart-row">
+                <div class="chart-meta"><span>{{ item.label }}</span><strong>{{ item.value }}</strong></div>
+                <div class="chart-track"><span class="chart-fill focus-fill" style="--bar: {{ ((item.value|float) / focus_skill_max * 100)|round(1) }}%;"></span></div>
+              </div>
+            {% endfor %}
+          </div>
+        </section>
+        <section>
+          <h2>Focus Title Frequency</h2>
+          {% set focus_title_max = tech_top_titles[0].value|float if tech_top_titles else 1 %}
+          <div class="chart-list">
+            {% for item in tech_top_titles %}
+              <div class="chart-row">
+                <div class="chart-meta"><span>{{ item.label }}</span><strong>{{ item.value }}</strong></div>
+                <div class="chart-track"><span class="chart-fill focus-fill" style="--bar: {{ ((item.value|float) / focus_title_max * 100)|round(1) }}%;"></span></div>
+              </div>
+            {% endfor %}
+          </div>
+        </section>
+        <section>
+          <h2>Salary Range by Segment</h2>
+          <div class="micro-legend">
+            <span><i class="legend-line"></i>P25-P75 range</span>
+            <span><i class="legend-dot-marker"></i>Median</span>
+          </div>
+          <div class="salary-range-list">
+            {% for label, segment in (tech_analytics.segments or {}).items() %}
+              {% set salary_info = segment.salary or {} %}
+              {% set p25 = salary_info.p25_midpoint or 0 %}
+              {% set p75 = salary_info.p75_midpoint or 0 %}
+              {% set median = salary_info.median_midpoint or 0 %}
+              {% set left = (p25 / 180000 * 100)|round(1) %}
+              {% set width = ((p75 - p25) / 180000 * 100)|round(1) %}
+              {% set marker = (median / 180000 * 100)|round(1) %}
+              <div class="salary-range-row">
+                <div class="chart-meta"><span>{{ label }}</span><strong>{{ "%.0f"|format(median) }}</strong></div>
+                <div class="range-track">
+                  <span class="range-band" style="--left: {{ left }}%; --width: {{ width }}%;"></span>
+                  <span class="range-marker" style="--left: {{ marker }}%;"></span>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        </section>
+        <section>
+          <h2>Focus Locations</h2>
+          {% set focus_location_max = tech_top_locations[0].value|float if tech_top_locations else 1 %}
+          <div class="chart-list">
+            {% for item in tech_top_locations %}
+              <div class="chart-row">
+                <div class="chart-meta"><span>{{ item.label }}</span><strong>{{ item.value }}</strong></div>
+                <div class="chart-track"><span class="chart-fill focus-fill" style="--bar: {{ ((item.value|float) / focus_location_max * 100)|round(1) }}%;"></span></div>
+              </div>
+            {% endfor %}
+          </div>
+        </section>
+      </div>
+    </section>
+  {% endif %}
+</section>
+{% endblock %}

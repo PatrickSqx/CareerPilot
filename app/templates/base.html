@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en" data-theme="warm">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}JobPilot{% endblock %}</title>
+    <link rel="stylesheet" href="/static/styles.css?v=phase3-style-fidelity7">
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="/">JobPilot</a>
+      <nav class="nav">
+        <a href="/">Matcher</a>
+        <a href="/analytics">Market Analytics</a>
+        {% if session_id %}
+          <a href="/download/top-jobs?session_id={{ session_id }}">CSV</a>
+        {% endif %}
+      </nav>
+    </header>
+    <main class="page">
+      {% block content %}{% endblock %}
+    </main>
+  </body>
+</html>

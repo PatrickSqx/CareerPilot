@@ -1,0 +1,166 @@
+{
+  "status": "completed",
+  "source": "data/processed/persona_phase2_results.json",
+  "method": "rule-based persona simulator using Phase 2 fit, risk, matched skills, and sponsorship/company signals",
+  "random_feedback_used": false,
+  "personas": {
+    "aisha": {
+      "events_by_action": {
+        "accept": 3,
+        "reject": 2,
+        "skip": 3
+      },
+      "feedback_events_simulated": 8,
+      "rounds_simulated": 3,
+      "mean_accept_score_lift": 0.178667,
+      "mean_reject_score_drop": -0.3055,
+      "mean_skip_score_shift": 0.034667,
+      "rejected_jobs_remaining_in_top5_before": 0,
+      "rejected_jobs_remaining_in_top5_after": 0,
+      "accepted_jobs_average_rank_before": 2.6667,
+      "accepted_jobs_average_rank_after": 2.0,
+      "accepted_jobs_average_rank_improvement": 0.6667,
+      "rejected_jobs_average_rank_before": 9.5,
+      "rejected_jobs_average_rank_after": 9.5,
+      "rejected_jobs_average_rank_moved_down": 0.0,
+      "rejected_jobs_weighted_exposure_before": 3,
+      "rejected_jobs_weighted_exposure_after": 3,
+      "rejected_jobs_weighted_exposure_improvement": 0,
+      "top5_before": [
+        "50f774f455af33f0d97c0685",
+        "adfbf1a3543a74189628a214",
+        "c3044cf8ada661fb86ca2bd5",
+        "86860202e9da7c9b9cf7d8f8",
+        "603c8fc4c3b11c40bce75698"
+      ],
+      "top5_after": [
+        "86860202e9da7c9b9cf7d8f8",
+        "50f774f455af33f0d97c0685",
+        "c3044cf8ada661fb86ca2bd5",
+        "cd1fe55e202c50329cb34394",
+        "255a862e5a291d7c9f64057e"
+      ]
+    },
+    "kenji": {
+      "events_by_action": {
+        "accept": 1,
+        "reject": 2,
+        "skip": 3
+      },
+      "feedback_events_simulated": 6,
+      "rounds_simulated": 3,
+      "mean_accept_score_lift": 0.19,
+      "mean_reject_score_drop": -0.45,
+      "mean_skip_score_shift": -0.184667,
+      "rejected_jobs_remaining_in_top5_before": 0,
+      "rejected_jobs_remaining_in_top5_after": 0,
+      "accepted_jobs_average_rank_before": 1.0,
+      "accepted_jobs_average_rank_after": 1.0,
+      "accepted_jobs_average_rank_improvement": 0.0,
+      "rejected_jobs_average_rank_before": 9.5,
+      "rejected_jobs_average_rank_after": 9.5,
+      "rejected_jobs_average_rank_moved_down": 0.0,
+      "rejected_jobs_weighted_exposure_before": 3,
+      "rejected_jobs_weighted_exposure_after": 3,
+      "rejected_jobs_weighted_exposure_improvement": 0,
+      "top5_before": [
+        "874cbc488538093e69743ce9",
+        "0c502d56a9bab0be7239bfb7",
+        "c09cb2b52b5ffd0435f76581",
+        "44d5c7dcd3c805d8955a82a9",
+        "edf3a70cc02e90cea734b72e"
+      ],
+      "top5_after": [
+        "874cbc488538093e69743ce9",
+        "0c502d56a9bab0be7239bfb7",
+        "edf3a70cc02e90cea734b72e",
+        "02a396214f930e55c3d4d0ee",
+        "dea87335b57db003d5b855f9"
+      ],
+      "unknown_sponsor_without_proxy_top10_before": 0,
+      "unknown_sponsor_without_proxy_top10_after": 0,
+      "small_company_or_unknown_sponsor_top10_before": 9,
+      "small_company_or_unknown_sponsor_top10_after": 9,
+      "kenji_rejected_sponsorship_risk_average_rank_before": null,
+      "kenji_rejected_sponsorship_risk_average_rank_after": null,
+      "kenji_rejected_sponsorship_risk_moved_down": null,
+      "kenji_sponsorship_risk_weighted_exposure_before": 0,
+      "kenji_sponsorship_risk_weighted_exposure_after": 0,
+      "kenji_sponsorship_risk_weighted_exposure_improvement": 0
+    },
+    "marcus": {
+      "events_by_action": {
+        "accept": 3,
+        "reject": 3,
+        "skip": 2
+      },
+      "feedback_events_simulated": 8,
+      "rounds_simulated": 3,
+      "mean_accept_score_lift": 0.160667,
+      "mean_reject_score_drop": -0.45,
+      "mean_skip_score_shift": -0.033,
+      "rejected_jobs_remaining_in_top5_before": 3,
+      "rejected_jobs_remaining_in_top5_after": 0,
+      "accepted_jobs_average_rank_before": 3.0,
+      "accepted_jobs_average_rank_after": 2.0,
+      "accepted_jobs_average_rank_improvement": 1.0,
+      "rejected_jobs_average_rank_before": 4.0,
+      "rejected_jobs_average_rank_after": 9.0,
+      "rejected_jobs_average_rank_moved_down": 5.0,
+      "rejected_jobs_weighted_exposure_before": 21,
+      "rejected_jobs_weighted_exposure_after": 6,
+      "rejected_jobs_weighted_exposure_improvement": 15,
+      "top5_before": [
+        "70d6ab83101ae7f1990315dd",
+        "8daaec5ebfe0c247e7d7c070",
+        "3d17886074f4f04baf2022fa",
+        "6b575cd1d10acc392ca054e3",
+        "56c42cd0fd21374e384b31e8"
+      ],
+      "top5_after": [
+        "70d6ab83101ae7f1990315dd",
+        "6446b1c17b0c6b4cdd4d9a7d",
+        "8daaec5ebfe0c247e7d7c070",
+        "e838e158bbbd86cac1846ff5",
+        "45e7bb87acc389bac37152ea"
+      ]
+    },
+    "priya": {
+      "events_by_action": {
+        "accept": 1,
+        "reject": 3,
+        "skip": 3
+      },
+      "feedback_events_simulated": 7,
+      "rounds_simulated": 3,
+      "mean_accept_score_lift": 0.024,
+      "mean_reject_score_drop": -0.45,
+      "mean_skip_score_shift": -0.233,
+      "rejected_jobs_remaining_in_top5_before": 3,
+      "rejected_jobs_remaining_in_top5_after": 0,
+      "accepted_jobs_average_rank_before": 4.0,
+      "accepted_jobs_average_rank_after": 1.0,
+      "accepted_jobs_average_rank_improvement": 3.0,
+      "rejected_jobs_average_rank_before": 2.0,
+      "rejected_jobs_average_rank_after": 9.0,
+      "rejected_jobs_average_rank_moved_down": 7.0,
+      "rejected_jobs_weighted_exposure_before": 27,
+      "rejected_jobs_weighted_exposure_after": 6,
+      "rejected_jobs_weighted_exposure_improvement": 21,
+      "top5_before": [
+        "80e2e4d8b5a5650ecd0d5fdb",
+        "137c24822ac6628caebe08d9",
+        "920a4c2196620e39559531f5",
+        "0d71e96e7e7b2a5b102def05",
+        "8a97d8cbf0133d0c476ae53f"
+      ],
+      "top5_after": [
+        "0d71e96e7e7b2a5b102def05",
+        "b9d07e796094e57e38276e83",
+        "edf3a70cc02e90cea734b72e",
+        "2fee2d03bd37b3915abc42a0",
+        "8a97d8cbf0133d0c476ae53f"
+      ]
+    }
+  }
+}

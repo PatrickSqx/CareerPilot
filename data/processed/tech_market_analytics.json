@@ -1,0 +1,298 @@
+{
+  "row_count": 50000,
+  "focus_row_count": 3169,
+  "focus_share_of_snapshot": 6.34,
+  "segment_counts": {
+    "Data analytics / BI": 726,
+    "Data engineering": 234,
+    "ML / AI": 438,
+    "Software / cloud tech": 1968
+  },
+  "top_focus_skills": {
+    "SQL": 1615,
+    "Java": 1240,
+    "Python": 751,
+    "AWS": 689,
+    "Analytics": 610,
+    "Azure": 452,
+    "Excel": 426,
+    "Machine learning": 274,
+    "Tableau": 268,
+    "Spark": 207,
+    "Microservices": 184,
+    "Kafka": 178,
+    "Docker": 173,
+    "Statistics": 170,
+    "Kubernetes": 149
+  },
+  "top_focus_titles": {
+    "Business Analyst": 66,
+    "Data Scientist": 66,
+    "Data Analyst": 57,
+    "Software Engineer": 53,
+    "Software Developer": 35,
+    "Salesforce Developer": 34,
+    "Machine Learning Engineer": 33,
+    "Python MLOps Engineer": 31,
+    "Principal Applied Scientist": 27,
+    "Network Engineer": 25,
+    "Java Developer": 22,
+    "Associate eCommerce Data Analyst": 21
+  },
+  "top_focus_locations": {
+    "Atlanta, GA, US": 289,
+    "Charlotte, NC, US": 111,
+    "Houston, TX, US": 61,
+    "New York, NY, US": 56,
+    "Dallas, TX, US": 48,
+    "Chicago, IL, US": 47,
+    "Columbus, OH, US": 44,
+    "Boston, MA, US": 43,
+    "Austin, TX, US": 41,
+    "San Francisco, CA, US": 39
+  },
+  "segments": {
+    "Data analytics / BI": {
+      "count": 726,
+      "share_of_snapshot": 1.45,
+      "top_skills": {
+        "SQL": 309,
+        "Excel": 302,
+        "Analytics": 295,
+        "Tableau": 156,
+        "Python": 86,
+        "Business Intelligence": 75,
+        "Power BI": 60,
+        "Statistics": 56,
+        "Data warehousing": 37,
+        "ETL": 31,
+        "Java": 28,
+        "Azure": 26
+      },
+      "top_titles": {
+        "Business Analyst": 66,
+        "Data Analyst": 57,
+        "Associate eCommerce Data Analyst": 21,
+        "Executive Operations Business Analyst": 20,
+        "Financial Analyst": 20,
+        "Analytics Engineer": 18,
+        "Senior Business Analyst": 17,
+        "Sr. Business Analyst": 12
+      },
+      "top_locations": {
+        "Atlanta, GA, US": 47,
+        "Charlotte, NC, US": 32,
+        "New York, NY, US": 18,
+        "Houston, TX, US": 15,
+        "Austin, TX, US": 11,
+        "Boston, MA, US": 11,
+        "Tampa, FL, US": 10,
+        "Dallas, TX, US": 10
+      },
+      "remote_distribution": {
+        "unknown": 590,
+        "remote": 109,
+        "onsite": 15,
+        "hybrid": 12
+      },
+      "employment_type_distribution": {
+        "fulltime": 299,
+        "contract": 231,
+        "unknown": 104,
+        "full-time": 76,
+        "internship": 5,
+        "temporary": 4,
+        "permanent": 3,
+        "fulltime parttime": 2
+      },
+      "salary": {
+        "listed_rows": 444,
+        "median_midpoint": 92500.0,
+        "p25_midpoint": 70000.0,
+        "p75_midpoint": 114897.02
+      }
+    },
+    "Data engineering": {
+      "count": 234,
+      "share_of_snapshot": 0.47,
+      "top_skills": {
+        "SQL": 227,
+        "Python": 100,
+        "AWS": 99,
+        "Analytics": 89,
+        "Java": 86,
+        "Azure": 63,
+        "ETL": 60,
+        "Spark": 59,
+        "Data warehousing": 54,
+        "Tableau": 39,
+        "Big Data": 34,
+        "Data engineering": 33
+      },
+      "top_titles": {
+        "Data Engineer": 13,
+        "Sr. Data Engineer": 7,
+        "ETL Developer": 6,
+        "Principal Data Engineer": 4,
+        "Lead Data Engineer": 4,
+        "Sr. Data Engineer - Telecommute": 4,
+        "Data Engineer III": 4,
+        "Ab Initio Developer (Software Engineer)": 4
+      },
+      "top_locations": {
+        "Atlanta, GA, US": 37,
+        "Charlotte, NC, US": 13,
+        "Plano, TX, US": 9,
+        "Dallas, TX, US": 8,
+        "Houston, TX, US": 7,
+        "Boston, MA, US": 7,
+        "Minneapolis, MN, US": 4,
+        "Columbus, OH, US": 4
+      },
+      "remote_distribution": {
+        "unknown": 178,
+        "remote": 47,
+        "hybrid": 5,
+        "onsite": 4
+      },
+      "employment_type_distribution": {
+        "fulltime": 128,
+        "contract": 84,
+        "full-time": 19,
+        "heltidsanst lld": 1,
+        "fulltime parttime": 1,
+        "temporary": 1
+      },
+      "salary": {
+        "listed_rows": 109,
+        "median_midpoint": 111150.0,
+        "p25_midpoint": 68640.0,
+        "p75_midpoint": 133500.0
+      }
+    },
+    "ML / AI": {
+      "count": 438,
+      "share_of_snapshot": 0.88,
+      "top_skills": {
+        "Machine learning": 183,
+        "Python": 154,
+        "SQL": 129,
+        "Analytics": 119,
+        "Tableau": 60,
+        "Statistics": 60,
+        "AWS": 57,
+        "Spark": 43,
+        "scikit-learn": 37,
+        "Azure": 36,
+        "Java": 29,
+        "Excel": 27
+      },
+      "top_titles": {
+        "Data Scientist": 66,
+        "Machine Learning Engineer": 33,
+        "Python MLOps Engineer": 31,
+        "Principal Applied Scientist": 27,
+        "Data Scientist (Entry Level)": 15,
+        "Senior Machine Learning Engineer": 7,
+        "MLOps Engineer": 7,
+        "Data Scientist II - Telecommute": 7
+      },
+      "top_locations": {
+        "Atlanta, GA, US": 23,
+        "Chicago, IL, US": 10,
+        "Bethlehem, PA, US": 8,
+        "Redmond, King County": 7,
+        "Grand Central, Manhattan": 7,
+        "Boston, Suffolk County": 6,
+        "San Diego, CA, US": 6,
+        "International, King County": 5
+      },
+      "remote_distribution": {
+        "unknown": 359,
+        "remote": 61,
+        "onsite": 14,
+        "hybrid": 4
+      },
+      "employment_type_distribution": {
+        "fulltime": 147,
+        "unknown": 141,
+        "contract": 90,
+        "full-time": 41,
+        "internship": 5,
+        "fulltime parttime": 5,
+        "temporary": 4,
+        "parttime": 2
+      },
+      "salary": {
+        "listed_rows": 314,
+        "median_midpoint": 118225.8,
+        "p25_midpoint": 86000.0,
+        "p75_midpoint": 184705.03
+      }
+    },
+    "Software / cloud tech": {
+      "count": 1968,
+      "share_of_snapshot": 3.94,
+      "top_skills": {
+        "SQL": 1187,
+        "Java": 1161,
+        "AWS": 569,
+        "Python": 492,
+        "Azure": 370,
+        "Microservices": 176,
+        "Analytics": 166,
+        "Kafka": 152,
+        "Docker": 149,
+        "Spark": 144,
+        "Git": 136,
+        "Kubernetes": 121
+      },
+      "top_titles": {
+        "Software Engineer": 53,
+        "Software Developer": 35,
+        "Salesforce Developer": 34,
+        "Network Engineer": 25,
+        "Java Developer": 22,
+        "Systems Engineer": 21,
+        "Web Developer": 18,
+        "Full Stack Developer": 18
+      },
+      "top_locations": {
+        "Atlanta, GA, US": 209,
+        "Charlotte, NC, US": 75,
+        "Houston, TX, US": 42,
+        "Columbus, OH, US": 37,
+        "Chicago, IL, US": 36,
+        "New York, NY, US": 33,
+        "Dallas, TX, US": 33,
+        "Springfield, MO, US": 31
+      },
+      "remote_distribution": {
+        "unknown": 1379,
+        "remote": 512,
+        "onsite": 52,
+        "hybrid": 25
+      },
+      "employment_type_distribution": {
+        "fulltime": 1014,
+        "contract": 705,
+        "full-time": 204,
+        "temporary": 24,
+        "internship": 8,
+        "permanent": 5,
+        "part-time": 4,
+        "unpaid": 2
+      },
+      "salary": {
+        "listed_rows": 1022,
+        "median_midpoint": 107500.0,
+        "p25_midpoint": 70000.0,
+        "p75_midpoint": 133500.0
+      }
+    }
+  },
+  "source_artifacts": [
+    "data/processed/jobs_offline_snapshot.csv",
+    "data/processed/role_family_taxonomy/jobpilot_role_family_taxonomy_baseline_predictions.csv"
+  ]
+}

@@ -1,0 +1,339 @@
+{% extends "base.html" %}
+{% block title %}JobPilot Matcher{% endblock %}
+{% block content %}
+<form action="/match" method="post" enctype="multipart/form-data" id="jobpilot-form" class="profile-intake-layout">
+  <input type="hidden" name="candidate_k" value="200">
+  <input type="hidden" name="profile_filters_ready" id="profile_filters_ready" value="">
+
+  <aside class="intake-panel">
+    <div class="panel-header dark">
+      <span class="eyebrow">Profile</span>
+      <h1>JobPilot</h1>
+      <p>Profile Intake</p>
+    </div>
+
+    <div class="intake-section">
+      <label>
+        Preset
+        <select name="persona" id="persona-preset">
+          <option value="manual" {% if default_persona == "manual" %}selected{% endif %}>Manual profile</option>
+          {% for persona in personas %}
+            <option value="{{ persona.id }}" {% if persona.id == default_persona %}selected{% endif %}>{{ persona.name }} (demo persona)</option>
+          {% endfor %}
+        </select>
+      </label>
+    </div>
+
+    <div class="intake-section">
+      <label>
+        Name
+        <input type="text" name="manual_name" placeholder="Optional display name">
+      </label>
+    </div>
+
+    <div class="intake-section">
+      <label>
+        Resume file
+        <input type="file" name="resume_pdf" id="resume_pdf" accept=".pdf,.docx,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document">
+      </label>
+    </div>
+
+    <div class="intake-section grow">
+      <label>
+        Persona, profile, or resume text
+        <textarea name="profile_text" id="profile_text" rows="12" placeholder="Background:
+Skills:
+Target Roles:
+Preferences:
+Dealbreakers:
+Pass Criteria:"></textarea>
+      </label>
+    </div>
+
+    <details class="demo-presets">
+      <summary>Demo text</summary>
+      <div class="demo-buttons">
+        <button type="button" class="ghost small" data-demo="aisha">Aisha</button>
+        <button type="button" class="ghost small" data-demo="kenji">Kenji</button>
+        <button type="button" class="ghost small" data-demo="marcus">Marcus</button>
+        <button type="button" class="ghost small" data-demo="priya">Priya</button>
+      </div>
+    </details>
+
+    <details class="parser-settings">
+      <summary>Profile reader</summary>
+      <div class="parser-settings-grid">
+        <label>
+          Interface
+          <select id="parser_mode">
+            <option value="rule_fallback">Local profile reader (no API key)</option>
+            <option value="llm">Gemini API</option>
+          </select>
+        </label>
+        <label>
+          AI provider
+          <select id="parser_provider">
+            <option value="gemini">Google Gemini</option>
+          </select>
+        </label>
+        <label>
+          Gemini API key
+          <input type="password" id="parser_api_key" autocomplete="off" spellcheck="false" placeholder="Paste key for this read">
+        </label>
+        <label>
+          Model (optional)
+          <select id="parser_model">
+            <option value="" selected>Configured default</option>
+            <option value="gemini-2.5-flash">gemini-2.5-flash</option>
+            <option value="gemini-2.5-flash-lite">gemini-2.5-flash-lite</option>
+            <option value="gemini-2.5-pro">gemini-2.5-pro</option>
+          </select>
+        </label>
+      </div>
+    </details>
+
+    <div class="panel-footer">
+      <button type="button" class="primary" id="btn-parse">
+        <span id="parse-label">Read Profile Locally</span>
+        <span id="parse-loading" class="hidden">Reading...</span>
+      </button>
+      <div id="parse-error" class="inline-error hidden"></div>
+      <div id="parse-notes" class="parse-notes hidden"></div>
+    </div>
+  </aside>
+
+  <section class="filter-panel">
+    <div class="panel-header">
+      <div>
+        <span class="eyebrow">Filters</span>
+        <h2>Review Filters</h2>
+      </div>
+      <div class="legend">
+        <span><i class="dot inferred"></i>Inferred</span>
+        <span><i class="dot user"></i>User edited</span>
+      </div>
+    </div>
+
+    <div class="filter-editor" id="fields-container">
+      <div class="filter-divider">Main Controls</div>
+      <div class="control-grid">
+        <label>
+          Role focus
+          <select id="role_family_mode" data-smart-control data-summary-field data-summary-label="Role focus">
+            <option value="">Flexible</option>
+            <option value="machine_learning">ML / AI only</option>
+            <option value="ml_platform">ML infrastructure only</option>
+            <option value="analytics_bi">Analytics / BI</option>
+            <option value="data_pipelines">Data engineering</option>
+          </select>
+        </label>
+        <label>
+          Seniority guard
+          <select id="seniority_mode" data-smart-control data-summary-field data-summary-label="Seniority guard">
+            <option value="">Flexible</option>
+            <option value="entry_2">No senior, max 2 years</option>
+            <option value="early_4">No senior, max 4 years</option>
+            <option value="no_staff_lead">No staff/principal/lead</option>
+          </select>
+        </label>
+        <label>
+          Location rule
+          <select id="location_mode" data-smart-control data-summary-field data-summary-label="Location rule">
+            <option value="">Flexible</option>
+            <option value="us_only">US only</option>
+            <option value="strict_listed">Strict listed locations</option>
+          </select>
+        </label>
+        <label>
+          Sponsorship
+          <select id="sponsorship_mode" data-smart-control data-summary-field data-summary-label="Sponsorship">
+            <option value="">No sponsorship need</option>
+            <option value="needs">Needs H-1B / visa sponsorship</option>
+          </select>
+        </label>
+        <label>
+          Employment rule
+          <select id="employment_mode" data-smart-control data-summary-field data-summary-label="Employment rule">
+            <option value="">Flexible</option>
+            <option value="full_time_only">Full-time only</option>
+          </select>
+        </label>
+        <div class="control-card company-rule-card">
+          <span class="control-label">Company</span>
+          <div class="company-rule-controls">
+            <select id="company_size_mode" data-smart-control data-summary-field data-summary-label="Company size">
+              <option value="">Any company size</option>
+              <option value="large">Large companies</option>
+              <option value="medium">Medium companies</option>
+              <option value="small">Small companies</option>
+            </select>
+          </div>
+        </div>
+        <label>
+          Salary rule
+          <select id="salary_mode" data-smart-control data-summary-field data-summary-label="Salary rule">
+            <option value="">Preference</option>
+            <option value="hard_min">Hard minimum</option>
+            <option value="ignore">Ignore salary</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="filter-divider">Location And Pay</div>
+      <div class="compact-pair">
+        <div class="filter-row location-composer-row">
+          <label>Location preferences</label>
+          <div class="location-composer">
+            <select id="location_preference_preset" data-summary-field data-summary-label="Location preferences">
+              <option value="">No location preference</option>
+              <option value="us_remote">United States + remote</option>
+              <option value="us_any">United States only</option>
+              <option value="remote_any">Remote only</option>
+              <option value="bay_area">Bay Area + remote</option>
+              <option value="nyc">New York + remote</option>
+              <option value="west_coast">Seattle / San Francisco + remote</option>
+              <option value="research_hubs">Research hubs</option>
+              <option value="custom">Custom</option>
+            </select>
+            <button type="button" id="location_add_button" class="secondary location-add-button">Add location</button>
+            <input type="text" id="location_custom_text" class="location-custom-input hidden" placeholder="Add cities, states, or remote notes" data-summary-field data-summary-label="Location details">
+            <input type="hidden" name="manual_location_preferences" id="manual_location_preferences">
+          </div>
+          <span class="source-badge empty hidden"></span>
+        </div>
+        <div class="filter-row">
+          <label>Salary minimum</label>
+          <input type="number" name="manual_salary_min" min="0" step="1000" placeholder="No minimum" data-summary-field data-summary-label="Salary minimum">
+          <span class="source-badge empty hidden"></span>
+        </div>
+      </div>
+
+      <details class="advanced-detail-panel">
+        <summary>Advanced filters</summary>
+        <div class="advanced-detail-grid">
+          <div class="filter-row checkbox-row">
+            <label>Strict role match</label>
+            <input type="checkbox" name="manual_strict_role_family" value="true" data-summary-field data-summary-label="Strict role match">
+            <span class="source-badge empty hidden"></span>
+          </div>
+          <div class="filter-row">
+            <label>Max years required</label>
+            <input type="number" name="manual_max_years_required" min="0" step="1" data-summary-field data-summary-label="Max required years">
+            <span class="source-badge empty hidden"></span>
+          </div>
+          <div class="filter-row checkbox-row">
+            <label>Salary is dealbreaker</label>
+            <input type="checkbox" name="manual_salary_is_dealbreaker" value="true" data-summary-field data-summary-label="Salary minimum is hard requirement">
+            <span class="source-badge empty hidden"></span>
+          </div>
+          <div class="filter-row checkbox-row">
+            <label>Strict location</label>
+            <input type="checkbox" name="manual_strict_location" value="true" data-summary-field data-summary-label="Strict listed locations">
+            <span class="source-badge empty hidden"></span>
+          </div>
+        </div>
+      </details>
+
+      <div class="canonical-hidden-fields hidden">
+        <input type="text" name="manual_required_role_families">
+        <input type="text" name="manual_preferred_role_families">
+        <input type="text" name="manual_excluded_seniority">
+        <input type="text" name="manual_excluded_employment_types">
+        <input type="text" name="manual_preferred_company_types">
+        <input type="text" name="manual_excluded_company_types">
+        <input type="text" name="manual_hard_reject_seniority_terms">
+        <input type="text" name="manual_penalize_seniority_terms">
+        <input type="text" name="manual_dealbreakers">
+        <input type="checkbox" name="manual_us_only" value="true">
+        <input type="checkbox" name="manual_needs_sponsorship" value="true">
+        <input type="checkbox" name="manual_avoid_defense_or_clearance" value="true">
+      </div>
+
+      <section class="profile-context-panel">
+        <details class="parsed-detail-panel">
+          <summary>Edit parsed profile details</summary>
+          <div class="filter-row compact-context-row">
+            <label>Target roles</label>
+            <input type="text" name="manual_target_roles" placeholder="Machine Learning Engineer, Data Scientist">
+            <span class="source-badge empty hidden"></span>
+          </div>
+          <div class="filter-row compact-context-row">
+            <label>Skills</label>
+            <textarea name="manual_skills" rows="2" placeholder="Python, SQL, machine learning"></textarea>
+            <span class="source-badge empty hidden"></span>
+          </div>
+          <details class="context-more-panel">
+            <summary>More profile details</summary>
+            <div class="filter-row">
+              <label>Education</label>
+              <input type="text" name="manual_education">
+              <span class="source-badge empty hidden"></span>
+            </div>
+            <div class="filter-row">
+              <label>Experience</label>
+              <textarea name="manual_experience" rows="3"></textarea>
+              <span class="source-badge empty hidden"></span>
+            </div>
+            <div class="filter-row">
+              <label>Projects/publications</label>
+              <textarea name="manual_projects" rows="2"></textarea>
+              <span class="source-badge empty hidden"></span>
+            </div>
+            <div class="filter-row">
+              <label>Visa/work authorization detail</label>
+              <input type="text" name="manual_visa_sponsorship">
+              <span class="source-badge empty hidden"></span>
+            </div>
+          </details>
+        </details>
+      </section>
+    </div>
+  </section>
+
+  <aside class="match-panel">
+    <div class="panel-header">
+      <span class="eyebrow">Matching</span>
+      <h2>Run</h2>
+    </div>
+
+    <div class="intake-section">
+      <label>
+        Jobs to show
+        <input type="number" name="top_k" value="10" min="1" max="50">
+      </label>
+      <button type="submit" class="primary" id="btn-match">
+        <span id="match-label">Run Matching</span>
+        <span id="match-loading" class="hidden">Matching...</span>
+      </button>
+      <div id="match-status" class="run-status hidden">Loading ranking artifacts. First run after deploy can take longer.</div>
+    </div>
+
+    <div class="intake-section status-stack">
+      <div class="status-tile">
+        <span class="metric-label">Data</span>
+        <strong>{{ snapshot_status.label }}</strong>
+        <small>{{ snapshot_status.path }}</small>
+      </div>
+      <div class="status-tile">
+        <span class="metric-label">Mode</span>
+        <strong>Offline</strong>
+      </div>
+    </div>
+
+    <div class="intake-section grow">
+      <h3>Review summary</h3>
+      <div id="live-summary" class="summary-box">
+        <div class="summary-section">
+          <strong>Selected filters</strong>
+          <p class="jp-text-muted">No filters applied.</p>
+        </div>
+        <div class="summary-section">
+          <strong>Parsed profile</strong>
+          <p class="jp-text-muted">No parsed profile yet.</p>
+        </div>
+      </div>
+    </div>
+  </aside>
+</form>
+<script src="/static/profile_intake.js?v=phase3-demo-text9"></script>
+{% endblock %}

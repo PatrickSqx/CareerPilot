@@ -1,0 +1,23 @@
+.git
+.venv
+__pycache__
+.pytest_cache
+app/storage/*
+!app/storage/.gitkeep
+!app/storage/sessions/
+!app/storage/uploads/
+API KEYS/
+*.env
+*.log
+*.zip
+data/raw/
+data/private/
+data/external/
+data/processed/jobs_offline_snapshot.csv
+data/processed/jobs_clean.csv
+data/processed/current_jobs_clean.csv
+data/processed/phase1_7_manifest_candidates*
+data/processed/raw_quality_score85_manifest.csv
+data/processed/embeddings/
+data/processed/live_cache/
+side_conversation*.html

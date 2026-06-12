@@ -1,0 +1,84 @@
+{
+  "generated_at": "2026-06-05T00:37:37Z",
+  "source": "https://www.dol.gov/agencies/eta/foreign-labor/performance",
+  "interpretation_note": "LCA activity is historical or recent employer filing activity from DOL OFLC disclosure data. It is not confirmed sponsorship for any specific job posting.",
+  "as_of_date": "2026-03-31",
+  "windows": {
+    "recent_2q": {
+      "quarters": 2,
+      "start": "2025-10-01",
+      "end": "2026-03-31"
+    },
+    "recent_3q": {
+      "quarters": 3,
+      "start": "2025-07-01",
+      "end": "2026-03-31"
+    },
+    "historical_8q": {
+      "quarters": 8,
+      "start": "2024-04-01",
+      "end": "2026-03-31"
+    }
+  },
+  "visa_classes_included": [
+    "H-1B"
+  ],
+  "source_files": [
+    {
+      "path": "O:\\BAX 423\\Final_export\\data\\external\\oflc_lca\\LCA_Disclosure_Data_FY2024_Q3.xlsx",
+      "rows_seen": 216470,
+      "rows_used_before_cross_file_dedup": 212766
+    },
+    {
+      "path": "O:\\BAX 423\\Final_export\\data\\external\\oflc_lca\\LCA_Disclosure_Data_FY2024_Q4.xlsx",
+      "rows_seen": 120897,
+      "rows_used_before_cross_file_dedup": 117339
+    },
+    {
+      "path": "O:\\BAX 423\\Final_export\\data\\external\\oflc_lca\\LCA_Disclosure_Data_FY2025_Q1.xlsx",
+      "rows_seen": 107414,
+      "rows_used_before_cross_file_dedup": 102521
+    },
+    {
+      "path": "O:\\BAX 423\\Final_export\\data\\external\\oflc_lca\\LCA_Disclosure_Data_FY2025_Q2.xlsx",
+      "rows_seen": 132133,
+      "rows_used_before_cross_file_dedup": 126848
+    },
+    {
+      "path": "O:\\BAX 423\\Final_export\\data\\external\\oflc_lca\\LCA_Disclosure_Data_FY2025_Q3.xlsx",
+      "rows_seen": 238425,
+      "rows_used_before_cross_file_dedup": 232830
+    },
+    {
+      "path": "O:\\BAX 423\\Final_export\\data\\external\\oflc_lca\\LCA_Disclosure_Data_FY2025_Q4.xlsx",
+      "rows_seen": 118580,
+      "rows_used_before_cross_file_dedup": 112664
+    },
+    {
+      "path": "O:\\BAX 423\\Final_export\\data\\external\\oflc_lca\\LCA_Dislclosure_Data_FY2026_Q2.xlsx",
+      "rows_seen": 210387,
+      "rows_used_before_cross_file_dedup": 192809
+    }
+  ],
+  "rows_seen": 1144306,
+  "rows_used_before_dedup": 1097777,
+  "rows_skipped": 30676,
+  "duplicate_rows_replaced_or_ignored": 15853,
+  "deduped_records_used": 1097777,
+  "min_decision_date": "2024-04-01",
+  "max_decision_date": "2026-03-31",
+  "employer_count": 87850,
+  "employer_role_count": 134677,
+  "outputs": {
+    "employer_role_lca_summary_csv": "O:\\BAX 423\\Final_export\\data\\processed\\lca_cache\\employer_role_lca_summary.csv",
+    "employer_lca_summary_csv": "O:\\BAX 423\\Final_export\\data\\processed\\lca_cache\\employer_lca_summary.csv",
+    "employer_lca_lookup_json": "O:\\BAX 423\\Final_export\\data\\processed\\lca_cache\\employer_lca_lookup.json",
+    "lca_cache_report_md": "O:\\BAX 423\\Final_export\\data\\processed\\lca_cache\\lca_cache_report.md"
+  },
+  "limitations": [
+    "LCA activity is historical or recent employer filing activity from DOL OFLC disclosure data. It is not confirmed sponsorship for any specific job posting.",
+    "Counts are derived from disclosure records available in the local cache inputs.",
+    "Overlapping quarterly or annual files are deduped by case number when present.",
+    "Employer normalization is conservative and may not merge every affiliate or DBA variant."
+  ]
+}

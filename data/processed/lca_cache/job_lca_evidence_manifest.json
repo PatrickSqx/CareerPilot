@@ -1,0 +1,35 @@
+{
+  "generated_at": "2026-06-05T04:29:02Z",
+  "snapshot_path": "O:\\BAX 423\\Final_export\\data\\processed\\jobs_offline_snapshot.csv",
+  "role_summary_path": "O:\\BAX 423\\Final_export\\data\\processed\\lca_cache\\employer_role_lca_summary.csv",
+  "employer_summary_path": "O:\\BAX 423\\Final_export\\data\\processed\\lca_cache\\employer_lca_summary.csv",
+  "output_path": "O:\\BAX 423\\Final_export\\data\\processed\\lca_cache\\job_lca_evidence.csv",
+  "rows_written": 50000,
+  "limit": null,
+  "employer_match_count": 17741,
+  "employer_match_rate": 0.3548,
+  "role_family_match_count": 15285,
+  "role_family_match_rate": 0.3057,
+  "focus_role_job_count": 6906,
+  "focus_role_job_rate": 0.1381,
+  "focus_role_family_match_count": 2329,
+  "focus_role_family_match_rate": 0.3372,
+  "lca_activity_label_counts": {
+    "historical_lca_activity_only": 3464,
+    "no_lca_activity_in_cache": 32259,
+    "recent_lca_activity_high": 4627,
+    "recent_lca_activity_low": 5171,
+    "recent_lca_activity_moderate": 2269,
+    "recent_lca_activity_no_certified_cases": 2210
+  },
+  "job_role_family_counts": {
+    "data_analytics": 1851,
+    "data_engineering": 305,
+    "ml_ai": 456,
+    "other": 43094,
+    "software_engineering": 4294
+  },
+  "interpretation_note": "LCA activity is historical or recent employer filing activity from DOL OFLC disclosure data. It is not confirmed sponsorship for any specific job posting.",
+  "ranking_behavior_changed": false,
+  "phase1_snapshot_modified": false
+}

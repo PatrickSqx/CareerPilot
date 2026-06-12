@@ -1,0 +1,38 @@
+{
+  "phase": "2.17B_company_metadata_cache_live_state",
+  "generated_at": "2026-06-05T12:41:54+00:00",
+  "snapshot_path": "O:\\BAX 423\\Final_export\\data\\processed\\jobs_offline_snapshot.csv",
+  "sqlite_path": "O:\\BAX 423\\Final_export\\data\\private\\company_metadata_cache.sqlite",
+  "export_dir": "O:\\BAX 423\\Final_export\\data\\processed\\company_metadata_cache",
+  "company_universe_count": 2217,
+  "current_rows": 2217,
+  "evidence_rows": 2846,
+  "current_status_counts": {
+    "matched": 1779,
+    "unknown": 438
+  },
+  "evidence_decision_counts": {
+    "accepted": 1742,
+    "manual_accepted": 40,
+    "no_result": 939,
+    "rejected": 97,
+    "review": 28
+  },
+  "phase1_ingestion_modified": false,
+  "ranking_behavior_changed": false,
+  "apify_live_calls_made": true,
+  "direct_linkedin_indeed_glassdoor_scrape": false,
+  "default_offline_requires_api_key": false,
+  "boundaries": [
+    "SQLite cache is a company-level sidecar, not Phase 1 ingestion.",
+    "Ranking is not changed by the company metadata cache.",
+    "Default/offline use does not require API keys.",
+    "Unknown company size remains neutral and must not be treated as small.",
+    "Private raw provider payloads are not included in frozen exports."
+  ],
+  "frozen_current_path": "O:\\BAX 423\\Final_export\\data\\processed\\company_metadata_cache\\company_metadata_cache_frozen.csv",
+  "frozen_evidence_path": "O:\\BAX 423\\Final_export\\data\\processed\\company_metadata_cache\\company_metadata_evidence_frozen.jsonl",
+  "frozen_current_rows": 2217,
+  "frozen_evidence_rows": 2846,
+  "manifest_path": "O:\\BAX 423\\Final_export\\data\\processed\\company_metadata_cache\\company_metadata_cache_manifest.json"
+}
