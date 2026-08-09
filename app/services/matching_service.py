@@ -2,11 +2,13 @@
 
 from __future__ import annotations
 
+import os
 import uuid
 from functools import lru_cache
 from pathlib import Path
 from typing import Any
 
+import numpy as np
 from fastapi import UploadFile
 
 from app.services.paths import PROJECT_ROOT
@@ -15,12 +17,27 @@ from jobpilot.config import EMBEDDINGS_DIR, OFFLINE_SNAPSHOT_CSV, OFFLINE_SNAPSH
 from jobpilot.profile.personas import PERSONA_FIXTURES, get_persona
 from jobpilot.profile.profile_parser import build_profile, normalize_list
 from jobpilot.ranking.ranker import JobRanker
-from jobpilot.retrieval.embeddings import build_or_load_job_embeddings
+from jobpilot.retrieval.embeddings import DEFAULT_SENTENCE_MODEL, build_or_load_job_embeddings
+from jobpilot.retrieval.model_contract import SENTENCE_EMBEDDING_DIMENSION
 from jobpilot.utils.text import clean_text
 
 
 DEFAULT_TOP_K = 10
 DEFAULT_CANDIDATE_K = 200
+SUPPORTED_EMBEDDING_BACKENDS = {"auto", "sentence-transformers", "tfidf-svd"}
+
+
+def embedding_runtime_settings(embedding_backend: str | None = None) -> tuple[str, str]:
+    """Resolve one backend/model pair for startup warmup and request handling."""
+
+    backend = clean_text(
+        embedding_backend if embedding_backend is not None else os.getenv("JOBPILOT_EMBEDDING_BACKEND", "auto")
+    ).lower()
+    if backend not in SUPPORTED_EMBEDDING_BACKENDS:
+        choices = ", ".join(sorted(SUPPORTED_EMBEDDING_BACKENDS))
+        raise ValueError(f"JOBPILOT_EMBEDDING_BACKEND must be one of: {choices}")
+    model_name = clean_text(os.getenv("JOBPILOT_SENTENCE_MODEL")) or DEFAULT_SENTENCE_MODEL
+    return backend, model_name
 
 
 def persona_options() -> list[dict[str, str]]:
@@ -72,16 +89,48 @@ def snapshot_status(snapshot_path: Path = OFFLINE_SNAPSHOT_CSV) -> dict[str, str
 
 
 @lru_cache(maxsize=4)
-def _ranker_for(snapshot_path: str, cache_dir: str, backend: str) -> JobRanker:
-    store = build_or_load_job_embeddings(snapshot_path=snapshot_path, cache_dir=cache_dir, backend=backend)
+def _ranker_for(snapshot_path: str, cache_dir: str, backend: str, sentence_model_name: str) -> JobRanker:
+    store = build_or_load_job_embeddings(
+        snapshot_path=snapshot_path,
+        cache_dir=cache_dir,
+        backend=backend,
+        sentence_model_name=sentence_model_name,
+    )
     return JobRanker(store)
 
 
-def warm_ranker_runtime() -> None:
+def warm_ranker_runtime() -> dict[str, Any]:
     """Load ranking artifacts during app startup without running a full match."""
 
     snapshot_path, _warnings = resolve_snapshot_path()
-    _ranker_for(str(snapshot_path.resolve()), str(EMBEDDINGS_DIR.resolve()), "auto")
+    backend, model_name = embedding_runtime_settings()
+    ranker = _ranker_for(
+        str(snapshot_path.resolve()),
+        str(EMBEDDINGS_DIR.resolve()),
+        backend,
+        model_name,
+    )
+    metadata = ranker.store.metadata
+    embedding_probe_warmed = False
+    if metadata.get("backend") == "sentence-transformers":
+        probe = np.asarray(ranker.store.embed_text("data analytics python sql"), dtype=np.float32)
+        norm = float(np.linalg.norm(probe))
+        if probe.shape != (SENTENCE_EMBEDDING_DIMENSION,) or not bool(np.isfinite(probe).all()):
+            raise RuntimeError("Sentence-transformer warmup probe returned an invalid vector.")
+        if not np.isclose(norm, 1.0, atol=1e-3, rtol=1e-3):
+            raise RuntimeError("Sentence-transformer warmup probe is not L2-normalized.")
+        embedding_probe_warmed = True
+    return {
+        "ranker_warmed": True,
+        "embedding_backend": metadata.get("backend"),
+        "embedding_model": metadata.get("model_name"),
+        "model_revision": metadata.get("model_revision", ""),
+        "embedding_dimension": metadata.get("embedding_dimension"),
+        "row_count": metadata.get("number_embedded"),
+        "embedding_cache_hit": bool(metadata.get("cache_hit")),
+        "embedding_probe_warmed": embedding_probe_warmed,
+        "fallback_error_count": len(metadata.get("fallback_errors") or []),
+    }
 
 
 def rank_profile(
@@ -89,11 +138,17 @@ def rank_profile(
     *,
     top_k: int = DEFAULT_TOP_K,
     candidate_k: int = DEFAULT_CANDIDATE_K,
-    embedding_backend: str = "auto",
+    embedding_backend: str | None = None,
     session_feedback_events: list[dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
     snapshot_path, warnings = resolve_snapshot_path()
-    ranker = _ranker_for(str(snapshot_path.resolve()), str(EMBEDDINGS_DIR.resolve()), embedding_backend)
+    backend, model_name = embedding_runtime_settings(embedding_backend)
+    ranker = _ranker_for(
+        str(snapshot_path.resolve()),
+        str(EMBEDDINGS_DIR.resolve()),
+        backend,
+        model_name,
+    )
     result = ranker.rank(
         profile,
         top_k=top_k,

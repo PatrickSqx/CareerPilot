@@ -18,8 +18,10 @@ API KEYS/
 app/storage/*
 !app/storage/.gitkeep
 !app/storage/sessions/
+app/storage/sessions/*
 !app/storage/sessions/.gitkeep
 !app/storage/uploads/
+app/storage/uploads/*
 !app/storage/uploads/.gitkeep
 
 # Large/private data and generated caches
@@ -45,4 +47,3 @@ side_conversation*.html
 Thumbs.db
 .idea/
 .vscode/
-

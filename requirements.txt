@@ -1,27 +1,20 @@
-# JobPilot Phase 1 ingestion uses only the Python standard library.
-#
-# Phase 2 local matching dependencies.
-numpy>=1.24
-scikit-learn>=1.3
-joblib>=1.3
-interpret>=0.7.8
+# Production runtime. Direct ML versions are pinned so packaged embeddings and
+# the serialized reranker are checked against a stable core stack.
+numpy==2.4.1
+scipy==1.17.1
+scikit-learn==1.8.0
+joblib==1.5.3
+interpret-core==0.7.8
 
-# Optional but preferred when a local model cache is available.
-# The code falls back to TF-IDF + SVD dense vectors if this package or the
-# all-MiniLM-L6-v2 model is unavailable.
-sentence-transformers>=2.6
+torch==2.11.0
+sentence-transformers==5.4.1
+transformers==5.8.0
+tokenizers==0.22.2
+huggingface-hub==1.14.0
 
-# Optional PDF extraction helpers. The structured profile fallback works
-# without these packages.
-pymupdf>=1.24
-# pdfplumber>=0.11
+pymupdf==1.27.2.3
 
-# Phase 3 FastAPI web app.
-fastapi>=0.110
-uvicorn[standard]>=0.27
-jinja2>=3.1
-python-multipart>=0.0.9
-
-# Local smoke tests.
-pytest>=8.0
-httpx>=0.27
+fastapi==0.136.3
+uvicorn[standard]==0.48.0
+jinja2==3.1.6
+python-multipart==0.0.30

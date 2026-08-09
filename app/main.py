@@ -33,6 +33,7 @@ from app.services.live_service import run_live_refresh_preview
 from app.services.matching_service import (
     build_match_payload,
     build_profile_from_request,
+    embedding_runtime_settings,
     persona_options,
     rank_profile,
     snapshot_status,
@@ -51,13 +52,36 @@ from app.services.session_service import load_session, save_session
 from jobpilot.utils.text import clean_text
 
 
+_RUNTIME_STATUS: dict[str, Any] = {"ranker_warmed": False}
+
+
+def _truthy_env(name: str) -> bool:
+    return clean_text(os.getenv(name)).lower() in {"1", "true", "yes", "on"}
+
+
 def _initialize_runtime() -> None:
     ensure_storage_dirs()
     init_feedback_db()
-    if clean_text(os.getenv("JOBPILOT_STARTUP_WARM_RANKER")).lower() in {"1", "true", "yes", "on"}:
+    backend, model_name = embedding_runtime_settings()
+    _RUNTIME_STATUS.clear()
+    _RUNTIME_STATUS.update(
+        {
+            "ranker_warmed": False,
+            "configured_embedding_backend": backend,
+            "configured_embedding_model": model_name,
+        }
+    )
+    warm_ranker = _truthy_env("JOBPILOT_STARTUP_WARM_RANKER")
+    require_warmup = _truthy_env("JOBPILOT_REQUIRE_RANKER_WARMUP")
+    if require_warmup and not warm_ranker:
+        raise RuntimeError("Required ranker warmup is disabled.")
+    if warm_ranker:
         try:
-            warm_ranker_runtime()
+            _RUNTIME_STATUS.update(warm_ranker_runtime())
         except Exception as exc:
+            _RUNTIME_STATUS["ranker_warmup_error"] = type(exc).__name__
+            if require_warmup:
+                raise RuntimeError("Required JobPilot ranker warmup failed.") from exc
             print(f"JobPilot startup ranker warmup skipped: {type(exc).__name__}: {exc}", flush=True)
 
 
@@ -428,7 +452,7 @@ def _result_context(session: dict[str, Any], request: Request, **extra: Any) -> 
 
 @app.get("/health")
 def health() -> JSONResponse:
-    return JSONResponse({"status": "ok", "app": "jobpilot", "phase": "3"})
+    return JSONResponse({"status": "ok", "app": "jobpilot", "phase": "3", "runtime": dict(_RUNTIME_STATUS)})
 
 
 @app.get("/", response_class=HTMLResponse)

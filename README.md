@@ -34,7 +34,7 @@ PowerShell:
 ```powershell
 python -m venv .venv
 .\.venv\Scripts\Activate.ps1
-pip install -r requirements.txt
+pip install -r requirements-dev.txt
 $env:PYTHONPATH = "code"
 uvicorn app.main:app --reload
 ```
@@ -42,6 +42,12 @@ uvicorn app.main:app --reload
 Then open `http://127.0.0.1:8000`.
 
 If the full offline snapshot is not present, the app falls back to `data/processed/jobs_offline_snapshot_sample_500.csv` for smoke-test matching and analytics. Optional Gemini/API-powered profile reading, live refresh, and resume generation require user-provided keys at runtime; the default matching path does not require private credentials.
+
+The production Docker image is stricter than the local development fallback. It
+bundles one immutable `all-MiniLM-L6-v2` revision, verifies the model and public
+snapshot by hash, precomputes the 500-row semantic cache during the build, and
+requires the Sentence Transformer backend to warm successfully before the
+container becomes ready. Production never silently switches to TF-IDF.
 
 ## Evidence and Sidecar Layers
 
@@ -65,7 +71,7 @@ $env:PYTEST_DISABLE_PLUGIN_AUTOLOAD = "1"
 python -m pytest -q tests\test_ingestion_dedup.py tests\test_phase2_18a_profile_intake.py tests\test_phase3_app.py
 ```
 
-Current result: `43 passed`.
+Current full-suite result: `70 passed`.
 
 ## Public Data Boundary
 
